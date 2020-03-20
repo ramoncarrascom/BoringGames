@@ -6,5 +6,8 @@ namespace BoringGames.Core.Exceptions
 {
     public class BgException : Exception
     {
+        public BgException() : base() { }
+
+        public BgException(string message) : base(message) { }
     }
 }
