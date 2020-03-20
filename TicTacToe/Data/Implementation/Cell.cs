@@ -34,12 +34,34 @@ namespace TicTacToe.Data.Implementation
         public void SetStatus(CellPlayer newStatus)
         {
             if (Status != CellPlayer.NONE)
-                throw new NotValidStateException();
+                throw new NotValidStateException("Cell status must be none");
 
             if (newStatus != CellPlayer.PLAYER_A && newStatus != CellPlayer.PLAYER_B)
-                throw new NotValidValueException();
+                throw new NotValidValueException("Only Player A or Player B can set values");
 
             this.Status = newStatus;
+        }
+
+        /// <summary>
+        /// Cell's ToString
+        /// </summary>
+        /// <returns>Returns player's letter, or space if the cell isn't assigned</returns>
+        public override string ToString()
+        {
+            string resp = "";
+
+            switch (Status)
+            {
+                case CellPlayer.PLAYER_A: resp = "A";
+                    break;
+                case CellPlayer.PLAYER_B: resp = "B";
+                    break;
+                case CellPlayer.NONE: resp = " ";
+                    break;
+                default: throw new IndexOutOfRangeException("Current cell's status isn't supported");
+            }
+
+            return resp;
         }
     }
 }
