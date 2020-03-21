@@ -25,6 +25,15 @@ namespace TicTacToe.Data.Implementation
         }
 
         /// <inheritdoc/>
+        public ICell Clone()
+        {
+            Cell resp = new Cell();
+            resp.Status = this.Status;
+
+            return resp;
+        }
+
+        /// <inheritdoc/>
         public CellPlayer GetStatus()
         {
             return Status;
@@ -63,5 +72,7 @@ namespace TicTacToe.Data.Implementation
 
             return resp;
         }
+
+        
     }
 }

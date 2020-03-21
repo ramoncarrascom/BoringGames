@@ -107,5 +107,32 @@ namespace TicTacToe.Test.Data
             Assert.IsTrue(data.Equals(" "), "When cell's value is None, ToString must return a space");
         }
 
+        [Test]
+        public void AClonedCellMustHaveSameStatus()
+        {
+            // Given
+            ICell testCell = new Cell();
+            testCell.SetStatus(CellPlayer.PLAYER_A);
+
+            // When
+            ICell clonedCell = testCell.Clone();
+
+            // Then
+            Assert.IsTrue(testCell.GetStatus() == clonedCell.GetStatus(), "Cloned cell must have the same status as original cell");
+        }
+
+        [Test]
+        public void AClonedCellMustNotBeLinkedToOriginalCell()
+        {
+            // Given
+            ICell testCell = new Cell();
+            ICell clonedCell = testCell.Clone();
+
+            // When
+            testCell.SetStatus(CellPlayer.PLAYER_A);
+
+            // Then
+            Assert.IsTrue(clonedCell.GetStatus() == CellPlayer.NONE, "Cloned cell status must be independent of original cell status"); 
+        }
     }
 }
