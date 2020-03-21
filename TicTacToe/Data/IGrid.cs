@@ -28,7 +28,7 @@ namespace TicTacToe.Data
         /// Gets the current grid
         /// </summary>
         /// <returns>Returns a copy of the current grid</returns>
-        public ICell[][] GetGrid();
+        public ICell[,] GetGrid();
 
         /// <summary>
         /// Checks if a player has won the game
