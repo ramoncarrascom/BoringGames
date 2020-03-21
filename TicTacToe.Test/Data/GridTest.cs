@@ -264,5 +264,19 @@ namespace TicTacToe.Test.Data
             // Then
             Assert.IsTrue(res == CellPlayer.NONE, "Other combinations -> None wins");
         }
+
+        [Test]
+        public void ToStringMustIncludePlayersLetters()
+        {
+            // Given
+            IGrid grid = new Grid();
+
+            // When
+            grid.Set(0, 0, CellPlayer.PLAYER_A);
+            string test = grid.ToString();
+
+            // Then
+            Assert.AreEqual(test.IndexOf('A'), test.LastIndexOf('A'), "ToString contains one A");
+        }
     }
 }

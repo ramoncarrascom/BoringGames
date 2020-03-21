@@ -130,5 +130,20 @@ namespace TicTacToe.Data.Implementation
 
             gridArray[xCoord, yCoord].SetStatus(player);
         }
+
+        /// <summary>
+        /// Returns the string representation of the grid
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder resp = new StringBuilder();
+            resp.Append(String.Format("  {0}  |  {1}  |  {2}  \n", gridArray[0, 0], gridArray[1, 0], gridArray[2, 0]));
+            resp.Append("-----+-----+-----\n");
+            resp.Append(String.Format("  {0}  |  {1}  |  {2}  \n", gridArray[0, 1], gridArray[1, 1], gridArray[2, 1]));
+            resp.Append("-----+-----+-----\n");
+            resp.Append(String.Format("  {0}  |  {1}  |  {2}  \n", gridArray[0, 2], gridArray[1, 2], gridArray[2, 2]));
+
+            return resp.ToString();
+        }
     }
 }
