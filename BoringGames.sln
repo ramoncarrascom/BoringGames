@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe", "TicTacToe\TicT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe.Test", "TicTacToe.Test\TicTacToe.Test.csproj", "{960B78BB-AF0D-488D-BDA2-64132BB8812B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoringGames.Core", "BoringGames.Core\BoringGames.Core.csproj", "{7E70EAEF-8826-4971-AFDD-228066432083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Core", "BoringGames.Core\BoringGames.Core.csproj", "{7E70EAEF-8826-4971-AFDD-228066432083}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Core.Test", "BoringGames.Core.Test\BoringGames.Core.Test.csproj", "{69C557E3-1C9D-4674-9300-ACFE021274C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7E70EAEF-8826-4971-AFDD-228066432083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E70EAEF-8826-4971-AFDD-228066432083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E70EAEF-8826-4971-AFDD-228066432083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69C557E3-1C9D-4674-9300-ACFE021274C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69C557E3-1C9D-4674-9300-ACFE021274C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69C557E3-1C9D-4674-9300-ACFE021274C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69C557E3-1C9D-4674-9300-ACFE021274C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
