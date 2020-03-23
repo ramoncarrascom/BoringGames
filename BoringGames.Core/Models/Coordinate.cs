@@ -94,5 +94,14 @@ namespace BoringGames.Core.Models
 
             return false;            
         }
+
+        /// <summary>
+        /// Clones current coordinate item
+        /// </summary>
+        /// <returns>Returns a new Coordinate with same X and Y</returns>
+        public Coordinate Clone()
+        {
+            return new Coordinate(_X, _Y);
+        }
     }
 }

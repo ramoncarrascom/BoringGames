@@ -123,5 +123,20 @@ namespace BoringGames.Core.Test.Models
             Assert.AreNotEqual(coord1, coord2, "Two coordinates are different if they have different X values");
         }
 
+        [Test]
+        public void ClonedCoordinateMustHaveSameXAndYThanOriginal()
+        {
+            // Given
+            int coordX = 10;
+            int coordY = 20;
+            Coordinate original = new Coordinate(coordX, coordY);
+
+            // When
+            Coordinate copied = original.Clone();
+
+            // Then
+            Assert.IsTrue(original.X == coordX, "Cloned X must be same as Original X");
+            Assert.IsTrue(original.Y == coordY, "Cloned Y must be same as Original Y");
+        }
     }
 }
