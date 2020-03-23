@@ -78,5 +78,50 @@ namespace BoringGames.Core.Test.Models
             Assert.IsTrue(resp.Equals("(10,20)"), "ToString must return the correct format");
         }
 
+        [Test]
+        public void TwoCoordinatesAreEqualIfTheyHaveTheSameXandYvalues()
+        {
+            // Given
+            Coordinate coord1;
+            Coordinate coord2;
+
+            // When
+            coord1 = new Coordinate(10, 20);
+            coord2 = new Coordinate(10, 20);
+
+            // Then
+            Assert.AreEqual(coord1, coord2, "Two coordinates are equal if they have same X and Y values");
+        }
+
+        [Test]
+        public void TwoCoordinatesAreNotEqualIfTheyHaveDifferentYvalues()
+        {
+            // Given
+            Coordinate coord1;
+            Coordinate coord2;
+
+            // When
+            coord1 = new Coordinate(10, 20);
+            coord2 = new Coordinate(10, 10);
+
+            // Then
+            Assert.AreNotEqual(coord1, coord2, "Two coordinates are different if they have different Y values");
+        }
+
+        [Test]
+        public void TwoCoordinatesAreNotEqualIfTheyHaveDifferentXvalues()
+        {
+            // Given
+            Coordinate coord1;
+            Coordinate coord2;
+
+            // When
+            coord1 = new Coordinate(20, 10);
+            coord2 = new Coordinate(10, 10);
+
+            // Then
+            Assert.AreNotEqual(coord1, coord2, "Two coordinates are different if they have different X values");
+        }
+
     }
 }

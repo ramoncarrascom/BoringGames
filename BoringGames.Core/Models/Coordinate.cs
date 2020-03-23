@@ -76,5 +76,23 @@ namespace BoringGames.Core.Models
         {
             return String.Format("({0},{1})", _X, _Y);
         }
+
+        /// <summary>
+        /// Equals implementation. Two coordinates are equal if they have same X and same Y values
+        /// </summary>
+        /// <param name="obj">Object to compare</param>
+        /// <returns>True if coordinates are equal</returns>
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Coordinate))
+                return false;
+
+            Coordinate compare = (Coordinate)obj;
+
+            if (compare._X == this._X && compare._Y == this._Y)
+                return true;
+
+            return false;            
+        }
     }
 }
