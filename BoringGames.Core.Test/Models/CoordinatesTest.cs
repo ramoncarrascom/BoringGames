@@ -90,7 +90,7 @@ namespace BoringGames.Core.Test.Models
             coord2 = new Coordinate(10, 20);
 
             // Then
-            Assert.AreEqual(coord1, coord2, "Two coordinates are equal if they have same X and Y values");
+            Assert.IsTrue(coord1.Equals(coord2), "Two coordinates are equal if they have same X and Y values");
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace BoringGames.Core.Test.Models
             coord2 = new Coordinate(10, 10);
 
             // Then
-            Assert.AreNotEqual(coord1, coord2, "Two coordinates are different if they have different Y values");
+            Assert.IsFalse(coord1.Equals(coord2), "Two coordinates are different if they have different Y values");
         }
 
         [Test]
@@ -120,7 +120,7 @@ namespace BoringGames.Core.Test.Models
             coord2 = new Coordinate(10, 10);
 
             // Then
-            Assert.AreNotEqual(coord1, coord2, "Two coordinates are different if they have different X values");
+            Assert.IsFalse(coord1.Equals(coord2), "Two coordinates are different if they have different X values");
         }
 
         [Test]
