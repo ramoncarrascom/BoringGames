@@ -22,7 +22,7 @@ namespace TicTacToe.Data
         /// <summary>
         /// Initializes grid
         /// </summary>
-        public void Init();
+        public void InitGrid();
 
         /// <summary>
         /// Gets the current grid

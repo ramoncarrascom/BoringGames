@@ -1,5 +1,6 @@
 ﻿using BoringGames.Core.Enums;
 using BoringGames.Core.Exceptions;
+using BoringGames.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,66 +28,57 @@ namespace TicTacToe.Data.Implementation
         private readonly int MAX_Y = 3;
 
         /// <summary>
+        /// List with all possible triads which make a player win
+        /// </summary>
+        private List<Triad> triads;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public Grid()
         {
-            Init();
+            InitTriads();
+            InitGrid();
         }
 
         /// <inheritdoc/>
         public CellPlayer Check()
         {
-            // Row0 check
-            if (gridArray[0, 0].GetStatus() == gridArray[1, 0].GetStatus() &&
-                gridArray[0, 0].GetStatus() == gridArray[2, 0].GetStatus() &&
-                (gridArray[0, 0].GetStatus() == CellPlayer.PLAYER_A || gridArray[0, 0].GetStatus() == CellPlayer.PLAYER_B))
-                return gridArray[0, 0].GetStatus();
+            if (triads.Count == 0)
+                throw new NotValidStateException("There are no triads for check");
 
-            // Row1 check
-            if (gridArray[0, 1].GetStatus() == gridArray[1, 1].GetStatus() &&
-                gridArray[0, 1].GetStatus() == gridArray[2, 1].GetStatus() &&
-                (gridArray[0, 1].GetStatus() == CellPlayer.PLAYER_A || gridArray[0, 1].GetStatus() == CellPlayer.PLAYER_B))
-                return gridArray[0, 1].GetStatus();
+            CellPlayer resp = CellPlayer.NONE;
 
-            // Row2 check
-            if (gridArray[0, 2].GetStatus() == gridArray[1, 2].GetStatus() &&
-                gridArray[0, 2].GetStatus() == gridArray[2, 2].GetStatus() &&
-                (gridArray[0, 2].GetStatus() == CellPlayer.PLAYER_A || gridArray[0, 2].GetStatus() == CellPlayer.PLAYER_B))
-                return gridArray[0, 2].GetStatus();
+            foreach(Triad triad in triads)
+            {
 
-            // Col0 check
-            if (gridArray[0, 0].GetStatus() == gridArray[0, 1].GetStatus() &&
-                gridArray[0, 0].GetStatus() == gridArray[0, 2].GetStatus() &&
-                (gridArray[0, 0].GetStatus() == CellPlayer.PLAYER_A || gridArray[0, 0].GetStatus() == CellPlayer.PLAYER_B))
-                return gridArray[0, 0].GetStatus();
+                foreach(Coordinate coord in triad.GetCoordinates())
+                {
+                    CellPlayer current = gridArray[coord.X, coord.Y].GetStatus();
 
-            // Col1 check
-            if (gridArray[1, 0].GetStatus() == gridArray[1, 1].GetStatus() &&
-                gridArray[1, 0].GetStatus() == gridArray[1, 2].GetStatus() &&
-                (gridArray[1, 0].GetStatus() == CellPlayer.PLAYER_A || gridArray[1, 0].GetStatus() == CellPlayer.PLAYER_B))
-                return gridArray[1, 0].GetStatus();
+                    if (current == CellPlayer.NONE)
+                    {
+                        resp = CellPlayer.NONE;
+                        break;
+                    }
 
-            // Col2 check
-            if (gridArray[2, 0].GetStatus() == gridArray[2, 1].GetStatus() &&
-                gridArray[2, 0].GetStatus() == gridArray[2, 2].GetStatus() &&
-                (gridArray[2, 0].GetStatus() == CellPlayer.PLAYER_A || gridArray[2, 0].GetStatus() == CellPlayer.PLAYER_B))
-                return gridArray[2, 0].GetStatus();
+                    if (resp != CellPlayer.NONE && current != resp)
+                    {                        
+                        resp = CellPlayer.NONE;
+                        break;
+                    }                        
+                    else
+                    {
+                        resp = current;
+                    }
+                }
 
-            // Diag0 check
-            if (gridArray[0, 0].GetStatus() == gridArray[1, 1].GetStatus() &&
-                gridArray[0, 0].GetStatus() == gridArray[2, 2].GetStatus() &&
-                (gridArray[0, 0].GetStatus() == CellPlayer.PLAYER_A || gridArray[0, 0].GetStatus() == CellPlayer.PLAYER_B))
-                return gridArray[0, 0].GetStatus();
+                if (resp != CellPlayer.NONE)
+                    break;
 
-            // Diag1 check
-            if (gridArray[2, 0].GetStatus() == gridArray[1, 1].GetStatus() &&
-                gridArray[2, 0].GetStatus() == gridArray[0, 2].GetStatus() &&
-                (gridArray[2, 0].GetStatus() == CellPlayer.PLAYER_A || gridArray[2, 0].GetStatus() == CellPlayer.PLAYER_B))
-                return gridArray[2, 0].GetStatus();
+            }
 
-            return CellPlayer.NONE;
-
+            return resp;
         }
 
         /// <inheritdoc/>
@@ -106,7 +98,7 @@ namespace TicTacToe.Data.Implementation
         }
 
         /// <inheritdoc/>
-        public void Init()
+        public void InitGrid()
         {
             gridArray = new Cell[MAX_X,MAX_Y];
 
@@ -144,6 +136,24 @@ namespace TicTacToe.Data.Implementation
             resp.Append(String.Format("  {0}  |  {1}  |  {2}  \n", gridArray[0, 2], gridArray[1, 2], gridArray[2, 2]));
 
             return resp.ToString();
+        }
+
+        /// <summary>
+        /// Inits all possible winning triads
+        /// </summary>
+        private void InitTriads()
+        {
+            triads = new List<Triad>();
+
+            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(0, 2)));
+            triads.Add(new Triad(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2)));
+            triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(2, 1), new Coordinate(2, 2)));
+            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(1, 0), new Coordinate(2, 0)));
+            triads.Add(new Triad(new Coordinate(0, 1), new Coordinate(1, 1), new Coordinate(2, 1)));
+            triads.Add(new Triad(new Coordinate(0, 2), new Coordinate(1, 2), new Coordinate(2, 2)));
+            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(1, 1), new Coordinate(2, 2)));
+            triads.Add(new Triad(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2)));
+            triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(1, 1), new Coordinate(0, 2)));
         }
     }
 }

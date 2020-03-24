@@ -49,7 +49,7 @@ namespace TicTacToe.Test.Data
 
 
             // When
-            grid.Init();
+            grid.InitGrid();
             ICell[,] gridArray = grid.GetGrid();
 
             // Then
@@ -263,6 +263,52 @@ namespace TicTacToe.Test.Data
 
             // Then
             Assert.IsTrue(res == CellPlayer.NONE, "Other combinations -> None wins");
+        }
+
+        [Test]
+        public void MixedCombinationPlayerBWins()
+        {
+            // Given
+            IGrid grid = new Grid();
+
+            // When
+            grid.Set(0, 0, CellPlayer.PLAYER_A);
+            grid.Set(1, 1, CellPlayer.PLAYER_A);
+            grid.Set(2, 0, CellPlayer.PLAYER_A);
+            grid.Set(1, 0, CellPlayer.PLAYER_B);
+            grid.Set(0, 1, CellPlayer.PLAYER_B);
+            grid.Set(2, 1, CellPlayer.PLAYER_B);
+            grid.Set(0, 2, CellPlayer.PLAYER_B);
+            grid.Set(1, 2, CellPlayer.PLAYER_B);
+            grid.Set(2, 2, CellPlayer.PLAYER_B);
+
+            CellPlayer res = grid.Check();
+
+            // Then
+            Assert.IsTrue(res == CellPlayer.PLAYER_B, "Mixed combination with Player B winner -> Player B wins");
+        }
+
+        [Test]
+        public void MixedCombinationNoneWins()
+        {
+            // Given
+            IGrid grid = new Grid();
+
+            // When
+            grid.Set(0, 0, CellPlayer.PLAYER_A);
+            grid.Set(1, 0, CellPlayer.PLAYER_B);
+            grid.Set(2, 0, CellPlayer.PLAYER_B);
+            grid.Set(0, 1, CellPlayer.PLAYER_B);
+            grid.Set(1, 1, CellPlayer.PLAYER_A);
+            grid.Set(2, 1, CellPlayer.PLAYER_A);
+            grid.Set(0, 2, CellPlayer.PLAYER_A);
+            grid.Set(1, 2, CellPlayer.PLAYER_B);
+            grid.Set(2, 2, CellPlayer.PLAYER_B);
+
+            CellPlayer res = grid.Check();
+
+            // Then
+            Assert.IsTrue(res == CellPlayer.NONE, "Mixed combination with no winner -> None wins");
         }
 
         [Test]
