@@ -25,13 +25,19 @@ namespace BoringGames.Core.Models
         public int Points { get; set; }
 
         /// <summary>
+        /// Winner flag
+        /// </summary>
+        public bool Winner { get; set; }
+
+        /// <summary>
         /// Default constructor
         /// </summary>
         public Player()
         {
             Id = Guid.NewGuid();
             Points = 0;
-            this.Name = "";
+            Name = "";
+            Winner = false;
         }
 
         /// <summary>
@@ -81,6 +87,7 @@ namespace BoringGames.Core.Models
             resp.Id = Guid.Parse(this.Id.ToString());
             resp.Name = this.Name;
             resp.Points = this.Points;
+            resp.Winner = this.Winner;
 
             return resp;
         }

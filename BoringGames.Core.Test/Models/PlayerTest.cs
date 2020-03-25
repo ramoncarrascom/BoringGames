@@ -76,13 +76,15 @@ namespace BoringGames.Core.Test.Models
         }
 
         [Test]
-        public void ClonedPlayersMustHaveSameIdSamePointsAndSameName()
+        public void ClonedPlayersMustHaveSameData()
         {
             // Given
             string name = "MyName";
             int points = 100;
+            bool winner = true;
             Player player1 = new Player(name);
             player1.Points = points;
+            player1.Winner = winner;
 
             // When
             Player player2 = player1.Clone();
@@ -91,6 +93,7 @@ namespace BoringGames.Core.Test.Models
             Assert.AreEqual(player1.Id.ToString(), player2.Id.ToString(), "Cloned player Ids must be same");
             Assert.AreEqual(player2.Name, name, "Cloned player Name must be same");
             Assert.AreEqual(player2.Points, points, "Cloned player Points must be same");
+            Assert.AreEqual(player2.Winner, winner, "Cloned player Winner flah must be same");
         }
 
         [Test]
