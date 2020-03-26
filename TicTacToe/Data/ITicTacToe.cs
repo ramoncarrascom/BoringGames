@@ -15,7 +15,8 @@ namespace TicTacToe.Data
         /// </summary>
         /// <param name="playerA">Player A data</param>
         /// <param name="playerB">Player B data</param>
-        public void StartGame(Player playerA, Player playerB);
+        /// <returns>First player to play</returns>
+        public Player StartGame(Player playerA, Player playerB);
 
         /// <summary>
         /// Sets the move for player
@@ -23,7 +24,7 @@ namespace TicTacToe.Data
         /// <param name="player">Player who makes the move</param>
         /// <param name="coordinate">Coordinates for the move</param>
         /// <returns>Next suggested player</returns>
-        /// <exception cref="GameOverException">Thrown when the game finishes, either when a player wins or the grid is full</exception>
+        /// <exception cref="TicTacToeGameOverException">Thrown when the game finishes, either when a player wins or the grid is full</exception>
         public Player PlayerMove(Player player, Coordinate coordinate);
 
         /// <summary>

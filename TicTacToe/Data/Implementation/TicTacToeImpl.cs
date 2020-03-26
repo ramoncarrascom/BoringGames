@@ -5,19 +5,22 @@ using System.Text;
 
 namespace TicTacToe.Data.Implementation
 {
-    public class TicTacToe : ITicTacToe
+    public class TicTacToeImpl : ITicTacToe
     {
+        /// <inheritdoc/>        
         public IGrid GetGrid()
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public Player PlayerMove(Player player, Coordinate coordinate)
         {
             throw new NotImplementedException();
         }
 
-        public void StartGame(Player playerA, Player playerB)
+        /// <inheritdoc/>
+        public Player StartGame(Player playerA, Player playerB)
         {
             throw new NotImplementedException();
         }
