@@ -155,5 +155,16 @@ namespace TicTacToe.Data.Implementation
             triads.Add(new Triad(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2)));
             triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(1, 1), new Coordinate(0, 2)));
         }
+
+        /// <inheritdoc/>
+        public bool IsFull()
+        {
+            for (int i = 0; i < MAX_X; i++)
+                for (int j = 0; j < MAX_Y; j++)
+                    if (gridArray[i, j].GetStatus() == CellPlayer.NONE)
+                        return false;
+
+            return true;
+        }
     }
 }

@@ -36,5 +36,11 @@ namespace TicTacToe.Data
         /// <returns>Value of the winner. Returns CellPlayer.NONE if there's still no winner.</returns>
         /// <exception cref="GameOverException">Raised when all movements have been made</exception>
         public CellPlayer Check();
+
+        /// <summary>
+        /// Checks if the grid has no NONE cells
+        /// </summary>
+        /// <returns>True if the grid has no NONE cells, which means that all cells have a player set</returns>
+        public bool IsFull();
     }
 }

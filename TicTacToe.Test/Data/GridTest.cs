@@ -324,5 +324,51 @@ namespace TicTacToe.Test.Data
             // Then
             Assert.AreEqual(test.IndexOf('A'), test.LastIndexOf('A'), "ToString contains one A");
         }
+
+        [Test]
+        public void FullDetectionHappyPath()
+        {
+            // Given
+            IGrid grid = new Grid();
+
+            // When
+            grid.Set(0, 0, CellPlayer.PLAYER_A);
+            grid.Set(1, 0, CellPlayer.PLAYER_B);
+            grid.Set(2, 0, CellPlayer.PLAYER_B);
+            grid.Set(0, 1, CellPlayer.PLAYER_B);
+            grid.Set(1, 1, CellPlayer.PLAYER_A);
+            grid.Set(2, 1, CellPlayer.PLAYER_A);
+            grid.Set(0, 2, CellPlayer.PLAYER_A);
+            grid.Set(1, 2, CellPlayer.PLAYER_B);
+            grid.Set(2, 2, CellPlayer.PLAYER_B);
+
+            bool res = grid.IsFull();
+
+            // Then
+            Assert.IsTrue(res == true, "No NONE cell must return IsFull to true");
+        }
+
+        [Test]
+        public void FullDetectionOnlyOneNone()
+        {
+            // Given
+            IGrid grid = new Grid();
+
+            // When
+            grid.Set(0, 0, CellPlayer.PLAYER_A);
+            grid.Set(1, 0, CellPlayer.PLAYER_B);
+            grid.Set(2, 0, CellPlayer.PLAYER_B);
+            grid.Set(0, 1, CellPlayer.PLAYER_B);
+            grid.Set(1, 1, CellPlayer.PLAYER_A);
+            grid.Set(2, 1, CellPlayer.PLAYER_A);
+            grid.Set(0, 2, CellPlayer.PLAYER_A);
+            grid.Set(1, 2, CellPlayer.PLAYER_B);            
+
+            bool res = grid.IsFull();
+
+            // Then
+            Assert.IsTrue(res == false, "At least one cell is None, so IsFull must be False");
+        }
+
     }
 }
