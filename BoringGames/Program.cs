@@ -11,6 +11,7 @@ namespace BoringGames
 {
     public class Program
     {
+        // Nim, Hanoi
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
