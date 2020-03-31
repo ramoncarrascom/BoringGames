@@ -42,5 +42,11 @@ namespace TicTacToe.Data
         /// </summary>
         /// <returns>True if the grid has no NONE cells, which means that all cells have a player set</returns>
         public bool IsFull();
+
+        /// <summary>
+        /// Gets a string representation of the grid
+        /// </summary>
+        /// <returns>Returns a string containing a graphic representation of the grid un text mode</returns>
+        public string StringGrid();
     }
 }

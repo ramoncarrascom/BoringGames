@@ -129,6 +129,18 @@ namespace TicTacToe.Data.Implementation
         public override string ToString()
         {
             StringBuilder resp = new StringBuilder();
+
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                    resp.Append(gridArray[i, j]);
+
+            return resp.ToString();
+        }
+
+        /// <inheritdoc/>
+        public string StringGrid()
+        {
+            StringBuilder resp = new StringBuilder();
             resp.Append(String.Format("  {0}  |  {1}  |  {2}  \n", gridArray[0, 0], gridArray[1, 0], gridArray[2, 0]));
             resp.Append("-----+-----+-----\n");
             resp.Append(String.Format("  {0}  |  {1}  |  {2}  \n", gridArray[0, 1], gridArray[1, 1], gridArray[2, 1]));
