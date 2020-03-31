@@ -338,7 +338,6 @@ namespace TicTacToe.Test.Data
             grid.Set(0, 1, CellPlayer.PLAYER_B);
             grid.Set(1, 1, CellPlayer.PLAYER_A);
             grid.Set(2, 1, CellPlayer.PLAYER_A);
-            // grid.Set(0, 2, CellPlayer.PLAYER_A);
             grid.Set(1, 2, CellPlayer.PLAYER_B);
             grid.Set(2, 2, CellPlayer.PLAYER_B);
             string resp = grid.ToString();
