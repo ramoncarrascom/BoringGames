@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames", "BoringGames\BoringGames.csproj", "{F279A720-D706-47CA-97CE-94A244838709}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.API", "BoringGames\BoringGames.API.csproj", "{F279A720-D706-47CA-97CE-94A244838709}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe", "TicTacToe\TicTacToe.csproj", "{6AD9DF2E-8969-47C6-9AD6-110F01059E18}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Core", "BoringGames.Core\BoringGames.Core.csproj", "{7E70EAEF-8826-4971-AFDD-228066432083}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Core.Test", "BoringGames.Core.Test\BoringGames.Core.Test.csproj", "{69C557E3-1C9D-4674-9300-ACFE021274C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoringGames.Txt", "BoringGames.Console\BoringGames.Txt.csproj", "{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{69C557E3-1C9D-4674-9300-ACFE021274C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69C557E3-1C9D-4674-9300-ACFE021274C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69C557E3-1C9D-4674-9300-ACFE021274C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
