@@ -23,16 +23,21 @@ namespace TicTacToe.Data.Implementation
         /// <inheritdoc/>
         public Player PlayerMove(Player player, Coordinate coordinate)
         {
-            if (players == null || grid == null)
-                throw new NotValidStateException("Game is not correctly initialized");
-
-            if (!players.ContainsKey(CellPlayer.PLAYER_A) || !players.ContainsKey(CellPlayer.PLAYER_B))
-                throw new NotValidStateException("Players dictionary is not correctly initialized");
+            CheckGameStatus();
 
             if (!players.Values.Contains(player))
                 throw new NotValidValueException("Player " + player + " wasn't in initialization");
 
-            grid.Set(coordinate.X, coordinate.Y, GetCellPlayer(player));
+            try
+            {
+                grid.Set(coordinate.X, coordinate.Y, GetCellPlayer(player));
+            } catch (NotValidStateException nvse)
+            {
+                if (nvse.ErrorCode == ErrorCode.VALUE_ALREADY_EXISTS)
+                    throw new PlayerMovementException("This cell is already in use", ErrorCode.MOVEMENT_ERROR_MUST_RETRY);
+                else
+                    throw nvse;
+            }            
 
             CellPlayer checkedPlayer = grid.Check();
             if (checkedPlayer!=CellPlayer.NONE)
@@ -92,6 +97,18 @@ namespace TicTacToe.Data.Implementation
         private Player GetNextPlayer(Player player)
         {
             return players.Where(x => !x.Value.Equals(player)).FirstOrDefault().Value;
+        }
+
+        /// <summary>
+        /// Checks general game status
+        /// </summary>
+        private void CheckGameStatus()
+        {
+            if (players == null || grid == null)
+                throw new NotValidStateException("Game is not correctly initialized");
+
+            if (!players.ContainsKey(CellPlayer.PLAYER_A) || !players.ContainsKey(CellPlayer.PLAYER_B))
+                throw new NotValidStateException("Players dictionary is not correctly initialized");
         }
     }
 }

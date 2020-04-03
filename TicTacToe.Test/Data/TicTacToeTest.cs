@@ -145,5 +145,23 @@ namespace TicTacToe.Test.Data
             // Then
             Assert.Throws<NotValidValueException>(() => game.PlayerMove(other, new Coordinate(0, 0)), "Move must return an exception is player is not in initialization");
         }
+
+        [Test]
+        public void SameMovementMustThrowPlayerMovementExceptionWithMustRetry()
+        {
+            // Given
+            Player playerA = new Player();
+            Player playerB = new Player();
+            Player other = new Player();
+            ITicTacToe game = new TicTacToeImpl();
+
+            // When
+            game.StartGame(playerA, playerB);
+            game.PlayerMove(playerA, new Coordinate(0, 0));
+
+            // Then
+            PlayerMovementException pme = Assert.Throws<PlayerMovementException>(() => game.PlayerMove(playerB, new Coordinate(0, 0)), "If the movement has been already made, must raise an exception");
+            Assert.AreEqual(pme.ErrorCode, ErrorCode.MOVEMENT_ERROR_MUST_RETRY, "Exception must have MOVEMENT_ERROR_MUST_RETRY");
+        }
     }
 }

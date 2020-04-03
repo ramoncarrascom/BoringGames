@@ -115,10 +115,10 @@ namespace TicTacToe.Data.Implementation
         public void Set(int xCoord, int yCoord, CellPlayer player)
         {
             if (xCoord > (MAX_X - 1) || xCoord < 0)
-                throw new NotValidValueException(String.Format("xCoord must be between 0 and {0}", MAX_X - 1));
+                throw new NotValidValueException(String.Format("xCoord must be between 0 and {0}", MAX_X - 1), ErrorCode.OUT_OF_RANGE);
 
             if (yCoord > (MAX_Y - 1) || yCoord < 0)
-                throw new NotValidValueException(String.Format("yCoord must be between 0 and {0}", MAX_Y - 1));
+                throw new NotValidValueException(String.Format("yCoord must be between 0 and {0}", MAX_Y - 1), ErrorCode.OUT_OF_RANGE);
 
             gridArray[xCoord, yCoord].SetStatus(player);
         }

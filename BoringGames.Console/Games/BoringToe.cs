@@ -1,4 +1,5 @@
-﻿using BoringGames.Core.Exceptions;
+﻿using BoringGames.Core.Enums;
+using BoringGames.Core.Exceptions;
 using BoringGames.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,18 @@ namespace BoringGames.Txt.Games
                 while (true)
                 {
                     Console.WriteLine(game.GetGrid().StringGrid() + "\n");
-                    currentPlayer = game.PlayerMove(currentPlayer, GetPlayersCoordinates(currentPlayer));
+                    try
+                    {
+
+                        currentPlayer = game.PlayerMove(currentPlayer, GetPlayersCoordinates(currentPlayer));
+
+                    } catch (PlayerMovementException pme)
+                    {
+                        if (pme.ErrorCode == ErrorCode.MOVEMENT_ERROR_MUST_RETRY)
+                            Console.WriteLine(pme.Message);
+                        else
+                            throw pme;
+                    }                    
                 }
             } catch (UserCancelException uce)
             {

@@ -43,7 +43,7 @@ namespace TicTacToe.Data.Implementation
         public void SetStatus(CellPlayer newStatus)
         {
             if (Status != CellPlayer.NONE)
-                throw new NotValidStateException("Cell status must be none");
+                throw new NotValidStateException("Cell status must be none", ErrorCode.VALUE_ALREADY_EXISTS);
 
             if (newStatus != CellPlayer.PLAYER_A && newStatus != CellPlayer.PLAYER_B)
                 throw new NotValidValueException("Only Player A or Player B can set values");
