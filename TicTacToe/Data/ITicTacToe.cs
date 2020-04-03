@@ -32,5 +32,11 @@ namespace TicTacToe.Data
         /// </summary>
         /// <returns>Current grid</returns>
         public IGrid GetGrid();
+
+        /// <summary>
+        /// Returns the current game's Id
+        /// </summary>
+        /// <returns>Current game's guid</returns>
+        public Guid GetId();
     }
 }

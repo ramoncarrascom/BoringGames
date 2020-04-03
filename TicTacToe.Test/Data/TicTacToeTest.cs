@@ -162,5 +162,15 @@ namespace TicTacToe.Test.Data
             PlayerMovementException pme = Assert.Throws<PlayerMovementException>(() => game.PlayerMove(playerB, new Coordinate(0, 0)), "If the movement has been already made, must raise an exception");
             Assert.AreEqual(pme.ErrorCode, ErrorCode.MOVEMENT_ERROR_MUST_RETRY, "Exception must have MOVEMENT_ERROR_MUST_RETRY");
         }
+
+        [Test]
+        public void TicTacToeImplMustHaveGuidId()
+        {
+            // Given
+            ITicTacToe game = new TicTacToeImpl();
+
+            // When / Then
+            Assert.DoesNotThrow(() => Guid.Parse(game.GetId().ToString()), "Game's Id must be a Guid");
+        }
     }
 }

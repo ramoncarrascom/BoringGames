@@ -13,6 +13,15 @@ namespace TicTacToe.Data.Implementation
     {
         private IDictionary<CellPlayer, Player> players;
         private IGrid grid;
+        private Guid id;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public TicTacToeImpl()
+        {
+            id = Guid.NewGuid();
+        }
 
         /// <inheritdoc/>        
         public IGrid GetGrid()
@@ -109,6 +118,12 @@ namespace TicTacToe.Data.Implementation
 
             if (!players.ContainsKey(CellPlayer.PLAYER_A) || !players.ContainsKey(CellPlayer.PLAYER_B))
                 throw new NotValidStateException("Players dictionary is not correctly initialized");
+        }
+
+        /// <inheritdoc/>
+        public Guid GetId()
+        {
+            return Guid.Parse(id.ToString());
         }
     }
 }
