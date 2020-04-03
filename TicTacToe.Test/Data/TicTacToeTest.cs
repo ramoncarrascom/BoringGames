@@ -20,7 +20,6 @@ namespace TicTacToe.Test.Data
             Player playerA = new Player();
             Player playerB = new Player();
             ITicTacToe game = new TicTacToeImpl();
-            Player nextPlayer;
 
             // When
             game.StartGame(playerA, playerB);

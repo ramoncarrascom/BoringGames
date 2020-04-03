@@ -57,7 +57,7 @@ namespace BoringGames.Txt.Games
                             throw pme;
                     }                    
                 }
-            } catch (UserCancelException uce)
+            } catch (UserCancelException)
             {
                 Console.WriteLine("User Quits");
             } catch (TicTacToeGameOverException tttgoe)
@@ -108,8 +108,8 @@ namespace BoringGames.Txt.Games
         {
             Coordinate resp = new Coordinate();
 
-            resp.X = GetNumber(player.Name + " set horizontal coordinate (0..2)", 0, 2);
-            resp.Y = GetNumber(player.Name + " set vertical coordinate (0..2)", 0, 2);
+            resp.X = GetNumber(player.Name + " set horizontal coordinate (0..2) ", 0, 2);
+            resp.Y = GetNumber(player.Name + " set vertical coordinate (0..2) ", 0, 2);
 
             return resp;
         }
