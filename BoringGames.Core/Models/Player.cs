@@ -91,5 +91,14 @@ namespace BoringGames.Core.Models
 
             return resp;
         }
+
+        /// <summary>
+        /// Get hashcode implementation
+        /// </summary>
+        /// <returns>Returns object's hashcode</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
     }
 }
