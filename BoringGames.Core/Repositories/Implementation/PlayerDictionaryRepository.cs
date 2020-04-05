@@ -24,7 +24,7 @@ namespace BoringGames.Core.Repositories.Implementation
             throw new NotImplementedException();
         }
 
-        public Player GetPlayerBiId(long id)
+        public Player GetPlayerById(long id)
         {
             throw new NotImplementedException();
         }

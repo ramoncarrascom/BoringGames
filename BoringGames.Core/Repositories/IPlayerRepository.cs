@@ -35,6 +35,6 @@ namespace BoringGames.Core.Repositories
         /// </summary>
         /// <param name="id">Player's id identification in repository</param>
         /// <returns>Returns player's info</returns>
-        Player GetPlayerBiId(long id);
+        Player GetPlayerById(long id);
     }
 }
