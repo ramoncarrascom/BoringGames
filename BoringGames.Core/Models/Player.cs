@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoringGames.Core.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,12 +8,17 @@ namespace BoringGames.Core.Models
     /// <summary>
     /// Player class
     /// </summary>
-    public class Player
+    public class Player : IIdentityModel, ICloneable
     {
         /// <summary>
-        /// Id
+        /// Identity
         /// </summary>
-        public Guid Id { get; private set; }
+        public long? Id { get; set; }
+
+        /// <summary>
+        /// Guid identity
+        /// </summary>
+        public Guid GuidId { get; private set; }
 
         /// <summary>
         /// Player's name
@@ -34,7 +40,8 @@ namespace BoringGames.Core.Models
         /// </summary>
         public Player()
         {
-            Id = Guid.NewGuid();
+            Id = null;
+            GuidId = Guid.NewGuid();
             Points = 0;
             Name = "";
             Winner = false;
@@ -59,7 +66,7 @@ namespace BoringGames.Core.Models
         }
 
         /// <summary>
-        /// Equals implementation. Two players are equal if they have the same Id
+        /// Equals implementation. Two players are equal if they have the same GuidId
         /// </summary>
         /// <param name="obj">Object to compare</param>
         /// <returns>True if Players are the same</returns>
@@ -70,7 +77,7 @@ namespace BoringGames.Core.Models
 
             Player other = (Player)obj;
 
-            if (other.Id == this.Id)
+            if (other.GuidId == this.GuidId)
                 return true;
             else
                 return false;
@@ -80,11 +87,12 @@ namespace BoringGames.Core.Models
         /// Cloning method. Returns a new player with the same data.
         /// </summary>
         /// <returns>New player with the same original data</returns>
-        public Player Clone()
+        public object Clone()
         {
             Player resp = new Player();
 
-            resp.Id = Guid.Parse(this.Id.ToString());
+            resp.Id = this.Id;
+            resp.GuidId = Guid.Parse(this.GuidId.ToString());
             resp.Name = this.Name;
             resp.Points = this.Points;
             resp.Winner = this.Winner;
@@ -98,7 +106,7 @@ namespace BoringGames.Core.Models
         /// <returns>Returns object's hashcode</returns>
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id);
+            return HashCode.Combine(GuidId);
         }
     }
 }

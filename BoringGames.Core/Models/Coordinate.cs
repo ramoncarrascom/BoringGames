@@ -103,5 +103,14 @@ namespace BoringGames.Core.Models
         {
             return new Coordinate(_X, _Y);
         }
+
+        /// <summary>
+        /// Hashcode override
+        /// </summary>
+        /// <returns>Returns coordinate hash code</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_X, _Y);
+        }
     }
 }

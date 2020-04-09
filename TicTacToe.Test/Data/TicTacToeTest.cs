@@ -170,7 +170,7 @@ namespace TicTacToe.Test.Data
             ITicTacToe game = new TicTacToeImpl();
 
             // When / Then
-            Assert.DoesNotThrow(() => Guid.Parse(game.GetId().ToString()), "Game's Id must be a Guid");
+            Assert.DoesNotThrow(() => Guid.Parse(game.GetId().ToString()), "Game's GuidId must be a Guid");
         }
     }
 }

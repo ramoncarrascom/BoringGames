@@ -14,7 +14,7 @@ namespace BoringGames.Core.Repositories
         /// Adds a new player to the repository
         /// </summary>
         /// <param name="name">Player's data</param>
-        /// <returns>New player's Id in repository</returns>
+        /// <returns>New player's GuidId in repository</returns>
         long AddPlayer(Player player);
 
         /// <summary>

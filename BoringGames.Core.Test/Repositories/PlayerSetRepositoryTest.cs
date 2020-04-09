@@ -10,14 +10,14 @@ using System.Text;
 
 namespace BoringGames.Core.Test.Repositories
 {
-    public class PlayerDictionaryRepositoryTest
+    public class PlayerSetRepositoryTest
     {
         [Test]
         public void FirstPlayerAddMustReturn1()
         {
             // Given
             Player player = new Player();
-            IPlayerRepository repo = new PlayerDictionaryRepository();
+            IPlayerRepository repo = new PlayerSetRepository();
             long id;
 
             // When
@@ -33,7 +33,7 @@ namespace BoringGames.Core.Test.Repositories
             // Given
             Player player1 = new Player();
             Player player2 = new Player();
-            IPlayerRepository repo = new PlayerDictionaryRepository();
+            IPlayerRepository repo = new PlayerSetRepository();
             long id;
 
             // When
@@ -49,7 +49,7 @@ namespace BoringGames.Core.Test.Repositories
         {
             // Given
             Player player1 = new Player();
-            IPlayerRepository repo = new PlayerDictionaryRepository();
+            IPlayerRepository repo = new PlayerSetRepository();
             long id;
 
             // When
@@ -64,7 +64,7 @@ namespace BoringGames.Core.Test.Repositories
         public void AddedPlayerMustNotBeNull()
         {
             // Given
-            IPlayerRepository repo = new PlayerDictionaryRepository();
+            IPlayerRepository repo = new PlayerSetRepository();
             long id;
 
             // When / Then
@@ -76,7 +76,7 @@ namespace BoringGames.Core.Test.Repositories
         public void AfterAddingAPlayerItMustBeAccessable()
         {
             // Given
-            IPlayerRepository repo = new PlayerDictionaryRepository();
+            IPlayerRepository repo = new PlayerSetRepository();
             long id;
             Player player = new Player("TestPlayer");
             Player testPlayer;
@@ -93,7 +93,7 @@ namespace BoringGames.Core.Test.Repositories
         public void GettingAnInexistingPlayerIdMustRaiseException()
         {
             // Given
-            IPlayerRepository repo = new PlayerDictionaryRepository();
+            IPlayerRepository repo = new PlayerSetRepository();
 
             // When / Then
             NotExistingValueException excep = Assert.Throws<NotExistingValueException>(() => repo.GetPlayerById(1), "Getting an inexisting player must raise an exception");
@@ -104,7 +104,7 @@ namespace BoringGames.Core.Test.Repositories
         public void GettingAnInexistingPlayerGuidMustRaiseException()
         {
             // Given
-            IPlayerRepository repo = new PlayerDictionaryRepository();
+            IPlayerRepository repo = new PlayerSetRepository();
 
             // When / Then
             NotExistingValueException excep = Assert.Throws<NotExistingValueException>(() => repo.GetPlayerByGuid(Guid.NewGuid()), "Getting an inexisting player must raise an exception");
@@ -112,10 +112,10 @@ namespace BoringGames.Core.Test.Repositories
         }
 
         [Test]
-        public void GettingAnDeletedPlayerMustRaiseException()
+        public void GettingADeletedPlayerMustRaiseException()
         {
             // Given
-            IPlayerRepository repo = new PlayerDictionaryRepository();
+            IPlayerRepository repo = new PlayerSetRepository();
             Player player = new Player("TestPlayer");
             long id;
 
@@ -132,7 +132,7 @@ namespace BoringGames.Core.Test.Repositories
         public void DeletingAnInexistingPlayerIdMustRaiseException()
         {
             // Given
-            IPlayerRepository repo = new PlayerDictionaryRepository();
+            IPlayerRepository repo = new PlayerSetRepository();
 
             // When / Then
             NotExistingValueException excep = Assert.Throws<NotExistingValueException>(() => repo.DeletePlayer(1), "Deleting an inexisting player must raise an exception");

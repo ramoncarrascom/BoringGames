@@ -18,8 +18,8 @@ namespace BoringGames.Core.Test.Models
             player = new Player();
 
             // Then
-            Assert.IsNotNull(player.Id, "Player Id can't be null");
-            Assert.DoesNotThrow(() => Guid.Parse(player.Id.ToString()), "Player Id must be a valid Guid");
+            Assert.IsNotNull(player.GuidId, "Player GuidId can't be null");
+            Assert.DoesNotThrow(() => Guid.Parse(player.GuidId.ToString()), "Player GuidId must be a valid Guid");
         }
 
         [Test]
@@ -71,8 +71,8 @@ namespace BoringGames.Core.Test.Models
             Player player2 = new Player();
 
             // Then
-            Assert.AreNotEqual(player1.Id.ToString(), player2.Id.ToString(), "Player Ids must be different");
-            Assert.IsFalse(player1.Equals(player2), "Players with different Id can't be Equal");
+            Assert.AreNotEqual(player1.GuidId.ToString(), player2.GuidId.ToString(), "Player Ids must be different");
+            Assert.IsFalse(player1.Equals(player2), "Players with different GuidId can't be Equal");
         }
 
         [Test]
@@ -87,10 +87,10 @@ namespace BoringGames.Core.Test.Models
             player1.Winner = winner;
 
             // When
-            Player player2 = player1.Clone();
+            Player player2 = (Player) player1.Clone();
 
             // Then
-            Assert.AreEqual(player1.Id.ToString(), player2.Id.ToString(), "Cloned player Ids must be same");
+            Assert.AreEqual(player1.GuidId.ToString(), player2.GuidId.ToString(), "Cloned player Ids must be same");
             Assert.AreEqual(player2.Name, name, "Cloned player Name must be same");
             Assert.AreEqual(player2.Points, points, "Cloned player Points must be same");
             Assert.AreEqual(player2.Winner, winner, "Cloned player Winner flah must be same");
@@ -103,7 +103,7 @@ namespace BoringGames.Core.Test.Models
             Player player1 = new Player();
 
             // When
-            Player player2 = player1.Clone();
+            Player player2 = (Player) player1.Clone();
 
             // Then
             Assert.IsTrue(player1.Equals(player2), "Cloned player must be Equal to original player");
