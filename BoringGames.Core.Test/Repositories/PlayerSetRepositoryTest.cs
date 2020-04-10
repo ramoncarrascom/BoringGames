@@ -1,8 +1,8 @@
-﻿using BoringGames.Core.Enums;
-using BoringGames.Core.Exceptions;
-using BoringGames.Core.Models;
-using BoringGames.Core.Repositories;
+﻿using BoringGames.Core.Repositories;
 using BoringGames.Core.Repositories.Implementation;
+using BoringGames.Shared.Enums;
+using BoringGames.Shared.Exceptions;
+using BoringGames.Shared.Models;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

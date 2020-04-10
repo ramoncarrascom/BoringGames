@@ -1,4 +1,4 @@
-﻿using BoringGames.Core.Models;
+﻿using BoringGames.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,13 +14,13 @@ namespace BoringGames.Core.Repositories
         /// Adds a new player to the repository
         /// </summary>
         /// <param name="name">Player's data</param>
-        /// <returns>New player's GuidId in repository</returns>
+        /// <returns>New player's Id in repository</returns>
         long AddPlayer(Player player);
 
         /// <summary>
         /// Removes a player from the repository
         /// </summary>
-        /// <param name="player">Player to remove</param>
+        /// <param name="id">Player Id to remove</param>
         void DeletePlayer(long id);
 
         /// <summary>

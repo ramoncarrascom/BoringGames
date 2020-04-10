@@ -9,11 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe", "TicTacToe\TicT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe.Test", "TicTacToe.Test\TicTacToe.Test.csproj", "{960B78BB-AF0D-488D-BDA2-64132BB8812B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Core", "BoringGames.Core\BoringGames.Core.csproj", "{7E70EAEF-8826-4971-AFDD-228066432083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Shared", "BoringGames.Shared\BoringGames.Shared.csproj", "{7E70EAEF-8826-4971-AFDD-228066432083}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Core.Test", "BoringGames.Core.Test\BoringGames.Core.Test.csproj", "{69C557E3-1C9D-4674-9300-ACFE021274C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Shared.Test", "BoringGames.Shared.Test\BoringGames.Shared.Test.csproj", "{69C557E3-1C9D-4674-9300-ACFE021274C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoringGames.Txt", "BoringGames.Console\BoringGames.Txt.csproj", "{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Txt", "BoringGames.Txt\BoringGames.Txt.csproj", "{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoringGames.Core", "BoringGames.Core\BoringGames.Core.csproj", "{D0230BC6-F8B5-4A10-A959-64B5825CCD0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoringGames.Core.Test", "BoringGames.Core.Test\BoringGames.Core.Test.csproj", "{4F30427E-0F28-499C-9EAB-E69407A778B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62B39635-AAAE-445E-B15C-0FD92D3F8E0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0230BC6-F8B5-4A10-A959-64B5825CCD0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0230BC6-F8B5-4A10-A959-64B5825CCD0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0230BC6-F8B5-4A10-A959-64B5825CCD0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0230BC6-F8B5-4A10-A959-64B5825CCD0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F30427E-0F28-499C-9EAB-E69407A778B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F30427E-0F28-499C-9EAB-E69407A778B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F30427E-0F28-499C-9EAB-E69407A778B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F30427E-0F28-499C-9EAB-E69407A778B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

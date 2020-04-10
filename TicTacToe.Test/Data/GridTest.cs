@@ -1,5 +1,5 @@
-﻿using BoringGames.Core.Enums;
-using BoringGames.Core.Exceptions;
+﻿using BoringGames.Shared.Enums;
+using BoringGames.Shared.Exceptions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

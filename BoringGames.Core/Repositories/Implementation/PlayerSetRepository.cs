@@ -1,7 +1,7 @@
-﻿using BoringGames.Core.Enums;
-using BoringGames.Core.Exceptions;
-using BoringGames.Core.Models;
-using BoringGames.Core.Repositories.BaseClass;
+﻿using BoringGames.Shared.Enums;
+using BoringGames.Shared.Exceptions;
+using BoringGames.Shared.Models;
+using BoringGames.Shared.Repositories.BaseClass;
 using System;
 using System.Collections.Generic;
 using System.Linq;

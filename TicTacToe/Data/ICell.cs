@@ -1,4 +1,4 @@
-﻿using BoringGames.Core.Enums;
+﻿using BoringGames.Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;

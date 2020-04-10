@@ -1,5 +1,5 @@
-﻿using BoringGames.Core.Exceptions;
-using BoringGames.Core.Models;
+﻿using BoringGames.Shared.Exceptions;
+using BoringGames.Shared.Models;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

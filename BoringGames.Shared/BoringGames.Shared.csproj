@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoringGames.Shared\BoringGames.Shared.csproj" />
+    <Folder Include="Services\Implementation\" />
   </ItemGroup>
 
 </Project>
