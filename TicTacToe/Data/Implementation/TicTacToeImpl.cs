@@ -44,7 +44,7 @@ namespace TicTacToe.Data.Implementation
                 if (nvse.ErrorCode == ErrorCode.VALUE_ALREADY_EXISTS)
                     throw new PlayerMovementException("This cell is already in use", ErrorCode.MOVEMENT_ERROR_MUST_RETRY);
                 else
-                    throw nvse;
+                    throw;
             }            
 
             CellPlayer checkedPlayer = grid.Check();
@@ -66,10 +66,11 @@ namespace TicTacToe.Data.Implementation
         }
 
         /// <inheritdoc/>
-        public Player StartGame(Player playerA, Player playerB)
+        public Player StartGame(IGrid grid, Player playerA, Player playerB)
         {
             players = new Dictionary<CellPlayer, Player>();
-            grid = new Grid();
+            this.grid = grid;
+            InitTriads(grid);
 
             if (playerA == null || playerB == null)
                 throw new NotValidValueException("Players can't be null");
@@ -81,8 +82,6 @@ namespace TicTacToe.Data.Implementation
             players.Add(CellPlayer.PLAYER_B, playerB);
 
             bool result = players.TryGetValue(CellPlayer.PLAYER_A, out Player resp);
-            if (!result)
-                throw new NotValidStateException("Player's dictionary is not in a valid state. There was a problem retrieving player value");
 
             return resp;
         }
@@ -94,7 +93,7 @@ namespace TicTacToe.Data.Implementation
         /// <returns>Corresponding CellPlayer value</returns>
         private CellPlayer GetCellPlayer(Player player)
         {
-            return players.Where(x => x.Value.Equals(player)).FirstOrDefault().Key;
+            return players.FirstOrDefault(x => x.Value.Equals(player)).Key;
         }
 
         /// <summary>
@@ -104,7 +103,7 @@ namespace TicTacToe.Data.Implementation
         /// <returns>Next Player value</returns>
         private Player GetNextPlayer(Player player)
         {
-            return players.Where(x => !x.Value.Equals(player)).FirstOrDefault().Value;
+            return players.FirstOrDefault(x => !x.Value.Equals(player)).Value;
         }
 
         /// <summary>
@@ -123,6 +122,23 @@ namespace TicTacToe.Data.Implementation
         public Guid GetId()
         {
             return Guid.Parse(id.ToString());
+        }
+
+        private void InitTriads(IGrid grid)
+        {
+            List<Triad> triads = new List<Triad>();
+
+            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(0, 2)));
+            triads.Add(new Triad(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2)));
+            triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(2, 1), new Coordinate(2, 2)));
+            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(1, 0), new Coordinate(2, 0)));
+            triads.Add(new Triad(new Coordinate(0, 1), new Coordinate(1, 1), new Coordinate(2, 1)));
+            triads.Add(new Triad(new Coordinate(0, 2), new Coordinate(1, 2), new Coordinate(2, 2)));
+            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(1, 1), new Coordinate(2, 2)));
+            triads.Add(new Triad(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2)));
+            triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(1, 1), new Coordinate(0, 2)));
+
+            grid.InitTriads(triads);
         }
     }
 }

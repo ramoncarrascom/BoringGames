@@ -3,6 +3,7 @@ using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
 using TicTacToe.Exceptions;
@@ -11,6 +12,14 @@ namespace TicTacToe.Test.Data
 {
     public class TicTacToeTest
     {
+        IGrid grid;
+
+        [SetUp]
+        public void GridStartup()
+        {
+            grid = new Grid();
+        }
+
         [Test]
         public void TicTacToeHappyPath()
         {
@@ -20,7 +29,7 @@ namespace TicTacToe.Test.Data
             ITicTacToe game = new TicTacToeImpl();
 
             // When
-            game.StartGame(playerA, playerB);
+            game.StartGame(grid, playerA, playerB);
             game.PlayerMove(playerA, new Coordinate(0, 0));
             game.PlayerMove(playerA, new Coordinate(0, 1));
 
@@ -52,7 +61,7 @@ namespace TicTacToe.Test.Data
             Player nextPlayer;
 
             // When
-            firstPlayer = game.StartGame(playerA, playerB);
+            firstPlayer = game.StartGame(grid, playerA, playerB);
             nextPlayer = game.PlayerMove(firstPlayer, new Coordinate(0, 0));
 
             // Then
@@ -70,7 +79,7 @@ namespace TicTacToe.Test.Data
             IGrid grid;
 
             // When
-            game.StartGame(playerA, playerB);
+            game.StartGame(this.grid, playerA, playerB);
             game.PlayerMove(playerA, new Coordinate(0, 0));
             game.PlayerMove(playerA, new Coordinate(0, 1));
             game.PlayerMove(playerA, new Coordinate(1, 0));
@@ -98,7 +107,7 @@ namespace TicTacToe.Test.Data
             Player firstPlayer;
 
             // When
-            firstPlayer = game.StartGame(playerA, playerB);
+            firstPlayer = game.StartGame(grid, playerA, playerB);
 
             // Then
             Assert.IsTrue(firstPlayer.Equals(playerA) || firstPlayer.Equals(playerB), "First player must be Player A or Player B");
@@ -112,7 +121,7 @@ namespace TicTacToe.Test.Data
             ITicTacToe game = new TicTacToeImpl();
 
             // When/Then
-            Assert.Throws<NotValidValueException>(() => game.StartGame(player, player), "Initializing with same player must return exception");
+            Assert.Throws<NotValidValueException>(() => game.StartGame(grid, player, player), "Initializing with same player must return exception");
         }
 
         [Test]
@@ -123,8 +132,8 @@ namespace TicTacToe.Test.Data
             ITicTacToe game = new TicTacToeImpl();
 
             // When/Then
-            Assert.Throws<NotValidValueException>(() => game.StartGame(null, player), "If a player is null on initialization, must return exception");
-            Assert.Throws<NotValidValueException>(() => game.StartGame(player, null), "If a player is null on initialization, must return exception");
+            Assert.Throws<NotValidValueException>(() => game.StartGame(grid, null, player), "If a player is null on initialization, must return exception");
+            Assert.Throws<NotValidValueException>(() => game.StartGame(grid, player, null), "If a player is null on initialization, must return exception");
         }
 
         [Test]
@@ -137,7 +146,7 @@ namespace TicTacToe.Test.Data
             ITicTacToe game = new TicTacToeImpl();
 
             // When
-            game.StartGame(playerA, playerB);
+            game.StartGame(grid, playerA, playerB);
 
             // Then
             Assert.Throws<NotValidValueException>(() => game.PlayerMove(other, new Coordinate(0, 0)), "Move must return an exception is player is not in initialization");
@@ -153,7 +162,7 @@ namespace TicTacToe.Test.Data
             ITicTacToe game = new TicTacToeImpl();
 
             // When
-            game.StartGame(playerA, playerB);
+            game.StartGame(grid, playerA, playerB);
             game.PlayerMove(playerA, new Coordinate(0, 0));
 
             // Then

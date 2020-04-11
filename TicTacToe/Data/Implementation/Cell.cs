@@ -1,6 +1,5 @@
 ﻿using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
-using System;
 
 namespace TicTacToe.Data.Implementation
 {
@@ -65,7 +64,6 @@ namespace TicTacToe.Data.Implementation
                     break;
                 case CellPlayer.NONE: resp = " ";
                     break;
-                default: throw new IndexOutOfRangeException("Current cell's status isn't supported");
             }
 
             return resp;

@@ -12,6 +12,11 @@ namespace BoringGames.Txt
         private IBoringGame game;
 
         /// <summary>
+        /// Constructor
+        /// </summary>
+        protected Program() { }
+
+        /// <summary>
         /// Entry point
         /// </summary>
         /// <param name="args"></param>

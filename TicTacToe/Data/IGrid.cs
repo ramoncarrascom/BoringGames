@@ -1,4 +1,5 @@
 ﻿using BoringGames.Shared.Enums;
+using System.Collections.Generic;
 
 namespace TicTacToe.Data
 {
@@ -45,5 +46,11 @@ namespace TicTacToe.Data
         /// </summary>
         /// <returns>Returns a string containing a graphic representation of the grid un text mode</returns>
         public string StringGrid();
+
+        /// <summary>
+        /// Loads a winning triads list
+        /// </summary>
+        /// <param name="triads">Triads list</param>
+        public void InitTriads(IEnumerable<ITriad> triads);
     }
 }

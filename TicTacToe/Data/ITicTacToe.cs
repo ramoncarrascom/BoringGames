@@ -11,10 +11,11 @@ namespace TicTacToe.Data
         /// <summary>
         /// Starts a new game
         /// </summary>
+        /// <param name="grid">Grid</param>
         /// <param name="playerA">Player A data</param>
         /// <param name="playerB">Player B data</param>
         /// <returns>First player to play</returns>
-        public Player StartGame(Player playerA, Player playerB);
+        public Player StartGame(IGrid grid, Player playerA, Player playerB);
 
         /// <summary>
         /// Sets the move for player

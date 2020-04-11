@@ -14,8 +14,9 @@ namespace BoringGames.Txt.Games
     public class BoringToe : IBoringGame
     {
         private readonly ITicTacToe game;
-        private Player player1;
-        private Player player2;
+        private readonly Player player1;
+        private readonly Player player2;
+        private readonly IGrid grid;
         private Player currentPlayer;
 
         /// <summary>
@@ -26,6 +27,7 @@ namespace BoringGames.Txt.Games
             this.game = new TicTacToeImpl();
             this.player1 = new Player();
             this.player2 = new Player();
+            this.grid = new Grid();
         }
 
         /// <summary>
@@ -52,7 +54,7 @@ namespace BoringGames.Txt.Games
                         if (pme.ErrorCode == ErrorCode.MOVEMENT_ERROR_MUST_RETRY)
                             Console.WriteLine(pme.Message);
                         else
-                            throw pme;
+                            throw;
                     }                    
                 }
             } catch (UserCancelException)
@@ -94,7 +96,7 @@ namespace BoringGames.Txt.Games
 
             Console.WriteLine("Anytime you can use q to quit");
 
-            currentPlayer = game.StartGame(player1, player2);
+            currentPlayer = game.StartGame(grid, player1, player2);
         }
 
         /// <summary>
@@ -133,8 +135,7 @@ namespace BoringGames.Txt.Games
 
                 itsOk = int.TryParse(userText, out resp);
 
-                if (itsOk)
-                    if (!(resp >= min && resp <= max))
+                if (itsOk && !(resp >= min && resp <= max))
                         itsOk = false;
 
                 if (!itsOk)

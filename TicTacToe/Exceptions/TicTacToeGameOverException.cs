@@ -1,8 +1,11 @@
 ﻿using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
+using System;
+using System.Runtime.Serialization;
 
 namespace TicTacToe.Exceptions
 {
+    [Serializable]
     public class TicTacToeGameOverException : GameOverException
     {
         public Player Player { get; private set; }
@@ -20,5 +23,7 @@ namespace TicTacToe.Exceptions
             Player = player;
             Winner = winner;
         }
+
+        protected TicTacToeGameOverException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

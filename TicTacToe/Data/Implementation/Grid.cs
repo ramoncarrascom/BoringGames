@@ -3,6 +3,7 @@ using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace TicTacToe.Data.Implementation
@@ -30,26 +31,26 @@ namespace TicTacToe.Data.Implementation
         /// <summary>
         /// List with all possible triads which make a player win
         /// </summary>
-        private List<Triad> triads;
+        private IEnumerable<ITriad> triads;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public Grid()
         {
-            InitTriads();
             InitGrid();
+            triads = new List<Triad>();
         }
 
         /// <inheritdoc/>
         public CellPlayer Check()
         {
-            if (triads.Count == 0)
+            if (triads.ToList().Count == 0)
                 throw new NotValidStateException("There are no triads for check");
 
             CellPlayer resp = CellPlayer.NONE;
 
-            foreach(Triad triad in triads)
+            foreach(ITriad triad in triads)
             {
 
                 foreach(Coordinate coord in triad.GetCoordinates())
@@ -150,22 +151,10 @@ namespace TicTacToe.Data.Implementation
             return resp.ToString();
         }
 
-        /// <summary>
-        /// Inits all possible winning triads
-        /// </summary>
-        private void InitTriads()
+        /// <inheritdoc/>
+        public void InitTriads(IEnumerable<ITriad> triads)
         {
-            triads = new List<Triad>();
-
-            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(0, 2)));
-            triads.Add(new Triad(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2)));
-            triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(2, 1), new Coordinate(2, 2)));
-            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(1, 0), new Coordinate(2, 0)));
-            triads.Add(new Triad(new Coordinate(0, 1), new Coordinate(1, 1), new Coordinate(2, 1)));
-            triads.Add(new Triad(new Coordinate(0, 2), new Coordinate(1, 2), new Coordinate(2, 2)));
-            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(1, 1), new Coordinate(2, 2)));
-            triads.Add(new Triad(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2)));
-            triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(1, 1), new Coordinate(0, 2)));
+            this.triads = triads;
         }
 
         /// <inheritdoc/>

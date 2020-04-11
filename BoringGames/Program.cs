@@ -5,6 +5,8 @@ namespace BoringGames
 {
     public class Program
     {
+        protected Program() { }
+
         // Nim, Hanoi
         public static void Main(string[] args)
         {

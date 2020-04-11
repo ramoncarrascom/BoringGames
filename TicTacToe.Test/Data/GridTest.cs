@@ -1,6 +1,8 @@
 ﻿using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
+using BoringGames.Shared.Models;
 using NUnit.Framework;
+using System.Collections.Generic;
 using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
 
@@ -8,11 +10,30 @@ namespace TicTacToe.Test.Data
 {
     public class GridTest
     {
+        List<Triad> triads;
+
+        [OneTimeSetUp]
+        public void InitialSetup()
+        {
+            triads = new List<Triad>();
+
+            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(0, 1), new Coordinate(0, 2)));
+            triads.Add(new Triad(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2)));
+            triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(2, 1), new Coordinate(2, 2)));
+            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(1, 0), new Coordinate(2, 0)));
+            triads.Add(new Triad(new Coordinate(0, 1), new Coordinate(1, 1), new Coordinate(2, 1)));
+            triads.Add(new Triad(new Coordinate(0, 2), new Coordinate(1, 2), new Coordinate(2, 2)));
+            triads.Add(new Triad(new Coordinate(0, 0), new Coordinate(1, 1), new Coordinate(2, 2)));
+            triads.Add(new Triad(new Coordinate(1, 0), new Coordinate(1, 1), new Coordinate(1, 2)));
+            triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(1, 1), new Coordinate(0, 2)));
+        }
+
         [Test]
         public void GridConstructorInitializesArray()
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             ICell[,] gridArray = grid.GetGrid();
@@ -34,6 +55,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
             grid.Set(0, 0, CellPlayer.PLAYER_A);
             grid.Set(0, 1, CellPlayer.PLAYER_A);
             grid.Set(0, 2, CellPlayer.PLAYER_A);
@@ -65,7 +87,8 @@ namespace TicTacToe.Test.Data
         public void GridFunctionMustReturnACopyOfTheArray()
         {
             // Given
-            IGrid grid = new Grid();            
+            IGrid grid = new Grid();
+            grid.InitTriads(triads);
             ICell[,] gridArray = grid.GetGrid();
 
             // When
@@ -80,6 +103,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             ICell[,] gridArray = grid.GetGrid();
@@ -95,6 +119,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
             ICell[,] gridArray;
 
             // When
@@ -110,6 +135,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When / Then
             Assert.Throws<NotValidValueException>(() => grid.Set(-1, 0, CellPlayer.PLAYER_A), "X coordinate must be >= 0");
@@ -123,6 +149,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -139,6 +166,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(1, 0, CellPlayer.PLAYER_A);
@@ -155,6 +183,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(2, 0, CellPlayer.PLAYER_A);
@@ -171,6 +200,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -187,6 +217,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 1, CellPlayer.PLAYER_A);
@@ -203,6 +234,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 2, CellPlayer.PLAYER_A);
@@ -219,6 +251,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -235,6 +268,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 2, CellPlayer.PLAYER_A);
@@ -251,6 +285,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -267,6 +302,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -290,6 +326,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -313,6 +350,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -327,6 +365,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -349,6 +388,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -372,6 +412,7 @@ namespace TicTacToe.Test.Data
         {
             // Given
             IGrid grid = new Grid();
+            grid.InitTriads(triads);
 
             // When
             grid.Set(0, 0, CellPlayer.PLAYER_A);
@@ -387,6 +428,16 @@ namespace TicTacToe.Test.Data
 
             // Then
             Assert.IsTrue(res == false, "At least one cell is None, so IsFull must be False");
+        }
+
+        [Test]
+        public void GridCheckToNoTriadsGridRaisesException()
+        {
+            // Given
+            IGrid grid = new Grid();
+
+            // When / Then
+            Assert.Throws<NotValidStateException>(() => grid.Check(), "Check must raise an exception if triads are not initialized");
         }
 
     }

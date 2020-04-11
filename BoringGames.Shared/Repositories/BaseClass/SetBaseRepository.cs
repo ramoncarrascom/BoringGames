@@ -18,7 +18,7 @@ namespace BoringGames.Shared.Repositories.BaseClass
         /// <summary>
         /// Constructor
         /// </summary>
-        public SetBaseRepository()
+        protected SetBaseRepository()
         {
             _set = new HashSet<T>();
         }
@@ -51,7 +51,7 @@ namespace BoringGames.Shared.Repositories.BaseClass
         /// <param name="data">Data to update</param>
         public virtual void Update(T data)
         {
-            T currentElement = _set.Where(x => x.Id == data.Id).FirstOrDefault();
+            T currentElement = _set.FirstOrDefault(x => x.Id == data.Id);
             if (currentElement == null)
                 throw new KeyNotFoundException("Not existing element");
 
@@ -65,7 +65,7 @@ namespace BoringGames.Shared.Repositories.BaseClass
         /// <param name="id">Element's id</param>
         public virtual void Delete(long id)
         {
-            T currentElement = _set.Where(x => x.Id == id).FirstOrDefault();
+            T currentElement = _set.FirstOrDefault(x => x.Id == id);
             if (currentElement == null)
                 throw new NotExistingValueException("Not existing element", ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE);
 
@@ -78,7 +78,7 @@ namespace BoringGames.Shared.Repositories.BaseClass
         /// <returns>A list with all elements of the set</returns>
         public virtual IEnumerable<T> GetAll()
         {
-            List<T> response = _set.ToList().Select(x => (T)x.Clone()).ToList();
+            List<T> response = _set.AsEnumerable().Select(x => (T)x.Clone()).ToList();
 
             return response;
         }
@@ -90,7 +90,7 @@ namespace BoringGames.Shared.Repositories.BaseClass
         /// <returns>Requested element</returns>
         public virtual T Get(long id)
         {
-            return _set.ToList().Select(x => (T)x.Clone()).Where(x => x.Id == id).FirstOrDefault();
+            return _set.AsEnumerable().Select(x => (T)x.Clone()).FirstOrDefault(x => x.Id == id);
         }
 
     }
