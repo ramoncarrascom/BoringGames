@@ -3,9 +3,7 @@ using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using BoringGames.Shared.Repositories.BaseClass;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BoringGames.Core.Repositories.Implementation
 {
@@ -16,7 +14,7 @@ namespace BoringGames.Core.Repositories.Implementation
         {
             long? resp;
 
-            if (_set.Count(x => x.GuidId.Equals(player.GuidId)) == 0)
+            if (!_set.Any(x => x.GuidId.Equals(player.GuidId)))
                 resp = Add(player);
             else
                 throw new DuplicatedValueException("Player already exists in database", ErrorCode.VALUE_ALREADY_EXISTS_IN_DATABASE);
@@ -47,7 +45,7 @@ namespace BoringGames.Core.Repositories.Implementation
         /// <inheritdoc/>
         public Player GetPlayerByGuid(Guid guid)
         {
-            Player response = _set.Where(x => x.GuidId.Equals(guid)).FirstOrDefault();
+            Player response = _set.FirstOrDefault(x => x.GuidId.Equals(guid));
 
             if (response != null)
                 return response;

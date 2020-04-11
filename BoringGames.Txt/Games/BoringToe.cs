@@ -2,8 +2,6 @@
 using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
 using TicTacToe.Exceptions;
@@ -106,12 +104,10 @@ namespace BoringGames.Txt.Games
         /// <returns>New Coordinate object with player's coordinates</returns>
         private Coordinate GetPlayersCoordinates(Player player)
         {
-            Coordinate resp = new Coordinate();
+            int X = GetNumber(player.Name + " set horizontal coordinate (0..2) ", 0, 2);
+            int Y = GetNumber(player.Name + " set vertical coordinate (0..2) ", 0, 2);
 
-            resp.X = GetNumber(player.Name + " set horizontal coordinate (0..2) ", 0, 2);
-            resp.Y = GetNumber(player.Name + " set vertical coordinate (0..2) ", 0, 2);
-
-            return resp;
+            return new Coordinate(X, Y);
         }
 
         /// <summary>

@@ -1,7 +1,5 @@
 ﻿using BoringGames.Shared.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BoringGames.Shared.Models
 {
@@ -10,8 +8,8 @@ namespace BoringGames.Shared.Models
     /// </summary>
     public class Coordinate
     {
-        private int _X;
-        private int _Y;
+        private readonly int _X;
+        private readonly int _Y;
 
         /// <summary>
         /// X component of coordinate
@@ -20,15 +18,6 @@ namespace BoringGames.Shared.Models
             get 
             {
                 return _X;
-            } 
-            set
-            {
-                if (value < int.MinValue)
-                    throw new NotValidValueException("X coordinate can't be smaller than " + int.MinValue);
-                if (value > int.MaxValue)
-                    throw new NotValidValueException("X coordinate can't be higher than " + int.MaxValue);
-
-                _X = value;
             }
         }
 
@@ -41,15 +30,6 @@ namespace BoringGames.Shared.Models
             {
                 return _Y;
             }
-            set
-            {
-                if (value < int.MinValue)
-                    throw new NotValidValueException("Y coordinate can't be smaller than " + int.MinValue);
-                if (value > int.MaxValue)
-                    throw new NotValidValueException("Y coordinate can't be higher than " + int.MaxValue);
-
-                _Y = value;
-            }
         }
 
         /// <summary>
@@ -59,14 +39,18 @@ namespace BoringGames.Shared.Models
         /// <param name="yCoord">Y component</param>
         public Coordinate(int xCoord, int yCoord)
         {
+            if (xCoord < int.MinValue)
+                throw new NotValidValueException("X coordinate can't be smaller than " + int.MinValue);
+            if (xCoord > int.MaxValue)
+                throw new NotValidValueException("X coordinate can't be higher than " + int.MaxValue);
+            if (yCoord < int.MinValue)
+                throw new NotValidValueException("Y coordinate can't be smaller than " + int.MinValue);
+            if (yCoord > int.MaxValue)
+                throw new NotValidValueException("Y coordinate can't be higher than " + int.MaxValue);
+
             _X = xCoord;
             _Y = yCoord;
         }
-
-        /// <summary>
-        /// Initializes coordinate to (0,0)
-        /// </summary>
-        public Coordinate() : this(0, 0) { }
 
         /// <summary>
         /// ToString implementation

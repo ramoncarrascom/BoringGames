@@ -1,10 +1,10 @@
 ﻿using BoringGames.Shared.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace BoringGames.Shared.Exceptions
 {
+    [Serializable]
     public class RepositoryException : BgException
     {
         public RepositoryException() : base() { }
@@ -12,5 +12,7 @@ namespace BoringGames.Shared.Exceptions
         public RepositoryException(string message) : base(message) { }
 
         public RepositoryException(string message, ErrorCode errorCode) : base(message, errorCode) { }
+
+        protected RepositoryException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

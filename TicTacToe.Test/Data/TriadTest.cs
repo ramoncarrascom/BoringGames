@@ -1,9 +1,7 @@
 ﻿using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using TicTacToe.Data.Implementation;
 
 namespace TicTacToe.Test.Data

@@ -1,9 +1,6 @@
 ﻿using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
 

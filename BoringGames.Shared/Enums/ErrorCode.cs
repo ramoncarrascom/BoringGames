@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BoringGames.Shared.Enums
+﻿namespace BoringGames.Shared.Enums
 {
     public enum ErrorCode
     {

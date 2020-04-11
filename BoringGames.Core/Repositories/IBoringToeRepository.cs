@@ -1,7 +1,4 @@
-﻿using BoringGames.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using TicTacToe.Data;
 
 namespace BoringGames.Core.Repositories

@@ -1,10 +1,10 @@
 ﻿using BoringGames.Shared.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace BoringGames.Shared.Exceptions
 {
+    [Serializable]
     public class DuplicatedValueException : BgException
     {
         public DuplicatedValueException() : base() { }
@@ -12,5 +12,7 @@ namespace BoringGames.Shared.Exceptions
         public DuplicatedValueException(string message) : base(message) { }
 
         public DuplicatedValueException(string message, ErrorCode errorCode) : base(message, errorCode) { }
+
+        protected DuplicatedValueException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using BoringGames.Shared.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BoringGames.Core.Repositories
 {

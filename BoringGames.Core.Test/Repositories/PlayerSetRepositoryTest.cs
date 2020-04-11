@@ -5,8 +5,6 @@ using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BoringGames.Core.Test.Repositories
 {

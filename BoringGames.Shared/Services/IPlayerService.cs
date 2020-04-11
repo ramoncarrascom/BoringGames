@@ -1,9 +1,4 @@
-﻿using BoringGames.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BoringGames.Shared.Services
+﻿namespace BoringGames.Shared.Services
 {
     /// <summary>
     /// Player service contract

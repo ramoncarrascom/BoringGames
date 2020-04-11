@@ -1,12 +1,12 @@
 ﻿using BoringGames.Shared.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace BoringGames.Shared.Exceptions
 {
+    [Serializable]
     public class BgException : Exception
-    {
+    {        
         public ErrorCode ErrorCode { get; private set; }
 
         public BgException() : base() 
@@ -23,5 +23,11 @@ namespace BoringGames.Shared.Exceptions
         {
             ErrorCode = errorCode;
         }
+
+        protected BgException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            ErrorCode = (ErrorCode)info.GetValue("ErrorCode", typeof(ErrorCode));
+        }
+
     }
 }

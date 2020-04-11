@@ -1,8 +1,5 @@
 ﻿using BoringGames.Shared.Models;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BoringGames.Shared.Test.Models
 {
@@ -13,10 +10,9 @@ namespace BoringGames.Shared.Test.Models
         {
             // Given
             int value = 10;
-            Coordinate coord = new Coordinate();
 
             // When
-            coord.X = value;
+            Coordinate coord = new Coordinate(value, 0);
 
             // Then
             Assert.AreEqual(coord.X, value, "Coordinate X value getted value must be same as setted value");
@@ -27,10 +23,9 @@ namespace BoringGames.Shared.Test.Models
         {
             // Given
             int value = 10;
-            Coordinate coord = new Coordinate();
 
             // When
-            coord.Y = value;
+            Coordinate coord = new Coordinate(0, value);
 
             // Then
             Assert.AreEqual(coord.Y, value, "Coordinate X value getted value must be same as setted value");
@@ -49,20 +44,6 @@ namespace BoringGames.Shared.Test.Models
             // Then
             Assert.AreEqual(coord.X, XValue, "Coordinate X value getted value must be same as setted value");
             Assert.AreEqual(coord.Y, YValue, "Coordinate Y value getted value must be same as setted value");
-        }
-
-        [Test]
-        public void CoordinatesDefaultConstructorMustInitializeTo0()
-        {
-            // Given
-            Coordinate coord;
-
-            // When
-            coord = new Coordinate();
-
-            // Then
-            Assert.AreEqual(coord.X, 0, "Coordinate X value getted value must be 0");
-            Assert.AreEqual(coord.Y, 0, "Coordinate Y value getted value must be 0");
         }
 
         [Test]

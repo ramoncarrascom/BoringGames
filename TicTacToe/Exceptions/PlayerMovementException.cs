@@ -1,8 +1,5 @@
 ﻿using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TicTacToe.Exceptions
 {

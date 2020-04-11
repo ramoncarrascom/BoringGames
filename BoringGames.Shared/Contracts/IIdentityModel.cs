@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BoringGames.Shared.Contracts
+﻿namespace BoringGames.Shared.Contracts
 {
     public interface IIdentityModel
     {

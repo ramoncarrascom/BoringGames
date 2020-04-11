@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BoringGames.Txt.Games
+﻿namespace BoringGames.Txt.Games
 {
     /// <summary>
     /// Interface for Boring Games

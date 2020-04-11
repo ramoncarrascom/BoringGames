@@ -1,10 +1,10 @@
 ﻿using BoringGames.Shared.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace BoringGames.Shared.Exceptions
 {
+    [Serializable]
     public class NotExistingValueException : BgException
     {
         public NotExistingValueException() : base() { }
@@ -12,5 +12,7 @@ namespace BoringGames.Shared.Exceptions
         public NotExistingValueException(string message) : base(message) { }
 
         public NotExistingValueException(string message, ErrorCode errorCode) : base(message, errorCode) { }
+
+        protected NotExistingValueException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }
