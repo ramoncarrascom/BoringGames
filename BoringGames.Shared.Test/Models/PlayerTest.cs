@@ -74,6 +74,17 @@ namespace BoringGames.Shared.Test.Models
         }
 
         [Test]
+        public void EqualsMustBeFalseIfComparedObjectIsNotPlayer()
+        {
+            // Given
+            Player player = new Player();
+            string compareTest = "Test";
+
+            // When / Then
+            Assert.AreEqual(player.Equals(compareTest), false, "Player equals must return false if compared object is not Player");
+        }
+
+        [Test]
         public void ClonedPlayersMustHaveSameData()
         {
             // Given
@@ -106,5 +117,54 @@ namespace BoringGames.Shared.Test.Models
             // Then
             Assert.IsTrue(player1.Equals(player2), "Cloned player must be Equal to original player");
         }
+
+        [Test]
+        public void AllParametersSet()
+        {
+            // Given
+            Player player1 = new Player();
+            long id = 1;
+            string name = "Test";
+            int points = 1000;
+            bool winner = true;
+
+
+            // When
+            player1.Id = id;
+            player1.Name = name;
+            player1.Points = points;
+            player1.Winner = true;
+
+            // Then
+            Assert.AreEqual(player1.Id, id, "Player's id must be setted one");
+            Assert.AreEqual(player1.Name, name, "Player's name must be setted one");
+            Assert.AreEqual(player1.Points, points, "Player's points must be setted ones");
+            Assert.AreEqual(player1.Winner, winner, "Player's winner flag must be setted one");
+        }
+
+        [Test]
+        public void PlayerConstructorSetsCorrectName()
+        {
+            // Given
+            string name = "Test";
+
+            // When
+            Player player = new Player(name);
+
+            // Then
+            Assert.AreEqual(player.Name, name, "Player's name must be constructor's one");
+        }
+
+        [Test]
+        public void PlayersHashCodeMustUseUsersGuid()
+        {
+            // Given
+            Player player = new Player();
+
+            // When/Then
+            Assert.AreEqual(player.GetHashCode(), HashCode.Combine(player.GuidId), "Player's hashcode must be Guid's one");
+        }
+
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace TicTacToe.Test.Data
     public class TicTacToeTest
     {
         IGrid grid;
+        Mock<IGrid> igridMock;
 
         [SetUp]
         public void GridStartup()
         {
             grid = new Grid();
+            igridMock = new Mock<IGrid>();
         }
 
         [Test]
@@ -178,6 +181,57 @@ namespace TicTacToe.Test.Data
 
             // When / Then
             Assert.DoesNotThrow(() => Guid.Parse(game.GetId().ToString()), "Game's GuidId must be a Guid");
+        }
+
+        [Test]
+        public void PlayerMoveMustSpreadExceptionWhenGridSetReturnsNotValidStateExceptionWithUnknownErrorCode()
+        {
+            // Given
+            ITicTacToe game = new TicTacToeImpl();
+            Player playerA = new Player();
+            Player playerB = new Player();
+            igridMock.Setup(m => m.Set(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CellPlayer>())).Throws(new NotValidStateException("", ErrorCode.UNKNOWN));
+
+            // When
+            game.StartGame(igridMock.Object, playerA, playerB);
+
+            // Then
+            NotValidStateException exc = Assert.Throws<NotValidStateException>(() => game.PlayerMove(playerA, new Coordinate(0, 0)), "PlayerMove must raise NotValidStateException");
+            Assert.AreEqual(exc.ErrorCode, ErrorCode.UNKNOWN, "Exception must have UNKNOWN error code");
+        }
+
+        [Test]
+        public void PlayerMoveMustReturnAnExceptionIfGridCheckReturnsNotValidPlayerValue()
+        {
+            // Given
+            ITicTacToe game = new TicTacToeImpl();
+            Player playerA = new Player();
+            Player playerB = new Player();
+            igridMock.Setup(m => m.Check()).Returns(CellPlayer.TEST_OTHER_PLAYER);
+
+            // When
+            game.StartGame(igridMock.Object, playerA, playerB);
+
+            // Then
+            NotValidStateException exc = Assert.Throws<NotValidStateException>(() => game.PlayerMove(playerA, new Coordinate(0, 0)), "PlayerMove must raise NotValidStateException");
+            Assert.AreEqual(exc.ErrorCode, ErrorCode.OUT_OF_RANGE, "Exception must have OUT_OF_RANGE error code");
+        }
+        
+        [Test]
+        public void GridIsFullMustRaiseAGameOverException()
+        {
+            // Given
+            ITicTacToe game = new TicTacToeImpl();
+            Player playerA = new Player();
+            Player playerB = new Player();
+            igridMock.Setup(m => m.IsFull()).Returns(true);
+            igridMock.Setup(m => m.Check()).Returns(CellPlayer.NONE);
+
+            // When
+            game.StartGame(igridMock.Object, playerA, playerB);
+
+            // Then
+            Assert.Throws<GameOverException>(() => game.PlayerMove(playerA, new Coordinate(0, 0)), "PlayerMove must raise GameOverException");
         }
     }
 }

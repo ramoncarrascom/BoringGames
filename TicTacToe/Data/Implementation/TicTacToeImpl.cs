@@ -56,7 +56,7 @@ namespace TicTacToe.Data.Implementation
                 if (winnerPlayer)
                     throw new TicTacToeGameOverException(winner.Name + " wins", winner, true);
                 else
-                    throw new NotValidStateException("There was a problem with players dictionary data");
+                    throw new NotValidStateException("There was a problem with players dictionary data", ErrorCode.OUT_OF_RANGE);
             }
 
             if (grid.IsFull())
@@ -81,7 +81,7 @@ namespace TicTacToe.Data.Implementation
             players.Add(CellPlayer.PLAYER_A, playerA);
             players.Add(CellPlayer.PLAYER_B, playerB);
 
-            bool result = players.TryGetValue(CellPlayer.PLAYER_A, out Player resp);
+            players.TryGetValue(CellPlayer.PLAYER_A, out Player resp);
 
             return resp;
         }
@@ -113,9 +113,6 @@ namespace TicTacToe.Data.Implementation
         {
             if (players == null || grid == null)
                 throw new NotValidStateException("Game is not correctly initialized");
-
-            if (!players.ContainsKey(CellPlayer.PLAYER_A) || !players.ContainsKey(CellPlayer.PLAYER_B))
-                throw new NotValidStateException("Players dictionary is not correctly initialized");
         }
 
         /// <inheritdoc/>

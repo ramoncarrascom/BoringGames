@@ -2,6 +2,7 @@
 {
     public enum ErrorCode
     {
+        UNKNOWN,
         NOT_AVAILABLE,
         VALUE_ALREADY_EXISTS,
         OUT_OF_RANGE,

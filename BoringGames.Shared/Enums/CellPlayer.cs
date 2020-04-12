@@ -5,6 +5,6 @@
     /// </summary>
     public enum CellPlayer
     {
-        PLAYER_A, PLAYER_B, NONE
+        PLAYER_A, PLAYER_B, NONE, TEST_OTHER_PLAYER
     }
 }
