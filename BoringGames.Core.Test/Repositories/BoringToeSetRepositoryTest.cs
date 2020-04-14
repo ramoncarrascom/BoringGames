@@ -15,7 +15,7 @@ namespace BoringGames.Core.Test.Repositories
         public void FirstGameAddMustReturn1()
         {
             // Given
-            ITicTacToe game = new TicTacToeImpl();
+            TicTacToeImpl game = new TicTacToeImpl();
             IBoringToeRepository repo = new BoringToeSetRepository();
             long id;
 
@@ -30,8 +30,8 @@ namespace BoringGames.Core.Test.Repositories
         public void SecondGameAddMustReturn2()
         {
             // Given
-            ITicTacToe game1 = new TicTacToeImpl();
-            ITicTacToe game2 = new TicTacToeImpl();
+            TicTacToeImpl game1 = new TicTacToeImpl();
+            TicTacToeImpl game2 = new TicTacToeImpl();
             IBoringToeRepository repo = new BoringToeSetRepository();
             long id;
 
@@ -47,7 +47,7 @@ namespace BoringGames.Core.Test.Repositories
         public void IfAGameAlreadyExistsItMustReturnDuplicatedValueException()
         {
             // Given
-            ITicTacToe game1 = new TicTacToeImpl();
+            TicTacToeImpl game1 = new TicTacToeImpl();
             IBoringToeRepository repo = new BoringToeSetRepository();
             long id;
 
@@ -77,8 +77,8 @@ namespace BoringGames.Core.Test.Repositories
             // Given
             IBoringToeRepository repo = new BoringToeSetRepository();
             long id;
-            ITicTacToe game = new TicTacToeImpl();
-            ITicTacToe testGame;
+            TicTacToeImpl game = new TicTacToeImpl();
+            TicTacToeImpl testGame;
 
             // When
             id = repo.AddGame(game);
@@ -115,7 +115,7 @@ namespace BoringGames.Core.Test.Repositories
         {
             // Given
             IBoringToeRepository repo = new BoringToeSetRepository();
-            ITicTacToe TicTacToe = new TicTacToeImpl();
+            TicTacToeImpl TicTacToe = new TicTacToeImpl();
             long id;
 
             // When

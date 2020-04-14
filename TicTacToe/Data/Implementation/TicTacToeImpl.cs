@@ -1,4 +1,5 @@
-﻿using BoringGames.Shared.Enums;
+﻿using BoringGames.Shared.Contracts;
+using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using System;
@@ -8,18 +9,20 @@ using TicTacToe.Exceptions;
 
 namespace TicTacToe.Data.Implementation
 {
-    public class TicTacToeImpl : ITicTacToe
+    public class TicTacToeImpl : ITicTacToe, IIdentityModel, ICloneable
     {
+        public long? Id { get; set; }
+
         private IDictionary<CellPlayer, Player> players;
         private IGrid grid;
-        private Guid id;
+        private readonly Guid guidId;        
 
         /// <summary>
         /// Constructor
         /// </summary>
         public TicTacToeImpl()
         {
-            id = Guid.NewGuid();
+            guidId = Guid.NewGuid();
         }
 
         /// <inheritdoc/>        
@@ -118,9 +121,12 @@ namespace TicTacToe.Data.Implementation
         /// <inheritdoc/>
         public Guid GetId()
         {
-            return Guid.Parse(id.ToString());
+            return Guid.Parse(guidId.ToString());
         }
 
+        /// <summary>
+        /// Inits triad collection for TicTacToe game
+        /// </summary>
         private void InitTriads(IGrid grid)
         {
             List<Triad> triads = new List<Triad>();
@@ -136,6 +142,53 @@ namespace TicTacToe.Data.Implementation
             triads.Add(new Triad(new Coordinate(2, 0), new Coordinate(1, 1), new Coordinate(0, 2)));
 
             grid.InitTriads(triads);
+        }
+
+        /// <summary>
+        /// Clone implementation
+        /// </summary>
+        public object Clone()
+        {
+            TicTacToeImpl resp = new TicTacToeImpl();
+
+            resp.Id = this.Id;
+            resp.players = new Dictionary<CellPlayer, Player>();
+
+            if (players != null && players.Count>0)
+                foreach (KeyValuePair<CellPlayer, Player> item in players)
+                    resp.players.Add(item.Key, (Player) item.Value.Clone());
+
+            resp.grid = this.grid;
+            resp.guidId = Guid.Parse(this.guidId.ToString());
+
+            return resp;
+        }
+
+        /// <summary>
+        /// Equals override
+        /// </summary>
+        /// <param name="obj">Object to compare</param>
+        /// <returns>True if objects are the same</returns>
+        public override bool Equals(object obj)
+        {
+            if (!(obj is TicTacToeImpl))
+                return false;
+
+            TicTacToeImpl other = (TicTacToeImpl)obj;
+
+            if (other.guidId.Equals(this.guidId))
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// GetHashCode override
+        /// </summary>
+        /// <returns>Returns hashcode</returns>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(guidId);
         }
     }
 }

@@ -75,7 +75,7 @@ namespace BoringGames.Shared.Models
 
             Player other = (Player)obj;
 
-            if (other.GuidId == this.GuidId)
+            if (other.GuidId.Equals(this.GuidId))
                 return true;
             else
                 return false;

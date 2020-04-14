@@ -1,5 +1,5 @@
 ﻿using System;
-using TicTacToe.Data;
+using TicTacToe.Data.Implementation;
 
 namespace BoringGames.Core.Repositories
 {
@@ -10,7 +10,7 @@ namespace BoringGames.Core.Repositories
         /// </summary>
         /// <param name="game">Game's data</param>
         /// <returns>New game's Id in repository</returns>
-        long AddGame(ITicTacToe game);
+        long AddGame(TicTacToeImpl game);
 
         /// <summary>
         /// Removes a game from the repository
@@ -23,13 +23,13 @@ namespace BoringGames.Core.Repositories
         /// </summary>
         /// <param name="guid">Game's guid identification</param>
         /// <returns>Returns game's info</returns>
-        ITicTacToe GetGameByGuid(Guid guid);
+        TicTacToeImpl GetGameByGuid(Guid guid);
 
         /// <summary>
         /// Gets referenced game info
         /// </summary>
         /// <param name="id">Game's id identification in repository</param>
         /// <returns>Returns game's info</returns>
-        ITicTacToe GetGameById(long id);
+        TicTacToeImpl GetGameById(long id);
     }
 }

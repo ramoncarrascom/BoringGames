@@ -1,28 +1,56 @@
-﻿using System;
-using TicTacToe.Data;
+﻿using BoringGames.Shared.Enums;
+using BoringGames.Shared.Exceptions;
+using BoringGames.Shared.Repositories.BaseClass;
+using System;
+using System.Linq;
+using TicTacToe.Data.Implementation;
 
 namespace BoringGames.Core.Repositories.Implementation
 {
-    public class BoringToeSetRepository : IBoringToeRepository
+    public class BoringToeSetRepository : SetBaseRepository<TicTacToeImpl>, IBoringToeRepository
     {
-        public long AddGame(ITicTacToe game)
+        /// <inheritdoc/>
+        public long AddGame(TicTacToeImpl game)
         {
-            throw new NotImplementedException();
+            long? resp;
+
+            if (!_set.Any(x => x.GetId().Equals(game.GetId())))
+                resp = Add(game);
+            else
+                throw new DuplicatedValueException("Game already exists in database", ErrorCode.VALUE_ALREADY_EXISTS_IN_DATABASE);
+
+            if (resp != null)
+                return (long)resp;
+            else
+                throw new RepositoryException("Repository didn't return an Id", ErrorCode.INVALID_STATE);
         }
 
+        /// <inheritdoc/>
         public void DeleteGame(long id)
         {
-            throw new NotImplementedException();
+            base.Delete(id);
         }
 
-        public ITicTacToe GetGameByGuid(Guid guid)
+        /// <inheritdoc/>
+        public TicTacToeImpl GetGameByGuid(Guid guid)
         {
-            throw new NotImplementedException();
+            TicTacToeImpl response = _set.FirstOrDefault(x => x.GetId().Equals(guid));
+
+            if (response != null)
+                return response;
+            else
+                throw new NotExistingValueException("Game not found", ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE);
         }
 
-        public ITicTacToe GetGameById(long id)
+        /// <inheritdoc/>
+        public TicTacToeImpl GetGameById(long id)
         {
-            throw new NotImplementedException();
+            TicTacToeImpl response = base.Get(id);
+
+            if (response != null)
+                return response;
+            else
+                throw new NotExistingValueException("Game not found", ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE);
         }
     }
 }
