@@ -13,7 +13,7 @@ namespace TicTacToe.Data.Implementation
     {
         public long? Id { get; set; }
 
-        private IDictionary<CellPlayer, Player> players;
+        private IDictionary<CellPlayer, Player> players = new Dictionary<CellPlayer, Player>();
         private IGrid grid;
         private readonly Guid guidId;        
 
@@ -163,7 +163,7 @@ namespace TicTacToe.Data.Implementation
             resp.Id = this.Id;
             resp.players = new Dictionary<CellPlayer, Player>();
 
-            if (players != null && players.Count>0)
+            if (players.Count>0)
                 foreach (KeyValuePair<CellPlayer, Player> item in players)
                     resp.players.Add(item.Key, (Player) item.Value.Clone());
 
