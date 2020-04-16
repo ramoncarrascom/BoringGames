@@ -1,4 +1,4 @@
-﻿namespace BoringGames.Shared.Services
+﻿namespace BoringGames.Core.Services
 {
     public interface IBoringToeService
     {

@@ -5,8 +5,4 @@
     <ProjectGuid>{971933cb-d110-45a1-ba17-6a5e46ba8d21}</ProjectGuid>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Implementation\" />
-  </ItemGroup>
-
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace BoringGames.Shared.Services
+﻿namespace BoringGames.Core.Services
 {
     /// <summary>
     /// Player service contract
