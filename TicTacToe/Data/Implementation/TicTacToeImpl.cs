@@ -25,6 +25,15 @@ namespace TicTacToe.Data.Implementation
             guidId = Guid.NewGuid();
         }
 
+        /// <summary>
+        /// Private constructor. Only available to assign the readonly variable Guid
+        /// </summary>
+        /// <param name="GuidId">Guid id</param>
+        private TicTacToeImpl(Guid GuidId)
+        {
+            this.guidId = GuidId;
+        }
+
         /// <inheritdoc/>        
         public IGrid GetGrid()
         {
@@ -149,7 +158,7 @@ namespace TicTacToe.Data.Implementation
         /// </summary>
         public object Clone()
         {
-            TicTacToeImpl resp = new TicTacToeImpl();
+            TicTacToeImpl resp = new TicTacToeImpl(Guid.Parse(this.guidId.ToString()));
 
             resp.Id = this.Id;
             resp.players = new Dictionary<CellPlayer, Player>();
@@ -159,7 +168,6 @@ namespace TicTacToe.Data.Implementation
                     resp.players.Add(item.Key, (Player) item.Value.Clone());
 
             resp.grid = this.grid;
-            resp.guidId = Guid.Parse(this.guidId.ToString());
 
             return resp;
         }
