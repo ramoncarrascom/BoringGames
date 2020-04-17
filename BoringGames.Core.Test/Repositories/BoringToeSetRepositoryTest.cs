@@ -72,7 +72,7 @@ namespace BoringGames.Core.Test.Repositories
         }
 
         [Test]
-        public void AfterAddingAGameItMustBeAccessable()
+        public void AfterAddingAGameItMustBeAccessableById()
         {
             // Given
             IBoringToeRepository repo = new BoringToeSetRepository();
@@ -83,6 +83,23 @@ namespace BoringGames.Core.Test.Repositories
             // When
             id = repo.AddGame(game);
             testGame = repo.GetGameById(id);
+
+            // Then
+            Assert.AreEqual(game, testGame, "Returned game must be the same as added one");
+        }
+
+        [Test]
+        public void AfterAddingAGameItMustBeAccessableByGuid()
+        {
+            // Given
+            IBoringToeRepository repo = new BoringToeSetRepository();
+            long id;
+            TicTacToeImpl game = new TicTacToeImpl();
+            TicTacToeImpl testGame;
+
+            // When
+            id = repo.AddGame(game);
+            testGame = repo.GetGameByGuid(game.GetId());
 
             // Then
             Assert.AreEqual(game, testGame, "Returned game must be the same as added one");

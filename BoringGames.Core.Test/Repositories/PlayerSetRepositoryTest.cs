@@ -71,7 +71,7 @@ namespace BoringGames.Core.Test.Repositories
         }
 
         [Test]
-        public void AfterAddingAPlayerItMustBeAccessable()
+        public void AfterAddingAPlayerItMustBeAccessableById()
         {
             // Given
             IPlayerRepository repo = new PlayerSetRepository();
@@ -82,6 +82,23 @@ namespace BoringGames.Core.Test.Repositories
             // When
             id = repo.AddPlayer(player);
             testPlayer = repo.GetPlayerById(id);
+
+            // Then
+            Assert.AreEqual(player, testPlayer, "Returned player must be the same as added one");
+        }
+
+        [Test]
+        public void AfterAddingAPlayerItMustBeAccessableByGuid()
+        {
+            // Given
+            IPlayerRepository repo = new PlayerSetRepository();
+            long id;
+            Player player = new Player("TestPlayer");
+            Player testPlayer;
+
+            // When
+            id = repo.AddPlayer(player);
+            testPlayer = repo.GetPlayerByGuid(player.GuidId);
 
             // Then
             Assert.AreEqual(player, testPlayer, "Returned player must be the same as added one");

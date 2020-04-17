@@ -39,13 +39,13 @@ namespace BoringGames.Shared.Models
         /// <param name="yCoord">Y component</param>
         public Coordinate(int xCoord, int yCoord)
         {
-            if (xCoord < int.MinValue)
+            if (xCoord <= int.MinValue)
                 throw new NotValidValueException("X coordinate can't be smaller than " + int.MinValue);
-            if (xCoord > int.MaxValue)
+            if (xCoord >= int.MaxValue)
                 throw new NotValidValueException("X coordinate can't be higher than " + int.MaxValue);
-            if (yCoord < int.MinValue)
+            if (yCoord <= int.MinValue)
                 throw new NotValidValueException("Y coordinate can't be smaller than " + int.MinValue);
-            if (yCoord > int.MaxValue)
+            if (yCoord >= int.MaxValue)
                 throw new NotValidValueException("Y coordinate can't be higher than " + int.MaxValue);
 
             _X = xCoord;

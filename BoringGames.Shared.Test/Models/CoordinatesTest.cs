@@ -1,10 +1,14 @@
-﻿using BoringGames.Shared.Models;
+﻿using BoringGames.Shared.Exceptions;
+using BoringGames.Shared.Models;
 using NUnit.Framework;
+using System;
 
 namespace BoringGames.Shared.Test.Models
 {
     public class CoordinatesTest
     {
+        private class FooClass { }
+
         [Test]
         public void XCoordinateAssignmentHappyPath()
         {
@@ -44,6 +48,50 @@ namespace BoringGames.Shared.Test.Models
             // Then
             Assert.AreEqual(coord.X, XValue, "Coordinate X value getted value must be same as setted value");
             Assert.AreEqual(coord.Y, YValue, "Coordinate Y value getted value must be same as setted value");
+        }
+
+        [Test]
+        public void CoordinatesConstructorAssignmentXLessThanMin()
+        {
+            // Given
+            int XValue = int.MinValue;
+            int YValue = 20;
+
+            // When / Then
+            Assert.Throws<NotValidValueException>(() => new Coordinate(XValue, YValue), "Coordinate X less or equal than min must raise exception");
+        }
+
+        [Test]
+        public void CoordinatesConstructorAssignmentYLessThanMin()
+        {
+            // Given
+            int XValue = 10;
+            int YValue = int.MinValue;
+
+            // When / Then
+            Assert.Throws<NotValidValueException>(() => new Coordinate(XValue, YValue), "Coordinate Y less or equal than min must raise exception");
+        }
+
+        [Test]
+        public void CoordinatesConstructorAssignmentXHigherThanMax()
+        {
+            // Given
+            int XValue = int.MaxValue;
+            int YValue = 20;
+
+            // When / Then
+            Assert.Throws<NotValidValueException>(() => new Coordinate(XValue, YValue), "Coordinate X higher or equal than min must raise exception");
+        }
+
+        [Test]
+        public void CoordinatesConstructorAssignmentYHigherThanMax()
+        {
+            // Given
+            int XValue = 10;
+            int YValue = int.MaxValue;
+
+            // When / Then
+            Assert.Throws<NotValidValueException>(() => new Coordinate(XValue, YValue), "Coordinate Y higher or equal than min must raise exception");
         }
 
         [Test]
@@ -118,6 +166,32 @@ namespace BoringGames.Shared.Test.Models
             // Then
             Assert.IsTrue(original.X == coordX, "Cloned X must be same as Original X");
             Assert.IsTrue(original.Y == coordY, "Cloned Y must be same as Original Y");
+        }
+
+        [Test]
+        public void HashCodeCalculationMustBeOk()
+        {
+            // Given
+            int XValue = 10;
+            int YValue = 20;
+
+            // When
+            Coordinate coord = new Coordinate(XValue, YValue);
+
+            // Then
+            Assert.AreEqual(coord.GetHashCode(), HashCode.Combine(XValue, YValue), "HashCode must use HashCode Combine");
+        }
+
+        [Test]
+        public void EqualsMustReturnFalseIfCheckedObjectIsNotCoordinate()
+        {
+            // Given
+            Coordinate coord = new Coordinate(10, 20);
+            FooClass foo = new FooClass();
+
+            // When / Then
+            Assert.IsFalse(coord.Equals(foo), "Equals must return false if checked object is from a different class");
+
         }
     }
 }
