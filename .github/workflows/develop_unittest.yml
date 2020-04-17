@@ -1,10 +1,10 @@
-name: .NET Core
+name: Devel Unit Test
 
 on:
   push:
-    branches: [ develop, master ]
+    branches: [ develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -21,9 +21,9 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Test 1
+    - name: Test BoringGames Core
       run: dotnet test --no-restore --verbosity normal /home/runner/work/BoringGames/BoringGames/BoringGames.Core.Test/BoringGames.Core.Test.csproj
-    - name: Test 2
+    - name: Test BoringGames Shared
       run: dotnet test --no-restore --verbosity normal /home/runner/work/BoringGames/BoringGames/BoringGames.Shared.Test/BoringGames.Shared.Test.csproj
-    - name: Test 3
+    - name: Test TicTacToe
       run: dotnet test --no-restore --verbosity normal /home/runner/work/BoringGames/BoringGames/TicTacToe.Test/TicTacToe.Test.csproj
