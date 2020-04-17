@@ -36,3 +36,4 @@ msbuild.wrn
 /TestResults
 /Coverage.cmd
 /SonarAnalysis.cmd
+/CoverageResults
