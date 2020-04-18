@@ -1,7 +1,7 @@
 ﻿using BoringGames.Shared.Exceptions;
 using BoringGames.Txt.Games;
-using BoringGames.Txt.Games.BoringToeHelper;
-using BoringGames.Txt.Games.BoringToeHelper.Implementation;
+using BoringGames.Txt.Games.Helper;
+using BoringGames.Txt.Games.Helper.Implementation;
 using BoringGames.Txt.Helper;
 using BoringGames.Txt.Helper.Implementation;
 using System;

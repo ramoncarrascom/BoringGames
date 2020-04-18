@@ -1,7 +1,7 @@
 ﻿using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
-using BoringGames.Txt.Games.BoringToeHelper;
+using BoringGames.Txt.Games.Helper;
 using System;
 using TicTacToe.Data;
 using TicTacToe.Data.Implementation;

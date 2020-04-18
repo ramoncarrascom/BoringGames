@@ -1,4 +1,4 @@
-﻿namespace BoringGames.Txt.Games.BoringToeHelper
+﻿namespace BoringGames.Txt.Games.Helper
 {
     /// <summary>
     /// Contract for Boring Toe Helper

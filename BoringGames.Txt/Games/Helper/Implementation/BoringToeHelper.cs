@@ -1,6 +1,6 @@
 ﻿using BoringGames.Txt.Helper;
 
-namespace BoringGames.Txt.Games.BoringToeHelper.Implementation
+namespace BoringGames.Txt.Games.Helper.Implementation
 {
     /// <summary>
     /// Boring Toe Helper class implementation

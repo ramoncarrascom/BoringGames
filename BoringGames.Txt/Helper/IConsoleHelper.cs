@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BoringGames.Txt.Helper
+﻿namespace BoringGames.Txt.Helper
 {
     /// <summary>
     /// Contract for Console Helper class
