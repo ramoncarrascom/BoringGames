@@ -1,6 +1,7 @@
 ﻿using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
+using BoringGames.Txt.Games.BoringToeHelper;
 using System;
 using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
@@ -9,25 +10,27 @@ using TicTacToe.Exceptions;
 namespace BoringGames.Txt.Games
 {
     /// <summary>
-    /// BoringToe main game
+    /// BoringToe main _game
     /// </summary>
     public class BoringToe : IBoringGame
     {
-        private readonly ITicTacToe game;
-        private readonly Player player1;
-        private readonly Player player2;
-        private readonly IGrid grid;
+        private readonly ITicTacToe _game;
+        private readonly Player _player1;
+        private readonly Player _player2;
+        private readonly IGrid _grid;
+        private readonly IBoringToeHelper _boringToeHelper;
         private Player currentPlayer;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public BoringToe()
+        public BoringToe(IBoringToeHelper boringToeHelper)
         {
-            this.game = new TicTacToeImpl();
-            this.player1 = new Player();
-            this.player2 = new Player();
-            this.grid = new Grid();
+            _game = new TicTacToeImpl();
+            _player1 = new Player();
+            _player2 = new Player();
+            _grid = new Grid();
+            _boringToeHelper = boringToeHelper;
         }
 
         /// <summary>
@@ -43,11 +46,11 @@ namespace BoringGames.Txt.Games
             {
                 while (true)
                 {
-                    Console.WriteLine(game.GetGrid().StringGrid() + "\n");
+                    Console.WriteLine(_game.GetGrid().StringGrid() + "\n");
                     try
                     {
 
-                        currentPlayer = game.PlayerMove(currentPlayer, GetPlayersCoordinates(currentPlayer));
+                        currentPlayer = _game.PlayerMove(currentPlayer, GetPlayersCoordinates(currentPlayer));
 
                     } catch (PlayerMovementException pme)
                     {
@@ -73,7 +76,7 @@ namespace BoringGames.Txt.Games
         /// <summary>
         /// Shows welcome messages
         /// </summary>
-        private void ShowWelcome()
+        protected void ShowWelcome()
         {
             Console.WriteLine("Welcome to BoringToe");
             Console.WriteLine("--------------------");
@@ -82,21 +85,12 @@ namespace BoringGames.Txt.Games
         /// <summary>
         /// Configures players
         /// </summary>
-        private void ConfigurePlayers()
+        protected void ConfigurePlayers()
         {
-            Console.Write("Please insert Player 1 name (Default: 'Player 1'): ");
-            player1.Name = Console.ReadLine();
-            if (player1.Name.Length == 0)
-                player1.Name = "Player 1";
+            _player1.Name = _boringToeHelper.GetPlayerAName();
+            _player2.Name = _boringToeHelper.GetPlayerBName();
 
-            Console.Write("And now insert Player 2 name (Default: 'Player 2'): ");
-            player2.Name = Console.ReadLine();
-            if (player2.Name.Length == 0)
-                player2.Name = "Player 2";
-
-            Console.WriteLine("Anytime you can use q to quit");
-
-            currentPlayer = game.StartGame(grid, player1, player2);
+            currentPlayer = _game.StartGame(_grid, _player1, _player2);
         }
 
         /// <summary>
@@ -104,45 +98,13 @@ namespace BoringGames.Txt.Games
         /// </summary>
         /// <param name="player">Current player</param>
         /// <returns>New Coordinate object with player's coordinates</returns>
-        private Coordinate GetPlayersCoordinates(Player player)
+        protected Coordinate GetPlayersCoordinates(Player player)
         {
-            int X = GetNumber(player.Name + " set horizontal coordinate (0..2) ", 0, 2);
-            int Y = GetNumber(player.Name + " set vertical coordinate (0..2) ", 0, 2);
+            int X = _boringToeHelper.GetXCoordinate(player.Name);
+            int Y = _boringToeHelper.GetYCoordinate(player.Name);
 
             return new Coordinate(X, Y);
-        }
-
-        /// <summary>
-        /// Shows a prompt and asks for a number between min and max
-        /// </summary>
-        /// <param name="text">Prompt text</param>
-        /// <param name="min">Min value</param>
-        /// <param name="max">Max value</param>
-        /// <returns>int number of user's input</returns>
-        /// <exception cref="UserCancelException">Thrown when user answers Q</exception>
-        private int GetNumber(string text, int min, int max)
-        {
-            bool itsOk = false;
-            int resp = 0;
-
-            while (!itsOk)
-            {
-                Console.Write(text);
-                string userText = Console.ReadLine();
-
-                if (userText.ToUpper().Equals("Q"))
-                    throw new UserCancelException();
-
-                itsOk = int.TryParse(userText, out resp);
-
-                if (itsOk && !(resp >= min && resp <= max))
-                        itsOk = false;
-
-                if (!itsOk)
-                    Console.WriteLine("Oops... That's not a correct answer");
-            }
-
-            return resp;
-        }
+        } 
+ 
     }
 }

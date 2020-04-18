@@ -1,5 +1,9 @@
 ﻿using BoringGames.Shared.Exceptions;
 using BoringGames.Txt.Games;
+using BoringGames.Txt.Games.BoringToeHelper;
+using BoringGames.Txt.Games.BoringToeHelper.Implementation;
+using BoringGames.Txt.Helper;
+using BoringGames.Txt.Helper.Implementation;
 using System;
 
 namespace BoringGames.Txt
@@ -28,7 +32,10 @@ namespace BoringGames.Txt
 
             try
             {
-                p.game = new BoringToe();
+                IConsoleWrapper cwrap = new ConsoleWrapper();
+                IConsoleHelper chelp = new ConsoleHelper(cwrap);
+                IBoringToeHelper bhelp = new BoringToeHelper(chelp);
+                p.game = new BoringToe(bhelp);
                 p.game.Run();
             } catch (BgException bge)
             {

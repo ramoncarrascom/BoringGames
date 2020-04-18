@@ -6,7 +6,7 @@
     public interface IBoringGame
     {
         /// <summary>
-        /// Runs the game
+        /// Runs the _game
         /// </summary>
         void Run();
     }
