@@ -4,7 +4,7 @@ using BoringGames.Txt.Helper;
 using Moq;
 using NUnit.Framework;
 
-namespace BoringGames.Txt.Test.Games
+namespace BoringGames.Txt.Test.Games.Helper
 {
     public class BoringToeHelperTest
     {

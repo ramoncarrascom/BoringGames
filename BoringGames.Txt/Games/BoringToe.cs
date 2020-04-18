@@ -14,12 +14,12 @@ namespace BoringGames.Txt.Games
     /// </summary>
     public class BoringToe : IBoringGame
     {
-        private readonly ITicTacToe _game;
-        private readonly Player _player1;
-        private readonly Player _player2;
-        private readonly IGrid _grid;
-        private readonly IBoringToeHelper _boringToeHelper;
-        private Player currentPlayer;
+        protected readonly ITicTacToe _game;
+        protected readonly Player _player1;
+        protected readonly Player _player2;
+        protected readonly IGrid _grid;
+        protected readonly IBoringToeHelper _boringToeHelper;
+        protected Player currentPlayer;
 
         /// <summary>
         /// Constructor
