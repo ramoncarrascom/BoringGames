@@ -19,6 +19,21 @@ namespace BoringGames.Core.Models.BoringToe
         public IGrid Grid { get; set; }
 
         /// <summary>
+        /// Winner player
+        /// </summary>
+        public Player Winner { get; set; }
+
+        /// <summary>
+        /// Game over flag
+        /// </summary>
+        public bool GameOver { get; set; }
+
+        /// <summary>
+        /// Canceled flag
+        /// </summary>
+        public bool Canceled { get; set; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public BoringToeMoveResponseDataModel(Player player, IGrid grid)
