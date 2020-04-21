@@ -8,7 +8,6 @@ using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using Moq;
 using NUnit.Framework;
-using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
 using TicTacToe.Exceptions;
 
@@ -29,7 +28,6 @@ namespace BoringGames.Core.Test.Services
         }
 
         [Test]
-        [Ignore("Implementation pending", Until ="Tomorrow")]
         public void NewGameMustReturnGameIdInRepo()
         {
             // Given
@@ -48,6 +46,40 @@ namespace BoringGames.Core.Test.Services
             Assert.AreEqual(mockedGameId, resp, "Added game Id must be mocked one");
             playerMock.Verify(m => m.GetPlayerById(It.IsAny<long>()), Times.Exactly(2), "Must call 2 times to player repository get");
             gameMock.Verify(m => m.AddGame(It.IsAny<TicTacToeImpl>()), Times.Once, "Must call game repository add game once");
+        }
+
+        [Test]
+        public void NewGameExceptionMustBeThrownWhenPlayerANotExistsInDatabase()
+        {
+            // Given
+            playerMock.SetupSequence(m => m.GetPlayerById(It.IsAny<long>()))
+                .Throws(new NotExistingValueException("",ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE))
+                .Returns(new Player(""));
+
+            // When
+            IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
+
+            // Then
+            NotExistingValueException resp = Assert.Throws<NotExistingValueException>(() => service.NewGame(10, 20), "New game must raise an exception");
+            Assert.AreEqual(ErrorCode.PLAYER_A_NOT_EXISTING, resp.ErrorCode, "Exception's error code must be PLAYER_A_NOT_EXISTING");
+            playerMock.Verify(m => m.GetPlayerById(It.IsAny<long>()), Times.Exactly(1), "Must call 1 time to player repository get");
+        }
+
+        [Test]
+        public void NewGameExceptionMustBeThrownWhenPlayerBNotExistsInDatabase()
+        {
+            // Given
+            playerMock.SetupSequence(m => m.GetPlayerById(It.IsAny<long>()))
+                .Returns(new Player(""))
+                .Throws(new NotExistingValueException("", ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE));
+
+            // When
+            IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
+
+            // Then
+            NotExistingValueException resp = Assert.Throws<NotExistingValueException>(() => service.NewGame(10, 20), "New game must raise an exception");
+            Assert.AreEqual(ErrorCode.PLAYER_B_NOT_EXISTING, resp.ErrorCode, "Exception's error code must be PLAYER_B_NOT_EXISTING");
+            playerMock.Verify(m => m.GetPlayerById(It.IsAny<long>()), Times.Exactly(2), "Must call 2 times to player repository get");
         }
 
         [Test]
@@ -140,7 +172,7 @@ namespace BoringGames.Core.Test.Services
             // Then
             Assert.IsNull(resp.Player, "Response's player must be mocked one");
             Assert.AreEqual(true, resp.GameOver, "Response's game over flag must be true");
-            Assert.AreEqual(false, resp.Winner, "Response's winner flag must be false");
+            Assert.AreEqual(false, resp.Winner, "Response's winner flag must be true");
             Assert.AreEqual(false, resp.Repeat, "Response's repeat flag must be false");
             tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");
             gameMock.Verify(m => m.GetGameById(It.IsAny<long>()), Times.Once, "Must call game repository get game once");
