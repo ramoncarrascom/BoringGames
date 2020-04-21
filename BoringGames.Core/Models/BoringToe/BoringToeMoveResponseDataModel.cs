@@ -29,9 +29,9 @@ namespace BoringGames.Core.Models.BoringToe
         public bool GameOver { get; set; }
 
         /// <summary>
-        /// Canceled flag
+        /// Player must repeat
         /// </summary>
-        public bool Canceled { get; set; }
+        public bool Repeat { get; set; }
 
         /// <summary>
         /// Constructor
