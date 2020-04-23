@@ -51,7 +51,7 @@ namespace BoringGames.Core.Services.Implementation
             {
                 responsePlayer = game.PlayerMove(player, new Coordinate(xCoord, yCoord));
             }
-            catch (TicTacToeGameOverException)
+            catch (TicTacToeGameOverException tttgoe)
             {
                 return GenerateGameOverWinnerResponseData(tttgoe.Player, game.GetGrid());
             }
