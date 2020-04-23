@@ -89,14 +89,18 @@ namespace BoringGames.Core.Test.Services
         public void PlayerMoveMustReturnNextPlayer()
         {
             // Given
+            string gridString = "AAABBBAAA";
+            gridMock.Setup(m => m.ToString())
+                .Returns(gridString);
             Player respPlayer = new Player();
             tictacMock.Setup(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()))
                 .Returns(respPlayer);
-            string gridString = "AAABBBAAA";
-            tictacMock.Setup(m => m.ToString())
-                .Returns(gridString);
+            tictacMock.Setup(m => m.GetGrid())
+                .Returns(gridMock.Object);
             gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
                 .Returns(tictacMock.Object);
+            playerMock.Setup(m => m.GetPlayerById(It.IsAny<long>()))
+                .Returns(respPlayer);
 
             // When
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
@@ -105,7 +109,7 @@ namespace BoringGames.Core.Test.Services
             // Then
             Assert.AreEqual(respPlayer, resp.Player, "Response's player must be mocked one");
             Assert.AreEqual(false, resp.GameOver, "Response's game over flag must be false");
-            Assert.AreEqual(false, resp.Winner, "Response's winner flag must be false");
+            Assert.IsNull(resp.Winner, "Response's winner data must be null");
             Assert.AreEqual(false, resp.Repeat, "Response's repeat flag must be false");
             Assert.AreEqual(gridString, resp.Grid, "Response's grid must be mocked one");
             tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");
@@ -126,6 +130,8 @@ namespace BoringGames.Core.Test.Services
                 .Returns(gridMock.Object);
             gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
                 .Returns(tictacMock.Object);
+            playerMock.Setup(m => m.GetPlayerById(It.IsAny<long>()))
+                .Returns(respPlayer);
 
             // When
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
@@ -134,7 +140,7 @@ namespace BoringGames.Core.Test.Services
             // Then
             Assert.AreEqual(respPlayer, resp.Player, "Response's player must be mocked one");
             Assert.AreEqual(false, resp.GameOver, "Response's game over flag must be false");
-            Assert.AreEqual(false, resp.Winner, "Response's winner flag must be false");
+            Assert.IsNull(resp.Winner, "Response's winner info must be null");
             Assert.AreEqual(true, resp.Repeat, "Response's repeat flag must be true");
             Assert.AreEqual(gridString, resp.Grid, "Response's grid must be mocked one");
             tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");
@@ -177,11 +183,13 @@ namespace BoringGames.Core.Test.Services
         {
             // Given
             Player respPlayer = new Player();
+            string gridString = "AAABBBAAA";
+            gridMock.Setup(m => m.ToString())
+                .Returns(gridString);
             tictacMock.Setup(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()))
                 .Throws(new GameOverException(""));
-            string gridString = "AAABBBAAA";
-            tictacMock.Setup(m => m.ToString())
-                .Returns(gridString);
+            tictacMock.Setup(m => m.GetGrid())
+                .Returns(gridMock.Object);
             gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
                 .Returns(tictacMock.Object);
 
@@ -192,7 +200,7 @@ namespace BoringGames.Core.Test.Services
             // Then
             Assert.IsNull(resp.Player, "Response's player must be null");
             Assert.AreEqual(true, resp.GameOver, "Response's game over flag must be true");
-            Assert.AreEqual(false, resp.Winner, "Response's winner flag must be true");
+            Assert.IsNull(resp.Winner, "Response's winner must be null");
             Assert.AreEqual(false, resp.Repeat, "Response's repeat flag must be false");
             Assert.AreEqual(gridString, resp.Grid, "Response's grid must be mocked one");
             tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");

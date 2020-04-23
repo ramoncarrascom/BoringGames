@@ -51,11 +51,19 @@ namespace BoringGames.Core.Services.Implementation
             try
             {
                 responsePlayer = game.PlayerMove(player, new Coordinate(xCoord, yCoord));
-            } catch (TicTacToeGameOverException tttgoe)
+            }
+            catch (TicTacToeGameOverException tttgoe)
             {
                 return GenerateGameOverWinnerResponseData(tttgoe.Player, game.GetGrid());
             }
-
+            catch (PlayerMovementException pme)
+            {
+                return GenerateRepeatUserResponseData(player, game.GetGrid());
+            }
+            catch (GameOverException goe)
+            {
+                return GenerateGameOverNoWinnerResponseData(game.GetGrid());
+            }
 
             return GenerateOkNextPlayerResponseData(responsePlayer, game.GetGrid());
         }
@@ -128,9 +136,9 @@ namespace BoringGames.Core.Services.Implementation
         }
 
         /// <summary>
-        /// Generates Ok response data object
+        /// Generates Ok Game Over Winner response data object
         /// </summary>
-        /// <param name="player">Next player</param>
+        /// <param name="player">Winner player</param>
         /// <param name="grid">Grid</param>
         /// <returns>Service response data</returns>
         private BoringToeMoveResponseDataModel GenerateGameOverWinnerResponseData(Player player, IGrid grid)
@@ -139,6 +147,39 @@ namespace BoringGames.Core.Services.Implementation
             resp.GameOver = true;
             resp.Repeat = false;
             resp.Winner = player;
+            resp.Grid = grid.ToString();
+
+            return resp;
+        }
+
+        /// <summary>
+        /// Generates Game Over no winner response data object
+        /// </summary>
+        /// <param name="grid">Grid</param>
+        /// <returns>Service response data</returns>
+        private BoringToeMoveResponseDataModel GenerateGameOverNoWinnerResponseData(IGrid grid)
+        {
+            BoringToeMoveResponseDataModel resp = new BoringToeMoveResponseDataModel(null, grid);
+            resp.GameOver = true;
+            resp.Repeat = false;
+            resp.Winner = null;
+            resp.Grid = grid.ToString();
+
+            return resp;
+        }
+
+        /// <summary>
+        /// Generates user repeat response data object
+        /// </summary>
+        /// <param name="player">Player info</param>
+        /// <param name="grid">Grid</param>
+        /// <returns>Service response data</returns>
+        private BoringToeMoveResponseDataModel GenerateRepeatUserResponseData(Player player, IGrid grid)
+        {
+            BoringToeMoveResponseDataModel resp = new BoringToeMoveResponseDataModel(player, grid);
+            resp.GameOver = false;
+            resp.Repeat = true;
+            resp.Winner = null;
             resp.Grid = grid.ToString();
 
             return resp;
