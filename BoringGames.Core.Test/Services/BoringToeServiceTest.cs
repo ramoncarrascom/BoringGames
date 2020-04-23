@@ -8,6 +8,7 @@ using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using Moq;
 using NUnit.Framework;
+using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
 using TicTacToe.Exceptions;
 
@@ -17,14 +18,16 @@ namespace BoringGames.Core.Test.Services
     {
         private Mock<IPlayerRepository> playerMock;
         private Mock<IBoringToeRepository> gameMock;
-        private Mock<TicTacToeImpl> tictacMock;
+        private Mock<ITicTacToe> tictacMock;
+        private Mock<IGrid> gridMock;
 
         [SetUp]
         public void SetUp()
         {
             playerMock = new Mock<IPlayerRepository>();
             gameMock = new Mock<IBoringToeRepository>();
-            tictacMock = new Mock<TicTacToeImpl>();
+            tictacMock = new Mock<ITicTacToe>();
+            gridMock = new Mock<IGrid>();
         }
 
         [Test]
@@ -60,7 +63,7 @@ namespace BoringGames.Core.Test.Services
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
 
             // Then
-            NotExistingValueException resp = Assert.Throws<NotExistingValueException>(() => service.NewGame(10, 20), "New game must raise an exception");
+            NotValidValueException resp = Assert.Throws<NotValidValueException>(() => service.NewGame(10, 20), "New game must raise an exception");
             Assert.AreEqual(ErrorCode.PLAYER_A_NOT_EXISTING, resp.ErrorCode, "Exception's error code must be PLAYER_A_NOT_EXISTING");
             playerMock.Verify(m => m.GetPlayerById(It.IsAny<long>()), Times.Exactly(1), "Must call 1 time to player repository get");
         }
@@ -77,19 +80,21 @@ namespace BoringGames.Core.Test.Services
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
 
             // Then
-            NotExistingValueException resp = Assert.Throws<NotExistingValueException>(() => service.NewGame(10, 20), "New game must raise an exception");
+            NotValidValueException resp = Assert.Throws<NotValidValueException>(() => service.NewGame(10, 20), "New game must raise an exception");
             Assert.AreEqual(ErrorCode.PLAYER_B_NOT_EXISTING, resp.ErrorCode, "Exception's error code must be PLAYER_B_NOT_EXISTING");
             playerMock.Verify(m => m.GetPlayerById(It.IsAny<long>()), Times.Exactly(2), "Must call 2 times to player repository get");
         }
 
         [Test]
-        [Ignore("Implementation pending", Until = "Tomorrow")]
         public void PlayerMoveMustReturnNextPlayer()
         {
             // Given
             Player respPlayer = new Player();
             tictacMock.Setup(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()))
                 .Returns(respPlayer);
+            string gridString = "AAABBBAAA";
+            tictacMock.Setup(m => m.ToString())
+                .Returns(gridString);
             gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
                 .Returns(tictacMock.Object);
 
@@ -102,18 +107,23 @@ namespace BoringGames.Core.Test.Services
             Assert.AreEqual(false, resp.GameOver, "Response's game over flag must be false");
             Assert.AreEqual(false, resp.Winner, "Response's winner flag must be false");
             Assert.AreEqual(false, resp.Repeat, "Response's repeat flag must be false");
+            Assert.AreEqual(gridString, resp.Grid, "Response's grid must be mocked one");
             tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");
             gameMock.Verify(m => m.GetGameById(It.IsAny<long>()), Times.Once, "Must call game repository get game once");
         }
 
         [Test]
-        [Ignore("Implementation pending", Until = "Tomorrow")]
         public void PlayerMoveMustRetryIfPlayerMovementExceptionIsRaised()
         {
             // Given
             Player respPlayer = new Player();
+            string gridString = "AAABBBAAA";
+            gridMock.Setup(m => m.ToString())
+                .Returns(gridString);
             tictacMock.Setup(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()))
                 .Throws(new PlayerMovementException("", ErrorCode.MOVEMENT_ERROR_MUST_RETRY));
+            tictacMock.Setup(m => m.GetGrid())
+                .Returns(gridMock.Object);
             gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
                 .Returns(tictacMock.Object);
 
@@ -126,18 +136,25 @@ namespace BoringGames.Core.Test.Services
             Assert.AreEqual(false, resp.GameOver, "Response's game over flag must be false");
             Assert.AreEqual(false, resp.Winner, "Response's winner flag must be false");
             Assert.AreEqual(true, resp.Repeat, "Response's repeat flag must be true");
+            Assert.AreEqual(gridString, resp.Grid, "Response's grid must be mocked one");
             tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");
             gameMock.Verify(m => m.GetGameById(It.IsAny<long>()), Times.Once, "Must call game repository get game once");
         }
 
         [Test]
-        [Ignore("Implementation pending", Until = "Tomorrow")]
         public void PlayerWinsIfGameOverWinConditionIsRaised()
         {
             // Given
+            string gridString = "AAABBBAAA";
+            gridMock.Setup(m => m.ToString())
+                .Returns(gridString);
             Player respPlayer = new Player();
             tictacMock.Setup(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()))
                 .Throws(new TicTacToeGameOverException("", respPlayer, true));
+            tictacMock.Setup(m => m.GetGrid())
+                .Returns(gridMock.Object);
+            playerMock.SetupSequence(m => m.GetPlayerById(It.IsAny<long>()))
+                .Returns(respPlayer);
             gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
                 .Returns(tictacMock.Object);
 
@@ -148,20 +165,23 @@ namespace BoringGames.Core.Test.Services
             // Then
             Assert.AreEqual(respPlayer, resp.Player, "Response's player must be mocked one");
             Assert.AreEqual(true, resp.GameOver, "Response's game over flag must be true");
-            Assert.AreEqual(true, resp.Winner, "Response's winner flag must be true");
+            Assert.AreEqual(respPlayer, resp.Winner, "Response's winner player must be mocked one");
             Assert.AreEqual(false, resp.Repeat, "Response's repeat flag must be false");
+            Assert.AreEqual(gridString, resp.Grid, "Response's grid must be mocked one");
             tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");
             gameMock.Verify(m => m.GetGameById(It.IsAny<long>()), Times.Once, "Must call game repository get game once");
         }
 
         [Test]
-        [Ignore("Implementation pending", Until = "Tomorrow")]
         public void NoneWinsIfGameOverConditionIsRaised()
         {
             // Given
             Player respPlayer = new Player();
             tictacMock.Setup(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()))
                 .Throws(new GameOverException(""));
+            string gridString = "AAABBBAAA";
+            tictacMock.Setup(m => m.ToString())
+                .Returns(gridString);
             gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
                 .Returns(tictacMock.Object);
 
@@ -170,13 +190,69 @@ namespace BoringGames.Core.Test.Services
             BoringToeMoveResponseDataModel resp = service.PlayerMove(1, 1, 1, 1);
 
             // Then
-            Assert.IsNull(resp.Player, "Response's player must be mocked one");
+            Assert.IsNull(resp.Player, "Response's player must be null");
             Assert.AreEqual(true, resp.GameOver, "Response's game over flag must be true");
             Assert.AreEqual(false, resp.Winner, "Response's winner flag must be true");
             Assert.AreEqual(false, resp.Repeat, "Response's repeat flag must be false");
+            Assert.AreEqual(gridString, resp.Grid, "Response's grid must be mocked one");
             tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");
             gameMock.Verify(m => m.GetGameById(It.IsAny<long>()), Times.Once, "Must call game repository get game once");
         }
+
+        [Test]
+        public void IfPlayerDoesntExistInGameExceptionMustBeRethrown()
+        {
+            // Given            
+            tictacMock.Setup(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()))
+                .Throws(new NotValidValueException("",ErrorCode.PLAYER_NOT_EXISTS));
+            gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
+                .Returns(tictacMock.Object);
+
+            // When
+            IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
+
+            // Then
+            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => service.PlayerMove(1, 1, 1, 1), "Player move must raise NotValidValueException");
+            Assert.AreEqual(ErrorCode.PLAYER_NOT_EXISTS, exc.ErrorCode, "Exception's code must be PLAYER_NOT_EXISTS");            
+            tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");
+            gameMock.Verify(m => m.GetGameById(It.IsAny<long>()), Times.Once, "Must call game repository get game once");
+        }
+
+        [Test]
+        public void IfGameDoesntExistInRepoExceptionMustBeThrown()
+        {
+            // Given            
+            playerMock.Setup(m => m.GetPlayerById(It.IsAny<long>()))
+                .Returns(new Player(""));
+            gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
+                .Throws(new NotExistingValueException("",ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE));
+
+            // When
+            IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
+
+            // Then
+            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => service.PlayerMove(1, 1, 1, 1), "Player move must raise NotValidValueException");
+            Assert.AreEqual(ErrorCode.GAME_NOT_EXISTS, exc.ErrorCode, "Exception's code must be GAME_NOT_EXISTS");
+            gameMock.Verify(m => m.GetGameById(It.IsAny<long>()), Times.Once, "Must call game repository get game once");
+        }
+
+        [Test]
+        public void IfPlayerDoesntExistInRepoExceptionMustBeThrown()
+        {
+            // Given            
+            playerMock.Setup(m => m.GetPlayerById(It.IsAny<long>()))
+                .Throws(new NotExistingValueException("", ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE));
+            gameMock.Setup(m => m.GetGameById(It.IsAny<long>()))
+                .Returns(tictacMock.Object);
+
+            // When
+            IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
+
+            // Then
+            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => service.PlayerMove(1, 1, 1, 1), "Player move must raise NotValidValueException");
+            Assert.AreEqual(ErrorCode.PLAYER_NOT_EXISTS, exc.ErrorCode, "Exception's code must be PLAYER_NOT_EXISTS");
+        }
+
 
     }
 }

@@ -14,9 +14,9 @@ namespace BoringGames.Core.Models.BoringToe
         public Player Player { get; set; }
 
         /// <summary>
-        /// Grid data
+        /// Grid representation
         /// </summary>
-        public IGrid Grid { get; set; }
+        public string Grid { get; set; }
 
         /// <summary>
         /// Winner player
@@ -39,7 +39,7 @@ namespace BoringGames.Core.Models.BoringToe
         public BoringToeMoveResponseDataModel(Player player, IGrid grid)
         {
             Player = player;
-            Grid = grid;
+            Grid = grid.ToString();
         }
     }
 }

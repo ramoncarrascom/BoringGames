@@ -3,14 +3,15 @@ using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Repositories.BaseClass;
 using System;
 using System.Linq;
+using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
 
 namespace BoringGames.Core.Repositories.Implementation
 {
-    public class BoringToeSetRepository : SetBaseRepository<TicTacToeImpl>, IBoringToeRepository
+    public class BoringToeSetRepository : SetBaseRepository<ITicTacToe>, IBoringToeRepository
     {
         /// <inheritdoc/>
-        public long AddGame(TicTacToeImpl game)
+        public long AddGame(ITicTacToe game)
         {
             long? resp;
 
@@ -32,9 +33,9 @@ namespace BoringGames.Core.Repositories.Implementation
         }
 
         /// <inheritdoc/>
-        public TicTacToeImpl GetGameByGuid(Guid guid)
+        public ITicTacToe GetGameByGuid(Guid guid)
         {
-            TicTacToeImpl response = _set.FirstOrDefault(x => x.GetId().Equals(guid));
+            ITicTacToe response = _set.FirstOrDefault(x => x.GetId().Equals(guid));
 
             if (response != null)
                 return response;
@@ -43,9 +44,9 @@ namespace BoringGames.Core.Repositories.Implementation
         }
 
         /// <inheritdoc/>
-        public TicTacToeImpl GetGameById(long id)
+        public ITicTacToe GetGameById(long id)
         {
-            TicTacToeImpl response = base.Get(id);
+            ITicTacToe response = base.Get(id);
 
             if (response != null)
                 return response;

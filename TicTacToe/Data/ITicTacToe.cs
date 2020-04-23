@@ -1,4 +1,5 @@
-﻿using BoringGames.Shared.Models;
+﻿using BoringGames.Shared.Contracts;
+using BoringGames.Shared.Models;
 using System;
 
 namespace TicTacToe.Data
@@ -6,7 +7,7 @@ namespace TicTacToe.Data
     /// <summary>
     /// Contract for TicTacToe game
     /// </summary>
-    public interface ITicTacToe
+    public interface ITicTacToe: IIdentityModel, ICloneable
     {
         /// <summary>
         /// Starts a new game

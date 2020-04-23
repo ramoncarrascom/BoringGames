@@ -6,6 +6,7 @@ using BoringGames.Shared.Models;
 using System;
 using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
+using TicTacToe.Exceptions;
 
 namespace BoringGames.Core.Services.Implementation
 {
@@ -41,7 +42,22 @@ namespace BoringGames.Core.Services.Implementation
         /// <inheritdoc/>
         public BoringToeMoveResponseDataModel PlayerMove(long gameId, long playerId, int xCoord, int yCoord)
         {
-            throw new NotImplementedException();
+            BoringToeMoveResponseDataModel resp = null;
+            Player responsePlayer = null;
+
+            Player player = FindPlayerInDatabase(playerId, ErrorCode.PLAYER_NOT_EXISTS);
+            ITicTacToe game = FindGameInDatabase(gameId, ErrorCode.GAME_NOT_EXISTS);
+
+            try
+            {
+                responsePlayer = game.PlayerMove(player, new Coordinate(xCoord, yCoord));
+            } catch (TicTacToeGameOverException tttgoe)
+            {
+                return GenerateGameOverWinnerResponseData(tttgoe.Player, game.GetGrid());
+            }
+
+
+            return GenerateOkNextPlayerResponseData(responsePlayer, game.GetGrid());
         }
 
         /// <summary>
@@ -61,10 +77,69 @@ namespace BoringGames.Core.Services.Implementation
             catch (NotExistingValueException neve)
             {
                 if (neve.ErrorCode == ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE)
-                    throw new NotExistingValueException("Player not existing in database", notExistingErrorCode);
+                    throw new NotValidValueException("Player not existing in database", notExistingErrorCode);
                 else
                     throw;
             }
+
+            return resp;
+        }
+
+        /// <summary>
+        /// Wrapper function for player database get
+        /// </summary>
+        /// <param name="id">Id to find</param>
+        /// <param name="notExistingErrorCode">Error code to add in NotExistingValueException</param>
+        /// <returns>Player data</returns>
+        private ITicTacToe FindGameInDatabase(long id, ErrorCode notExistingErrorCode)
+        {
+            ITicTacToe resp = null;
+
+            try
+            {
+                resp = _boringToeRepository.GetGameById(id);
+            }
+            catch (NotExistingValueException neve)
+            {
+                if (neve.ErrorCode == ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE)
+                    throw new NotValidValueException("Game not existing in database", notExistingErrorCode);
+                else
+                    throw;
+            }
+
+            return resp;
+        }
+
+        /// <summary>
+        /// Generates Ok response data object
+        /// </summary>
+        /// <param name="player">Next player</param>
+        /// <param name="grid">Grid</param>
+        /// <returns>Service response data</returns>
+        private BoringToeMoveResponseDataModel GenerateOkNextPlayerResponseData(Player player, IGrid grid)
+        {
+            BoringToeMoveResponseDataModel resp = new BoringToeMoveResponseDataModel(player, grid);
+            resp.GameOver = false;
+            resp.Repeat = false;
+            resp.Winner = null;
+            resp.Grid = grid.ToString();
+
+            return resp;
+        }
+
+        /// <summary>
+        /// Generates Ok response data object
+        /// </summary>
+        /// <param name="player">Next player</param>
+        /// <param name="grid">Grid</param>
+        /// <returns>Service response data</returns>
+        private BoringToeMoveResponseDataModel GenerateGameOverWinnerResponseData(Player player, IGrid grid)
+        {
+            BoringToeMoveResponseDataModel resp = new BoringToeMoveResponseDataModel(player, grid);
+            resp.GameOver = true;
+            resp.Repeat = false;
+            resp.Winner = player;
+            resp.Grid = grid.ToString();
 
             return resp;
         }

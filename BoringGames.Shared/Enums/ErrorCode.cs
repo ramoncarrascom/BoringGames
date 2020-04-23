@@ -14,6 +14,7 @@
         PLAYER_A_NOT_EXISTING,
         PLAYER_B_NOT_EXISTING,
         PLAYER_NOT_EXISTS,
-        PLAYERS_ARE_SAME
+        PLAYERS_ARE_SAME,
+        GAME_NOT_EXISTS
     }
 }

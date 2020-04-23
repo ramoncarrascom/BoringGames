@@ -9,7 +9,7 @@ using TicTacToe.Exceptions;
 
 namespace TicTacToe.Data.Implementation
 {
-    public class TicTacToeImpl : ITicTacToe, IIdentityModel, ICloneable
+    public class TicTacToeImpl : ITicTacToe
     {
         public long? Id { get; set; }
 

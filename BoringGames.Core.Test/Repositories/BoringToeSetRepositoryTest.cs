@@ -77,8 +77,8 @@ namespace BoringGames.Core.Test.Repositories
             // Given
             IBoringToeRepository repo = new BoringToeSetRepository();
             long id;
-            TicTacToeImpl game = new TicTacToeImpl();
-            TicTacToeImpl testGame;
+            ITicTacToe game = new TicTacToeImpl();
+            ITicTacToe testGame;
 
             // When
             id = repo.AddGame(game);
@@ -94,8 +94,8 @@ namespace BoringGames.Core.Test.Repositories
             // Given
             IBoringToeRepository repo = new BoringToeSetRepository();
             long id;
-            TicTacToeImpl game = new TicTacToeImpl();
-            TicTacToeImpl testGame;
+            ITicTacToe game = new TicTacToeImpl();
+            ITicTacToe testGame;
 
             // When
             id = repo.AddGame(game);
