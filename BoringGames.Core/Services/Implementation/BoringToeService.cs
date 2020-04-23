@@ -41,7 +41,6 @@ namespace BoringGames.Core.Services.Implementation
         /// <inheritdoc/>
         public BoringToeMoveResponseDataModel PlayerMove(long gameId, long playerId, int xCoord, int yCoord)
         {
-            BoringToeMoveResponseDataModel resp = null;
             Player responsePlayer = null;
 
             Player player = FindPlayerInDatabase(playerId, ErrorCode.PLAYER_NOT_EXISTS);
