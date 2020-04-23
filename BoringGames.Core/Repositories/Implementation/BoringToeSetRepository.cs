@@ -4,7 +4,6 @@ using BoringGames.Shared.Repositories.BaseClass;
 using System;
 using System.Linq;
 using TicTacToe.Data;
-using TicTacToe.Data.Implementation;
 
 namespace BoringGames.Core.Repositories.Implementation
 {

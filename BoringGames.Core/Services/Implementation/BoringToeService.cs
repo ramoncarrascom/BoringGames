@@ -3,7 +3,6 @@ using BoringGames.Core.Repositories;
 using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
-using System;
 using TicTacToe.Data;
 using TicTacToe.Data.Implementation;
 using TicTacToe.Exceptions;
@@ -52,15 +51,15 @@ namespace BoringGames.Core.Services.Implementation
             {
                 responsePlayer = game.PlayerMove(player, new Coordinate(xCoord, yCoord));
             }
-            catch (TicTacToeGameOverException tttgoe)
+            catch (TicTacToeGameOverException)
             {
                 return GenerateGameOverWinnerResponseData(tttgoe.Player, game.GetGrid());
             }
-            catch (PlayerMovementException pme)
+            catch (PlayerMovementException)
             {
                 return GenerateRepeatUserResponseData(player, game.GetGrid());
             }
-            catch (GameOverException goe)
+            catch (GameOverException)
             {
                 return GenerateGameOverNoWinnerResponseData(game.GetGrid());
             }

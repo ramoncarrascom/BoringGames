@@ -1,5 +1,4 @@
-﻿using BoringGames.Shared.Contracts;
-using BoringGames.Shared.Enums;
+﻿using BoringGames.Shared.Enums;
 using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Models;
 using System;

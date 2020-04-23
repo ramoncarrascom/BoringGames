@@ -1,6 +1,5 @@
 ﻿using System;
 using TicTacToe.Data;
-using TicTacToe.Data.Implementation;
 
 namespace BoringGames.Core.Repositories
 {

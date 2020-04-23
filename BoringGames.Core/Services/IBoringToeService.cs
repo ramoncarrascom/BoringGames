@@ -10,10 +10,10 @@ namespace BoringGames.Core.Services
         /// <summary>
         /// Begins a new game with referenced players
         /// </summary>
-        /// <param name="PlayerA">Player A's id</param>
-        /// <param name="PlayerB">Player B's id</param>
+        /// <param name="playerAId">Player A's id</param>
+        /// <param name="playerBId">Player B's id</param>
         /// <returns></returns>
-        long NewGame(long PlayerA, long PlayerB);
+        long NewGame(long playerAId, long playerBId);
 
         /// <summary>
         /// Makes a move in the selected game for selected player
