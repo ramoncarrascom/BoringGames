@@ -124,7 +124,8 @@ namespace TicTacToe.Test.Data
             ITicTacToe game = new TicTacToeImpl();
 
             // When/Then
-            Assert.Throws<NotValidValueException>(() => game.StartGame(grid, player, player), "Initializing with same player must return exception");
+            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => game.StartGame(grid, player, player), "Initializing with same player must return exception");
+            Assert.AreEqual(ErrorCode.PLAYERS_ARE_SAME, exc.ErrorCode, "Exception ErrorCode must be PLAYERS_ARE_SAME");
         }
 
         [Test]
@@ -135,8 +136,11 @@ namespace TicTacToe.Test.Data
             ITicTacToe game = new TicTacToeImpl();
 
             // When/Then
-            Assert.Throws<NotValidValueException>(() => game.StartGame(grid, null, player), "If a player is null on initialization, must return exception");
-            Assert.Throws<NotValidValueException>(() => game.StartGame(grid, player, null), "If a player is null on initialization, must return exception");
+            NotValidValueException exc;
+            exc = Assert.Throws<NotValidValueException>(() => game.StartGame(grid, null, player), "If a player is null on initialization, must return exception");
+            Assert.AreEqual(ErrorCode.NULL_VALUE_NOT_ALLOWED, exc.ErrorCode, "Exception ErrorCode must be NULL_VALUE_NOT_ALLOWED");
+            exc = Assert.Throws<NotValidValueException>(() => game.StartGame(grid, player, null), "If a player is null on initialization, must return exception"); 
+            Assert.AreEqual(ErrorCode.NULL_VALUE_NOT_ALLOWED, exc.ErrorCode, "Exception ErrorCode must be NULL_VALUE_NOT_ALLOWED");
         }
 
         [Test]
@@ -152,7 +156,8 @@ namespace TicTacToe.Test.Data
             game.StartGame(grid, playerA, playerB);
 
             // Then
-            Assert.Throws<NotValidValueException>(() => game.PlayerMove(other, new Coordinate(0, 0)), "Move must return an exception is player is not in initialization");
+            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => game.PlayerMove(other, new Coordinate(0, 0)), "Move must return an exception is player is not in initialization");
+            Assert.AreEqual(ErrorCode.PLAYER_NOT_EXISTS, exc.ErrorCode, "Exception ErrorCode must be PLAYER_NOT_EXISTS");
         }
 
         [Test]

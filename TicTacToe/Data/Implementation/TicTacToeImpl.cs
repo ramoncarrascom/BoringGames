@@ -46,7 +46,7 @@ namespace TicTacToe.Data.Implementation
             CheckGameStatus();
 
             if (!players.Values.Contains(player))
-                throw new NotValidValueException("Player " + player + " wasn't in initialization");
+                throw new NotValidValueException("Player " + player + " wasn't in initialization", ErrorCode.PLAYER_NOT_EXISTS);
 
             try
             {
@@ -85,10 +85,10 @@ namespace TicTacToe.Data.Implementation
             InitTriads(grid);
 
             if (playerA == null || playerB == null)
-                throw new NotValidValueException("Players can't be null");
+                throw new NotValidValueException("Players can't be null", ErrorCode.NULL_VALUE_NOT_ALLOWED);
 
             if (playerA.Equals(playerB))
-                throw new NotValidValueException("Player A must be different from Player B");
+                throw new NotValidValueException("Player A must be different from Player B", ErrorCode.PLAYERS_ARE_SAME);
 
             players.Add(CellPlayer.PLAYER_A, playerA);
             players.Add(CellPlayer.PLAYER_B, playerB);
