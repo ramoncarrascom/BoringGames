@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BoringGames.Core.Models.BoringToe
+﻿namespace BoringGames.Core.Models.BoringToe
 {
     /// <summary>
     /// Model for Boring Toe New Game Request
@@ -18,15 +14,6 @@ namespace BoringGames.Core.Models.BoringToe
         /// Player B identification in repo
         /// </summary>
         public long PlayerBId { get; set; }
-
-        /// <summary>
-        /// NoArgs ctor
-        /// </summary>
-        public BoringToeNewGameRequest() 
-        {
-            PlayerAId = 0;
-            PlayerBId = 0;
-        }
 
         /// <summary>
         /// Arguments ctor

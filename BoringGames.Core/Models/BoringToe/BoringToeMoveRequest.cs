@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BoringGames.Core.Models.BoringToe
+﻿namespace BoringGames.Core.Models.BoringToe
 {
     /// <summary>
     /// Class for movement request
@@ -23,16 +19,6 @@ namespace BoringGames.Core.Models.BoringToe
         /// Y Coordinate
         /// </summary>
         public int YCoord { get; set; }
-
-        /// <summary>
-        /// NoArgs ctor
-        /// </summary>
-        public BoringToeMoveRequest() 
-        {
-            PlayerId = 0;
-            XCoord = 0;
-            YCoord = 0;
-        }
 
         /// <summary>
         /// Args ctor

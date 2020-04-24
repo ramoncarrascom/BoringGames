@@ -31,7 +31,7 @@ namespace BoringGames.Api.Test.Controllers
             PlayerController controller = new PlayerController(playerMock.Object);
 
             // When
-            ActionResult resp = controller.Post(new NewPlayerRequest());
+            ActionResult resp = controller.Post(new NewPlayerRequest(""));
 
             // Then
             Assert.IsInstanceOf<CreatedResult>(resp, "Value must be if type Created");
@@ -47,7 +47,7 @@ namespace BoringGames.Api.Test.Controllers
             PlayerController controller = new PlayerController(playerMock.Object);
 
             // When
-            CreatedResult resp = controller.Post(new NewPlayerRequest()) as CreatedResult;
+            CreatedResult resp = controller.Post(new NewPlayerRequest("")) as CreatedResult;
 
             // Then
             Assert.AreEqual(respData, resp.Value, "Response value must be mocked one");

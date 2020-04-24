@@ -27,7 +27,7 @@ namespace BoringGames.Core.Test.Services
             IPlayerService testService = new PlayerService(mock.Object);
 
             // When
-            long resp = testService.NewPlayer(new NewPlayerRequest());
+            long resp = testService.NewPlayer(new NewPlayerRequest(""));
 
             // Then
             Assert.AreEqual(mockResp, resp, "Returned value must match mocked one");
