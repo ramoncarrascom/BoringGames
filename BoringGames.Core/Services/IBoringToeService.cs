@@ -10,19 +10,16 @@ namespace BoringGames.Core.Services
         /// <summary>
         /// Begins a new game with referenced players
         /// </summary>
-        /// <param name="playerAId">Player A's id</param>
-        /// <param name="playerBId">Player B's id</param>
+        /// <param name="request">Request data</param>
         /// <returns></returns>
-        long NewGame(long playerAId, long playerBId);
+        long NewGame(BoringToeNewGameRequest request);
 
         /// <summary>
         /// Makes a move in the selected game for selected player
         /// </summary>
         /// <param name="gameId">Game's identification</param>
-        /// <param name="playerId">Player's identification</param>
-        /// <param name="xCoord">X Coordinate</param>
-        /// <param name="yCoord">Y Coordinate</param>
+        /// <param name="request">Request data</param>
         /// <returns>Returns next player and current grid</returns>
-        BoringToeMoveResponseDataModel PlayerMove(long gameId, long playerId, int xCoord, int yCoord);
+        BoringToeMoveResponse PlayerMove(long gameId, BoringToeMoveRequest request);
     }
 }

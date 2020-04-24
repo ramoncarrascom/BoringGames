@@ -1,4 +1,6 @@
-﻿namespace BoringGames.Core.Services
+﻿using BoringGames.Core.Models.Players;
+
+namespace BoringGames.Core.Services
 {
     /// <summary>
     /// Player service contract
@@ -10,6 +12,6 @@
         /// </summary>
         /// <param name="name">Player's name</param>
         /// <returns>Player's id in repository</returns>
-        long NewPlayer(string name);
+        long NewPlayer(NewPlayerRequest request);
     }
 }

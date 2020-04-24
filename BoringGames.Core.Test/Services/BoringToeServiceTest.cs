@@ -43,7 +43,7 @@ namespace BoringGames.Core.Test.Services
 
             // When
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
-            long resp = service.NewGame(10, 20);
+            long resp = service.NewGame(new BoringToeNewGameRequest(10, 20));
 
             // Then
             Assert.AreEqual(mockedGameId, resp, "Added game Id must be mocked one");
@@ -63,7 +63,7 @@ namespace BoringGames.Core.Test.Services
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
 
             // Then
-            NotValidValueException resp = Assert.Throws<NotValidValueException>(() => service.NewGame(10, 20), "New game must raise an exception");
+            NotValidValueException resp = Assert.Throws<NotValidValueException>(() => service.NewGame(new BoringToeNewGameRequest(10,20)), "New game must raise an exception");
             Assert.AreEqual(ErrorCode.PLAYER_A_NOT_EXISTING, resp.ErrorCode, "Exception's error code must be PLAYER_A_NOT_EXISTING");
             playerMock.Verify(m => m.GetPlayerById(It.IsAny<long>()), Times.Exactly(1), "Must call 1 time to player repository get");
         }
@@ -80,7 +80,7 @@ namespace BoringGames.Core.Test.Services
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
 
             // Then
-            NotValidValueException resp = Assert.Throws<NotValidValueException>(() => service.NewGame(10, 20), "New game must raise an exception");
+            NotValidValueException resp = Assert.Throws<NotValidValueException>(() => service.NewGame(new BoringToeNewGameRequest(10, 20)), "New game must raise an exception");
             Assert.AreEqual(ErrorCode.PLAYER_B_NOT_EXISTING, resp.ErrorCode, "Exception's error code must be PLAYER_B_NOT_EXISTING");
             playerMock.Verify(m => m.GetPlayerById(It.IsAny<long>()), Times.Exactly(2), "Must call 2 times to player repository get");
         }
@@ -104,7 +104,7 @@ namespace BoringGames.Core.Test.Services
 
             // When
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
-            BoringToeMoveResponseDataModel resp = service.PlayerMove(1,1,1,1);
+            BoringToeMoveResponse resp = service.PlayerMove(1, new BoringToeMoveRequest(1,1,1));
 
             // Then
             Assert.AreEqual(respPlayer, resp.Player, "Response's player must be mocked one");
@@ -135,7 +135,7 @@ namespace BoringGames.Core.Test.Services
 
             // When
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
-            BoringToeMoveResponseDataModel resp = service.PlayerMove(1, 1, 1, 1);
+            BoringToeMoveResponse resp = service.PlayerMove(1, new BoringToeMoveRequest(1,1,1));
 
             // Then
             Assert.AreEqual(respPlayer, resp.Player, "Response's player must be mocked one");
@@ -166,7 +166,7 @@ namespace BoringGames.Core.Test.Services
 
             // When
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
-            BoringToeMoveResponseDataModel resp = service.PlayerMove(1, 1, 1, 1);
+            BoringToeMoveResponse resp = service.PlayerMove(1, new BoringToeMoveRequest(1,1,1));
 
             // Then
             Assert.AreEqual(respPlayer, resp.Player, "Response's player must be mocked one");
@@ -195,7 +195,7 @@ namespace BoringGames.Core.Test.Services
 
             // When
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
-            BoringToeMoveResponseDataModel resp = service.PlayerMove(1, 1, 1, 1);
+            BoringToeMoveResponse resp = service.PlayerMove(1, new BoringToeMoveRequest(1,1,1));
 
             // Then
             Assert.IsNull(resp.Player, "Response's player must be null");
@@ -220,7 +220,7 @@ namespace BoringGames.Core.Test.Services
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
 
             // Then
-            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => service.PlayerMove(1, 1, 1, 1), "Player move must raise NotValidValueException");
+            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => service.PlayerMove(1, new BoringToeMoveRequest(1,1,1)), "Player move must raise NotValidValueException");
             Assert.AreEqual(ErrorCode.PLAYER_NOT_EXISTS, exc.ErrorCode, "Exception's code must be PLAYER_NOT_EXISTS");            
             tictacMock.Verify(m => m.PlayerMove(It.IsAny<Player>(), It.IsAny<Coordinate>()), Times.Once, "Must call game's playermove once");
             gameMock.Verify(m => m.GetGameById(It.IsAny<long>()), Times.Once, "Must call game repository get game once");
@@ -239,7 +239,7 @@ namespace BoringGames.Core.Test.Services
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
 
             // Then
-            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => service.PlayerMove(1, 1, 1, 1), "Player move must raise NotValidValueException");
+            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => service.PlayerMove(1, new BoringToeMoveRequest(1,1,1)), "Player move must raise NotValidValueException");
             Assert.AreEqual(ErrorCode.GAME_NOT_EXISTS, exc.ErrorCode, "Exception's code must be GAME_NOT_EXISTS");
             gameMock.Verify(m => m.GetGameById(It.IsAny<long>()), Times.Once, "Must call game repository get game once");
         }
@@ -257,7 +257,7 @@ namespace BoringGames.Core.Test.Services
             IBoringToeService service = new BoringToeService(gameMock.Object, playerMock.Object);
 
             // Then
-            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => service.PlayerMove(1, 1, 1, 1), "Player move must raise NotValidValueException");
+            NotValidValueException exc = Assert.Throws<NotValidValueException>(() => service.PlayerMove(1, new BoringToeMoveRequest(1,1,1)), "Player move must raise NotValidValueException");
             Assert.AreEqual(ErrorCode.PLAYER_NOT_EXISTS, exc.ErrorCode, "Exception's code must be PLAYER_NOT_EXISTS");
         }
 

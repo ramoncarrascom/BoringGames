@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Core", "BoringG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Core.Test", "BoringGames.Core.Test\BoringGames.Core.Test.csproj", "{6CEA6E20-2740-408D-B9F3-931E397C34A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoringGames.Txt.Test", "BoringGames.Txt.Test\BoringGames.Txt.Test.csproj", "{83A01FEF-DEAF-4DED-A849-0CD3616060D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoringGames.Txt.Test", "BoringGames.Txt.Test\BoringGames.Txt.Test.csproj", "{83A01FEF-DEAF-4DED-A849-0CD3616060D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoringGames.Api.Test", "BoringGames.Api.Test\BoringGames.Api.Test.csproj", "{A34A0A2A-9E4E-4A23-886A-E62EC428B1D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{83A01FEF-DEAF-4DED-A849-0CD3616060D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83A01FEF-DEAF-4DED-A849-0CD3616060D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83A01FEF-DEAF-4DED-A849-0CD3616060D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A34A0A2A-9E4E-4A23-886A-E62EC428B1D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A34A0A2A-9E4E-4A23-886A-E62EC428B1D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A34A0A2A-9E4E-4A23-886A-E62EC428B1D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A34A0A2A-9E4E-4A23-886A-E62EC428B1D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

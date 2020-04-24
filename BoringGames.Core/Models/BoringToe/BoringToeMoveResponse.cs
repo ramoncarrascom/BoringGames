@@ -6,7 +6,7 @@ namespace BoringGames.Core.Models.BoringToe
     /// <summary>
     /// Data model for returning from service
     /// </summary>
-    public class BoringToeMoveResponseDataModel
+    public class BoringToeMoveResponse
     {
         /// <summary>
         /// Player data
@@ -36,7 +36,7 @@ namespace BoringGames.Core.Models.BoringToe
         /// <summary>
         /// Constructor
         /// </summary>
-        public BoringToeMoveResponseDataModel(Player player, IGrid grid)
+        public BoringToeMoveResponse(Player player, IGrid grid)
         {
             Player = player;
             Grid = grid.ToString();

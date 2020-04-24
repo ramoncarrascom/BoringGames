@@ -1,4 +1,5 @@
-﻿using BoringGames.Core.Repositories;
+﻿using BoringGames.Core.Models.Players;
+using BoringGames.Core.Repositories;
 using BoringGames.Shared.Models;
 
 namespace BoringGames.Core.Services.Implementation
@@ -19,9 +20,9 @@ namespace BoringGames.Core.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public long NewPlayer(string name)
+        public long NewPlayer(NewPlayerRequest request)
         {
-            Player player = new Player(name);
+            Player player = new Player(request.Name);
 
             return _playerRepository.AddPlayer(player);
         }
