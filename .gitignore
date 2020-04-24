@@ -34,6 +34,4 @@ msbuild.wrn
 # Code analysis and coverage
 /.sonarqube
 /TestResults
-/Coverage.cmd
-/SonarAnalysis.cmd
 /CoverageResults
