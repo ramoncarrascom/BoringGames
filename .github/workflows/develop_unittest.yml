@@ -29,3 +29,5 @@ jobs:
       run: dotnet test --no-restore --verbosity normal /home/runner/work/BoringGames/BoringGames/TicTacToe.Test/TicTacToe.Test.csproj
     - name: Test BoringGames Text
       run: dotnet test --no-restore --verbosity normal /home/runner/work/BoringGames/BoringGames/BoringGames.Txt.Test/BoringGames.Txt.Test.csproj
+    - name: Test BoringGames Api
+      run: dotnet test --no-restore --verbosity normal /home/runner/work/BoringGames/BoringGames/BoringGames.Api.Test/BoringGames.Api.Test.csproj
