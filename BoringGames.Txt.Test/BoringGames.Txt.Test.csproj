@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <ProjectGuid>{0483e473-3c7c-4f14-b969-5f9f49447645}</ProjectGuid>
+
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TicTacToe\TicTacToe.csproj" />
+    <ProjectReference Include="..\BoringGames.Txt\BoringGames.Txt.csproj" />
   </ItemGroup>
 
 </Project>

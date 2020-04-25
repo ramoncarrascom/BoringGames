@@ -1,12 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <ProjectGuid>{d84a297a-cbca-4ba5-844d-913ad73c9111}</ProjectGuid>
+    <ProjectGuid>{d434cd54-5416-410e-bf76-8949e9bdfc40}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BoringGames.Shared\BoringGames.Shared.csproj" />
+    <ProjectReference Include="..\TicTacToe\TicTacToe.csproj" />
   </ItemGroup>
 
 </Project>

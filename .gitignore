@@ -30,3 +30,8 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+
+# Code analysis and coverage
+/.sonarqube
+/TestResults
+/CoverageResults
