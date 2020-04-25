@@ -16,6 +16,11 @@
         public long PlayerBId { get; set; }
 
         /// <summary>
+        /// No arguments constructor
+        /// </summary>
+        public BoringToeNewGameRequest() : this(0,0) { }
+
+        /// <summary>
         /// Arguments ctor
         /// </summary>
         /// <param name="PlayerAId">Player A Id</param>

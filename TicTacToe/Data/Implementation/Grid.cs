@@ -133,7 +133,7 @@ namespace TicTacToe.Data.Implementation
 
             for (int i = 0; i < 3; i++)
                 for (int j = 0; j < 3; j++)
-                    resp.Append(gridArray[i, j]);
+                    resp.Append(gridArray[j, i]);
 
             return resp.ToString();
         }

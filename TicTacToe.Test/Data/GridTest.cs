@@ -379,7 +379,7 @@ namespace TicTacToe.Test.Data
             string resp = grid.ToString();
 
             // Then
-            Assert.IsTrue(resp == "AB BABBAB", "ToString must return all letters in the correct order");
+            Assert.IsTrue(resp == "ABBBAA BB", "ToString must return all letters in the correct order");
         }
 
 

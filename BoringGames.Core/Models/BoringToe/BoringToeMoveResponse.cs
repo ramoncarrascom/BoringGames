@@ -34,6 +34,11 @@ namespace BoringGames.Core.Models.BoringToe
         public bool Repeat { get; set; }
 
         /// <summary>
+        /// No args constructor
+        /// </summary>
+        public BoringToeMoveResponse() : this(null, null) { }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public BoringToeMoveResponse(Player player, IGrid grid)

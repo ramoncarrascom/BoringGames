@@ -11,6 +11,11 @@
         public string Name { get; set; }
 
         /// <summary>
+        /// No args constructor
+        /// </summary>
+        public NewPlayerRequest() : this("") { }
+
+        /// <summary>
         /// Args ctor
         /// </summary>
         /// <param name="Name">Player's name</param>

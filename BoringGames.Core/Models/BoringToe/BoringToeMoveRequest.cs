@@ -21,6 +21,11 @@
         public int YCoord { get; set; }
 
         /// <summary>
+        /// No arguments constructor
+        /// </summary>
+        public BoringToeMoveRequest() : this(0,0,0) { }
+
+        /// <summary>
         /// Args ctor
         /// </summary>
         /// <param name="PlayerId">Player Id</param>

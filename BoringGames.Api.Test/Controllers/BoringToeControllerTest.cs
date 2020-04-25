@@ -34,7 +34,7 @@ namespace BoringGames.Api.Test.Controllers
             BoringToeController controller = new BoringToeController(serviceMock.Object);
 
             // When
-            ActionResult resp = controller.Post(new BoringToeNewGameRequest(1,2));
+            ActionResult resp = controller.Post(new BoringToeNewGameRequest());
 
             // Then
             Assert.IsInstanceOf<CreatedResult>(resp, "Value must be if type Created");
@@ -50,7 +50,7 @@ namespace BoringGames.Api.Test.Controllers
             BoringToeController controller = new BoringToeController(serviceMock.Object);
 
             // When
-            CreatedResult resp = controller.Post(new BoringToeNewGameRequest(1, 2)) as CreatedResult;
+            CreatedResult resp = controller.Post(new BoringToeNewGameRequest()) as CreatedResult;
 
             // Then
             Assert.AreEqual(respData, resp.Value, "Response value must be mocked one");
@@ -73,7 +73,7 @@ namespace BoringGames.Api.Test.Controllers
             BoringToeController controller = new BoringToeController(serviceMock.Object);
 
             // When
-            ActionResult resp = controller.Put(100, new BoringToeMoveRequest(1,1,1));
+            ActionResult resp = controller.Put(100, new BoringToeMoveRequest());
 
             // Then
             Assert.IsInstanceOf<OkObjectResult>(resp, "Value must be if type OkObjectResult");
@@ -94,7 +94,7 @@ namespace BoringGames.Api.Test.Controllers
             BoringToeController controller = new BoringToeController(serviceMock.Object);
 
             // When
-            OkObjectResult resp = controller.Put(100, new BoringToeMoveRequest(1, 1, 1)) as OkObjectResult;
+            OkObjectResult resp = controller.Put(100, new BoringToeMoveRequest()) as OkObjectResult;
             BoringToeMoveResponse respData = resp.Value as BoringToeMoveResponse;
 
             // Then
