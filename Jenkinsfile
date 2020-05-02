@@ -10,7 +10,7 @@ pipeline {
     stage('Test') {
       steps {
         echo 'Testing'
-        sh 'dotnet test'
+        sh 'dotnet test BoringGames.Core.Test/BoringGames.Core.Test.csproj'
       }
     }
     stage('Deploy') {
