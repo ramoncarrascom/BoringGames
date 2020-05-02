@@ -4,6 +4,8 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building'
+        sh 'dotnet build'
+        sh 'ls'
       }
     }
     stage('Test') {
