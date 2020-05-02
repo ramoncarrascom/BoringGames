@@ -5,12 +5,12 @@ pipeline {
       steps {
         echo 'Building'
         sh 'dotnet build'
-        sh 'ls'
       }
     }
     stage('Test') {
       steps {
         echo 'Testing'
+        sh 'dotnet test'
       }
     }
     stage('Deploy') {
