@@ -6,6 +6,8 @@ import { NgModule } from '@angular/core';
 import { BoringtoeRoutingModule } from './boringtoe-routing.module';
 
 import { BoringtoeComponent } from './boringtoe.component';
+import { GridComponent } from './grid/grid.component';
+import { CellComponent } from './cell/cell.component';
 
 
 
@@ -16,6 +18,10 @@ import { BoringtoeComponent } from './boringtoe.component';
     IonicModule,
     BoringtoeRoutingModule
   ],
-  declarations: [BoringtoeComponent]
+  declarations: [
+    BoringtoeComponent,
+    GridComponent,
+    CellComponent
+  ]
 })
 export class BoringtoeModule {}
