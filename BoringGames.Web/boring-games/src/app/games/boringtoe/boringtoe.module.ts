@@ -8,20 +8,20 @@ import { BoringtoeRoutingModule } from './boringtoe-routing.module';
 import { BoringtoeComponent } from './boringtoe.component';
 import { GridComponent } from './grid/grid.component';
 import { CellComponent } from './cell/cell.component';
-
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BoringtoeRoutingModule
+    BoringtoeRoutingModule,
+    SharedModule
   ],
   declarations: [
     BoringtoeComponent,
     GridComponent,
-    CellComponent
+    CellComponent,
   ]
 })
 export class BoringtoeModule {}
