@@ -32,8 +32,7 @@ pipeline {
     }
     stage('Frontend Deploy') {
       steps {
-        ftpPublisher 
-          alwaysPublishFromMaster: false, 
+        ftpPublisher alwaysPublishFromMaster: false, 
             continueOnError: false, 
             failOnError: false, 
             publishers: [
