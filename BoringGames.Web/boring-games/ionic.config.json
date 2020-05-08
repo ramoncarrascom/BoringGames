@@ -1,0 +1,7 @@
+{
+  "name": "boring-games",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
