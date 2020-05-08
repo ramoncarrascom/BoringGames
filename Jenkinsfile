@@ -50,7 +50,7 @@ pipeline {
                 remoteDirectory: '', 
                 remoteDirectorySDF: false, 
                 removePrefix: '', 
-                sourceFiles: 'BoringGames.Web/boring-games/www']
+                sourceFiles: 'BoringGames.Web/boring-games/www/**']
              ], 
              usePromotionTimestamp: false, 
              useWorkspaceInPromotion: false, 
