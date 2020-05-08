@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { core } from '@angular/compiler';
+import { Coordinate } from '../models/coordinate.model';
 
 @Component({
   selector: 'boringtoe-cell',
@@ -10,6 +12,7 @@ export class CellComponent implements OnInit, OnChanges {
   @Input() xCoord: number;
   @Input() yCoord: number;
   @Input() data: string;
+  @Output() clickedCell: EventEmitter<Coordinate> = new EventEmitter<Coordinate>();
 
   private cellData: string;
 
@@ -28,5 +31,9 @@ export class CellComponent implements OnInit, OnChanges {
       case 'B': this.cellData = 'O'; break;
       default: this.cellData = ' ';
     }
+  }
+
+  private onClick() {
+    this.clickedCell.emit(new Coordinate(this.xCoord, this.yCoord));
   }
 }

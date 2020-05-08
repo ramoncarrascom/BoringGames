@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Coordinate } from '../models/coordinate.model';
 
 @Component({
   selector: 'boringtoe-grid',
@@ -13,7 +14,7 @@ export class GridComponent implements OnInit {
    * Constructor
    */
   constructor() {
-    this.updateGrid('AB BA AB ');
+    this.updateGrid('         ');
   }
 
   /**
@@ -36,7 +37,9 @@ export class GridComponent implements OnInit {
 
   }
 
-  private cellOnClick(xCoord: number, yCoord: number): void {
-    console.log(xCoord, yCoord);
+  private cellOnClick($event: Coordinate): void {
+    console.log($event);
   }
+
+
 }
