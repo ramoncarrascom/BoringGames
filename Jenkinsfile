@@ -41,7 +41,7 @@ pipeline {
             [configName: 'FTP_Boringames', 
              transfers: [
                [asciiMode: false, 
-                cleanRemote: false, 
+                cleanRemote: true, 
                 excludes: '', 
                 flatten: false, 
                 makeEmptyDirs: false, 
@@ -49,7 +49,7 @@ pipeline {
                 patternSeparator: '[, ]+', 
                 remoteDirectory: '', 
                 remoteDirectorySDF: false, 
-                removePrefix: '', 
+                removePrefix: 'BoringGames.Web/boring-games/www', 
                 sourceFiles: 'BoringGames.Web/boring-games/www/**']
              ], 
              usePromotionTimestamp: false, 
