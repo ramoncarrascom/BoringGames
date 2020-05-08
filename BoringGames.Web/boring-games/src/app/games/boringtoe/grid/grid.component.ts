@@ -8,7 +8,7 @@ import { Coordinate } from '../models/coordinate.model';
 })
 export class GridComponent implements OnInit {
 
-  private gridArray: string[][];
+  public gridArray: string[][];
 
   /**
    * Constructor
@@ -37,7 +37,7 @@ export class GridComponent implements OnInit {
 
   }
 
-  private cellOnClick($event: Coordinate): void {
+  public cellOnClick($event: Coordinate): void {
     console.log($event);
   }
 

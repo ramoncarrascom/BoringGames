@@ -14,7 +14,7 @@ export class CellComponent implements OnInit, OnChanges {
   @Input() data: string;
   @Output() clickedCell: EventEmitter<Coordinate> = new EventEmitter<Coordinate>();
 
-  private cellData: string;
+  public cellData: string;
 
   constructor() { }
 
@@ -33,7 +33,7 @@ export class CellComponent implements OnInit, OnChanges {
     }
   }
 
-  private onClick() {
+  public onClick() {
     this.clickedCell.emit(new Coordinate(this.xCoord, this.yCoord));
   }
 }
