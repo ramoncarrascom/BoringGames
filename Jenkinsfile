@@ -30,5 +30,32 @@ pipeline {
         sh 'cd BoringGames.Web/boring-games && npm run build --prod'
       }
     }
+    stage('Frontend Deploy') {
+      steps {
+        ftpPublisher 
+          alwaysPublishFromMaster: false, 
+            continueOnError: false, 
+            failOnError: false, 
+            publishers: [
+              [configName: 'FTP_Boringames', 
+               transfers: [
+                 [asciiMode: false, 
+                  cleanRemote: false, 
+                  excludes: '', 
+                  flatten: false, 
+                  makeEmptyDirs: false, 
+                  noDefaultExcludes: false, 
+                  patternSeparator: '[, ]+', 
+                  remoteDirectory: '', 
+                  remoteDirectorySDF: false, 
+                  removePrefix: '', 
+                  sourceFiles: 'BoringGames.Web/boring-games/www']
+               ],
+               usePromotionTimestamp: false, 
+               useWorkspaceInPromotion: false, 
+               verbose: false]
+            ]
+      }
+    }
   }
 }
