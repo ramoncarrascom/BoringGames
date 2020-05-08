@@ -22,14 +22,12 @@ pipeline {
     }
     stage('Frontend NPM Setup') {
       steps {
-        sh 'cd BoringGames.Web/boring-games'
-        sh 'npm install'
+        sh 'cd BoringGames.Web/boring-games && npm install'
       }
     }
     stage('Frontend Build') {
       steps {
-        sh 'cd BoringGames.Web/boring-games'
-        sh 'npm run build --prod'
+        sh 'cd BoringGames.Web/boring-games && npm run build --prod'
       }
     }
   }
