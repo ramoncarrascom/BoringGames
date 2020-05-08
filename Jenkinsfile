@@ -1,15 +1,13 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Backend Build') {
       steps {
-        echo 'Building'
         sh 'dotnet build'
       }
     }
-    stage('Test') {
+    stage('Backend Test') {
       steps {
-        echo 'Testing'
         sh 'dotnet test BoringGames.Core.Test/BoringGames.Core.Test.csproj'
         sh 'dotnet test BoringGames.Shared.Test/BoringGames.Shared.Test.csproj'
         sh 'dotnet test BoringGames.Api.Test/BoringGames.Api.Test.csproj'
@@ -17,9 +15,21 @@ pipeline {
         sh 'dotnet test TicTacToe.Test/TicTacToe.Test.csproj'
       }
     }
-    stage('Deploy') {
+    stage('Backend Deploy') {
       steps {
         echo 'Deploying'
+      }
+    }
+    stage('Frontend NPM Setup') {
+      steps {
+        sh 'cd BoringGames.Web/boring-games'
+        sh 'npm install'
+      }
+    }
+    stage('Frontend Build') {
+      steps {
+        sh 'cd BoringGames.Web/boring-games'
+        sh 'npm run build --prod'
       }
     }
   }
