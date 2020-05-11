@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PlayerDisplayComponent, ScoreboardComponent } from './index';
+import { PlayerDisplayComponent, ScoreboardComponent } from './components/index';
 
 @NgModule({
   imports: [

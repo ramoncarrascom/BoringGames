@@ -9,6 +9,7 @@ import { BoringtoeComponent } from './boringtoe.component';
 import { GridComponent } from './grid/grid.component';
 import { CellComponent } from './cell/cell.component';
 import { SharedModule } from '../shared/shared.module';
+import { BoringtoeService } from './services/boringtoe.service';
 
 @NgModule({
   imports: [
@@ -22,6 +23,9 @@ import { SharedModule } from '../shared/shared.module';
     BoringtoeComponent,
     GridComponent,
     CellComponent,
+  ],
+  providers: [
+    BoringtoeService
   ]
 })
 export class BoringtoeModule {}
