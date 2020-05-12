@@ -9,7 +9,7 @@ export class BoringtoeService {
   constructor() { }
 
   public getPlayer(name: string): PlayerModel {
-    return new PlayerModel(name);
+    return new PlayerModel(1, '', name, 0, false);
   }
 
 }

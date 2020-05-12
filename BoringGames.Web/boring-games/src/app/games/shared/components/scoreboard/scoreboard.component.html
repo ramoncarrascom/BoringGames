@@ -1,6 +1,5 @@
-<shared-playerdisplay PlayerReference = "Player A" PlayerName = "PlayerAName"></shared-playerdisplay>
+<shared-playerdisplay *ngFor="let player of players" [Player]="player"></shared-playerdisplay>
 
-<shared-playerdisplay PlayerReference = "Player B" PlayerName = "PlayerBName"></shared-playerdisplay>
 
 <ion-card>
   Scoreboard

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { PlayerDataModel, PlayerModel } from '../../models/index';
 
 @Component({
   selector: 'shared-playerdisplay',
@@ -9,26 +10,18 @@ import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/cor
 export class PlayerDisplayComponent implements OnInit, OnChanges {
 
   /**
-   * Player's reference
-   * @example 'Player A'
-   */
-  @Input() PlayerReference: string;
-
-  /**
-   * Player's name
+   * Player's data
    * @example 'Player A Name'
    */
-  @Input() PlayerName: string;
+  @Input() Player: PlayerDataModel;
 
-  public playerReference: string;
-  public playerName: string;
+  public player: PlayerDataModel;
 
   /**
    * Constructor
    */
   constructor() {
-    this.playerName = 'PlayerName';
-    this.playerReference = 'Player A';
+    this.player = new PlayerDataModel('Player 1', new PlayerModel(1, '', 'Player A', 0, false));
   }
 
   /**
@@ -37,29 +30,18 @@ export class PlayerDisplayComponent implements OnInit, OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    this.checkPlayerReference(changes);
-    this.checkPlayerName(changes);
+    this.checkPlayerChange(changes);
   }
 
   ngOnInit() {}
 
   /**
-   * Checks if Player Reference has changed. If so, it changes the Player's reference
-   * @param changes Object from ngOnChanges
-   */
-  private checkPlayerReference(changes: SimpleChanges) {
-    if (changes && changes.PlayerReference && changes.PlayerReference.currentValue) {
-      this.playerReference = changes.PlayerReference.currentValue;
-    }
-  }
-
-  /**
    * Checks if Player Name has changed. If so, it changes the Player's name
    * @param changes Object from ngOnChanges
    */
-  private checkPlayerName(changes: SimpleChanges) {
-    if (changes && changes.PlayerName && changes.PlayerName.currentValue) {
-      this.playerName = changes.PlayerName.currentValue;
+  private checkPlayerChange(changes: SimpleChanges) {
+    if (changes && changes.Player && changes.Player.currentValue) {
+      this.player = changes.Player.currentValue;
     }
   }
 
