@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { PlayerModel, PlayerDataModel } from '../shared/models/index';
 import { BoringtoeService } from './services/boringtoe.service';
+import { BoringToeNewGameRequestModel } from './models/boring-toe-new-game-request.model';
 
 @Component({
   selector: 'app-boringtoe',
@@ -19,6 +20,11 @@ export class BoringtoeComponent implements OnInit {
 
   ngOnInit() {
     console.log('BoringToeComponent.OnInit');
+
+    this.service.newGame(new BoringToeNewGameRequestModel(1, 2)).subscribe(
+      resp => console.log('New game resp', resp)
+    );
+
     this.getPlayersName();
   }
 
