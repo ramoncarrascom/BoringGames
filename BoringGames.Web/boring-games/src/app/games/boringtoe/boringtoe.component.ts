@@ -18,17 +18,23 @@ export class BoringtoeComponent implements OnInit {
     this.players = new Array<PlayerDataModel>();
   }
 
-  ngOnInit() {
+  /**
+   * OnInit implementation
+   */
+  async ngOnInit() {
     console.log('BoringToeComponent.OnInit');
-
-    this.service.newGame(new BoringToeNewGameRequestModel(1, 2)).subscribe(
-      resp => console.log('New game resp', resp)
-    );
-
-    this.getPlayersName();
+    await this.initPlayers();
+    console.log('ngOnInit end');
   }
 
-  private async getPlayersName() {
+  /**
+   * Shows popup to get player's names
+   */
+  private async initPlayers() {
+
+    let resp: string[];
+    resp = new Array<string>();
+
     const alert = await this.alert.create({
       header: 'Player name',
       inputs: [
@@ -47,14 +53,30 @@ export class BoringtoeComponent implements OnInit {
        {
           text: 'Begin',
           handler: (data) => {
-            this.players.push(new PlayerDataModel('Player 1', this.service.getPlayer(data.playerA)));
-            this.players.push(new PlayerDataModel('Player 2', this.service.getPlayer(data.playerB)));
+            this.initPlayer('Player A', data.playerA);
+            this.initPlayer('Player B', data.playerB);
           }
         }
       ]
     });
 
     await alert.present();
+
+  }
+
+  /**
+   * Inits a player and pushes data to players array
+   * @param playerReference Player reference
+   * @param playerName Player's name
+   */
+  private initPlayer(playerReference: string, playerName: string) {
+    this.service.getPlayer(playerName)
+      .subscribe(player => {
+        console.log(playerReference, player);
+        this.players.push(
+          new PlayerDataModel(playerReference, new PlayerModel(player, '', playerName, 0, false))
+        );
+      });
   }
 
 }

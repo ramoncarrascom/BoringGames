@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { PlayerModel } from '../../shared/models';
+import { PlayerModel, NewPlayerRequestModel } from '../../shared/models';
 import { HttpClient } from '@angular/common/http';
 import { BoringToeNewGameRequestModel } from '../models/index';
 import { Observable } from 'rxjs';
@@ -10,7 +10,8 @@ import { Observable } from 'rxjs';
 })
 export class BoringtoeService {
 
-  private NEW_GAME_URL: string = environment.baseUrl + '/api/v1/BoringToe';
+  private GAME_URL: string = environment.baseUrl + '/api/v1/BoringToe';
+  private PLAYER_URL: string = environment.baseUrl + '/api/v1/Player';
 
   /**
    * Ctor
@@ -18,8 +19,14 @@ export class BoringtoeService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getPlayer(name: string): PlayerModel {
-    return new PlayerModel(1, '', name, 0, false);
+  /**
+   * Creates a new Player in backend
+   * @param name Player's name
+   */
+  public getPlayer(name: string): Observable<number> {
+    let req: NewPlayerRequestModel;
+    req = new NewPlayerRequestModel(name);
+    return this.httpClient.post<number>(this.PLAYER_URL, req);
   }
 
   /**
@@ -27,6 +34,6 @@ export class BoringtoeService {
    * @param data Player's ids
    */
   public newGame(data: BoringToeNewGameRequestModel): Observable<number> {
-    return this.httpClient.post<number>(this.NEW_GAME_URL, data);
+    return this.httpClient.post<number>(this.GAME_URL, data);
   }
 }

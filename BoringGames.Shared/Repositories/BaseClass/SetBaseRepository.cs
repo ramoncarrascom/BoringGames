@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BoringGames.Shared.Exceptions;
 using BoringGames.Shared.Enums;
+using System.Threading;
 
 namespace BoringGames.Shared.Repositories.BaseClass
 {
@@ -13,6 +14,7 @@ namespace BoringGames.Shared.Repositories.BaseClass
     /// <typeparam name="T">Elements data type</typeparam>
     public abstract class SetBaseRepository<T> : ICrudRepository<T> where T:IIdentityModel, ICloneable
     {
+        private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
         protected readonly ISet<T> _set;
 
         /// <summary>
@@ -36,11 +38,19 @@ namespace BoringGames.Shared.Repositories.BaseClass
             if (data.Id != null)
                 throw new ArgumentException("GuidId must be null");
 
-            data.Id = _set.Where(x => x.Id != null)
-                            .Select(x => x.Id)
-                            .DefaultIfEmpty(0)
-                            .Max() + 1;
-            _set.Add(data);
+            _lock.EnterWriteLock();
+            try
+            {
+                data.Id = _set.Where(x => x.Id != null)
+                                .Select(x => x.Id)
+                                .DefaultIfEmpty(0)
+                                .Max() + 1;
+                _set.Add(data);
+            } finally
+            {
+                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+            }
+
 
             return data.Id;
         }
@@ -51,12 +61,30 @@ namespace BoringGames.Shared.Repositories.BaseClass
         /// <param name="data">Data to update</param>
         public virtual void Update(T data)
         {
-            T currentElement = _set.FirstOrDefault(x => x.Id == data.Id);
+            T currentElement;
+
+            _lock.EnterReadLock();
+            try
+            {
+                currentElement = _set.FirstOrDefault(x => x.Id == data.Id);
+            } finally
+            {
+                if (_lock.IsReadLockHeld) _lock.ExitReadLock();
+            }
+            
             if (currentElement == null)
                 throw new KeyNotFoundException("Not existing element");
 
-            _set.Remove(currentElement);
-            _set.Add(data);
+            _lock.EnterWriteLock();
+            try
+            {
+                _set.Remove(currentElement);
+                _set.Add(data);
+            } finally
+            {
+                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+            }
+
         }
 
         /// <summary>
@@ -65,11 +93,29 @@ namespace BoringGames.Shared.Repositories.BaseClass
         /// <param name="id">Element's id</param>
         public virtual void Delete(long id)
         {
-            T currentElement = _set.FirstOrDefault(x => x.Id == id);
+            T currentElement;
+
+            _lock.EnterReadLock();
+            try
+            {
+                currentElement = _set.FirstOrDefault(x => x.Id == id);
+            } finally
+            {
+                if (_lock.IsReadLockHeld) _lock.ExitReadLock();
+            }
+
             if (currentElement == null)
                 throw new NotExistingValueException("Not existing element", ErrorCode.VALUE_NOT_EXISTING_IN_DATABASE);
 
-            _set.Remove(currentElement);
+            _lock.EnterWriteLock();
+            try
+            {
+                _set.Remove(currentElement);
+            } finally
+            {
+                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+            }
+
         }
 
         /// <summary>
@@ -78,7 +124,16 @@ namespace BoringGames.Shared.Repositories.BaseClass
         /// <returns>A list with all elements of the set</returns>
         public virtual IEnumerable<T> GetAll()
         {
-            List<T> response = _set.AsEnumerable().Select(x => (T)x.Clone()).ToList();
+            List<T> response;
+
+            _lock.EnterWriteLock();
+            try
+            {
+                response = _set.AsEnumerable().Select(x => (T)x.Clone()).ToList();
+            } finally
+            {
+                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+            }            
 
             return response;
         }
@@ -90,7 +145,18 @@ namespace BoringGames.Shared.Repositories.BaseClass
         /// <returns>Requested element</returns>
         public virtual T Get(long id)
         {
-            return _set.AsEnumerable().Select(x => (T)x.Clone()).FirstOrDefault(x => x.Id == id);
+            T resp;
+
+            _lock.EnterReadLock();
+            try
+            {
+                resp = _set.AsEnumerable().Select(x => (T)x.Clone()).FirstOrDefault(x => x.Id == id);
+            } finally
+            {
+                if (_lock.IsReadLockHeld) _lock.ExitReadLock();
+            }
+
+            return resp;
         }
 
     }

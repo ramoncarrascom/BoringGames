@@ -12,7 +12,7 @@
     <ion-grid>
       <ion-row>
         <ion-col class="ion-text-center">
-          <boringtoe-grid></boringtoe-grid>
+          <boringtoe-grid *ngIf="players.length==2"></boringtoe-grid>
         </ion-col>
         <ion-col class="ion-text-center">
           <shared-scoreboard [Players]="players"></shared-scoreboard>

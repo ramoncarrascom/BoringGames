@@ -8,7 +8,7 @@ namespace BoringGames.API.Controllers
     /// BoringToe controller
     /// </summary>
     [Route("api/v1/[controller]")]
-    public class BoringToeController : Controller
+    public class BoringToeController : BaseController
     {
         private readonly IBoringToeService _boringToeService;
 

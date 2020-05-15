@@ -8,7 +8,7 @@ namespace BoringGames.API.Controllers
     /// Player controller
     /// </summary>
     [Route("api/v1/[controller]")]
-    public class PlayerController : Controller
+    public class PlayerController : BaseController
     {
         private readonly IPlayerService _playerService;
 
