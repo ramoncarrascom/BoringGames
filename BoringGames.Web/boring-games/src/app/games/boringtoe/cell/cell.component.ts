@@ -34,6 +34,6 @@ export class CellComponent implements OnInit, OnChanges {
   }
 
   public onClick() {
-    this.clickedCell.emit(new Coordinate(this.xCoord, this.yCoord));
+    this.clickedCell.emit(new Coordinate(Number(this.xCoord), Number(this.yCoord)));
   }
 }

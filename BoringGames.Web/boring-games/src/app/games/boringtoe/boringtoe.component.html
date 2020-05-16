@@ -8,17 +8,23 @@
 </ion-header>
 
 <ion-content>
-  <div id="container">
-    <ion-grid>
-      <ion-row>
-        <ion-col class="ion-text-center">
-          <boringtoe-grid *ngIf="players.length==2"></boringtoe-grid>
-        </ion-col>
-        <ion-col class="ion-text-center">
-          <shared-scoreboard [Players]="players"></shared-scoreboard>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <div id="container" class="main-container">
+
+    <div>
+      <boringtoe-grid *ngIf="players.length==2 && gameId!=0"
+                      (ClickedCell)="cellOnClick($event)"
+                      [GridData] = "gridData">
+      </boringtoe-grid>
+    </div>
+
+    <div>
+      <ion-card class="start-wrapper-card" *ngIf="players.length!=2 || gameId===0">
+        <ion-button size="large" (click)="startOnClick()">Start</ion-button>
+      </ion-card>      
+    </div>
+    
+    <shared-scoreboard [Players]="players" *ngIf="players.length==2 && gameId!=0"></shared-scoreboard>
+
   </div>
 </ion-content>
 

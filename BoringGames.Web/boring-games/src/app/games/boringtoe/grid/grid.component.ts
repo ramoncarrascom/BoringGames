@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Coordinate } from '../models/coordinate.model';
 
 @Component({
@@ -6,7 +6,10 @@ import { Coordinate } from '../models/coordinate.model';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
 })
-export class GridComponent implements OnInit {
+export class GridComponent implements OnInit, OnChanges {
+
+  @Input() GridData: string;
+  @Output() ClickedCell: EventEmitter<Coordinate> = new EventEmitter<Coordinate>();
 
   public gridArray: string[][];
 
@@ -15,6 +18,17 @@ export class GridComponent implements OnInit {
    */
   constructor() {
     this.updateGrid('         ');
+  }
+
+  /**
+   * OnChanges implementation
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes) {
+      if (changes && changes.GridData && changes.GridData.currentValue) {
+        this.updateGrid(changes.GridData.currentValue);
+      }
+    }
   }
 
   /**
@@ -37,9 +51,11 @@ export class GridComponent implements OnInit {
 
   }
 
+  /**
+   * Cell click event handler
+   * @param $event Coordinates
+   */
   public cellOnClick($event: Coordinate): void {
-    console.log($event);
+    this.ClickedCell.emit($event);
   }
-
-
 }

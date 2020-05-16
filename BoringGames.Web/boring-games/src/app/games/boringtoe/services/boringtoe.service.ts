@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { PlayerModel, NewPlayerRequestModel } from '../../shared/models';
 import { HttpClient } from '@angular/common/http';
-import { BoringToeNewGameRequestModel } from '../models/index';
+import { BoringToeNewGameRequestModel, BoringToeMovementRequestModel, BoringToeMoveResponseModel } from '../models/index';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class BoringtoeService {
    * Creates a new Player in backend
    * @param name Player's name
    */
-  public getPlayer(name: string): Observable<number> {
+  public newPlayer(name: string): Observable<number> {
     let req: NewPlayerRequestModel;
     req = new NewPlayerRequestModel(name);
     return this.httpClient.post<number>(this.PLAYER_URL, req);
@@ -35,5 +35,15 @@ export class BoringtoeService {
    */
   public newGame(data: BoringToeNewGameRequestModel): Observable<number> {
     return this.httpClient.post<number>(this.GAME_URL, data);
+  }
+
+  /**
+   * Sends a new movement
+   * @param gameId Game Id
+   * @param data Movement data
+   */
+  public moveGame(gameId: number, data: BoringToeMovementRequestModel): Observable<BoringToeMoveResponseModel> {
+    console.log('Move request', gameId, data);
+    return this.httpClient.put<BoringToeMoveResponseModel>(this.GAME_URL + `/${gameId}`, data);
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { PlayerModel, PlayerDataModel } from '../shared/models/index';
 import { BoringtoeService } from './services/boringtoe.service';
-import { BoringToeNewGameRequestModel } from './models/boring-toe-new-game-request.model';
+import { BoringToeNewGameRequestModel, Coordinate, BoringToeMovementRequestModel } from './models';
 
 @Component({
   selector: 'app-boringtoe',
@@ -12,6 +12,9 @@ import { BoringToeNewGameRequestModel } from './models/boring-toe-new-game-reque
 export class BoringtoeComponent implements OnInit {
 
   public players: PlayerDataModel[];
+  public gameId: number;
+  public currentPlayer: number;
+  public gridData: string;
 
   constructor(private alert: AlertController, private service: BoringtoeService) {
     console.log('BoringToeComponent.Ctor');
@@ -23,8 +26,33 @@ export class BoringtoeComponent implements OnInit {
    */
   async ngOnInit() {
     console.log('BoringToeComponent.OnInit');
+    this.gameId = 0;
     await this.initPlayers();
     console.log('ngOnInit end');
+  }
+
+  /**
+   * Start buttn click handler
+   */
+  public startOnClick() {
+    if (this.players.length === 2) {
+
+      const playerAId: number = this.players[0].player.id;
+      const playerBId: number = this.players[1].player.id;
+      const newGameReq: BoringToeNewGameRequestModel = new BoringToeNewGameRequestModel(playerAId, playerBId);
+      this.service.newGame(newGameReq).subscribe(
+        resp => { this.gameId = resp;
+                  this.currentPlayer = 0;
+                  this.gridData = '';
+                  console.log('New game Id', resp);
+                }
+      );
+
+    } else {
+
+      this.initPlayers();
+
+    }
   }
 
   /**
@@ -70,7 +98,7 @@ export class BoringtoeComponent implements OnInit {
    * @param playerName Player's name
    */
   private initPlayer(playerReference: string, playerName: string) {
-    this.service.getPlayer(playerName)
+    this.service.newPlayer(playerName)
       .subscribe(player => {
         console.log(playerReference, player);
         this.players.push(
@@ -79,4 +107,16 @@ export class BoringtoeComponent implements OnInit {
       });
   }
 
+  /**
+   * Grid's cell click handler
+   * @param $event Coordinates
+   */
+  public cellOnClick($event: Coordinate) {
+    console.log('Coordinate on boringtoe', $event);
+    const req: BoringToeMovementRequestModel =
+      new BoringToeMovementRequestModel(this.players[this.currentPlayer].player.id, $event.x, $event.y);
+    this.service.moveGame(this.gameId, req).subscribe(
+      resp => this.gridData = resp.grid
+    );
+  }
 }
