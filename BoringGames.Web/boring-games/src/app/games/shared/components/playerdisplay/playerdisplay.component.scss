@@ -6,7 +6,14 @@
 .wrapper-card {
   position: relative;
   text-align: center;
+}
+
+.wrapper-card-user-inactive {
   background-color: darkcyan;
+}
+
+.wrapper-card-user-active {
+  background-color: lightcoral;  
 }
 
 .background-image {

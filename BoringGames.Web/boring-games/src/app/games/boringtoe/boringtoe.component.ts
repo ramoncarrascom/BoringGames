@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { PlayerModel, PlayerDataModel } from '../shared/models/index';
 import { BoringtoeService } from './services/boringtoe.service';
-import { BoringToeNewGameRequestModel, Coordinate, BoringToeMovementRequestModel } from './models';
+import { BoringToeNewGameRequestModel, Coordinate, BoringToeMovementRequestModel, BoringToeMoveResponseModel } from './models';
 
 @Component({
   selector: 'app-boringtoe',
@@ -14,6 +14,8 @@ export class BoringtoeComponent implements OnInit {
   public players: PlayerDataModel[];
   public gameId: number;
   public currentPlayer: number;
+  public winnerPlayer: number;
+  public gameOver: boolean;
   public gridData: string;
 
   constructor(private alert: AlertController, private service: BoringtoeService) {
@@ -27,6 +29,9 @@ export class BoringtoeComponent implements OnInit {
   async ngOnInit() {
     console.log('BoringToeComponent.OnInit');
     this.gameId = 0;
+    this.winnerPlayer = null;
+    this.gameOver = false;
+    this.currentPlayer = 0;
     await this.initPlayers();
     console.log('ngOnInit end');
   }
@@ -42,7 +47,9 @@ export class BoringtoeComponent implements OnInit {
       const newGameReq: BoringToeNewGameRequestModel = new BoringToeNewGameRequestModel(playerAId, playerBId);
       this.service.newGame(newGameReq).subscribe(
         resp => { this.gameId = resp;
-                  this.currentPlayer = 0;
+                  this.setCurrentPlayer(0);
+                  this.winnerPlayer = null;
+                  this.gameOver = false;
                   this.gridData = '';
                   console.log('New game Id', resp);
                 }
@@ -102,21 +109,89 @@ export class BoringtoeComponent implements OnInit {
       .subscribe(player => {
         console.log(playerReference, player);
         this.players.push(
-          new PlayerDataModel(playerReference, new PlayerModel(player, '', playerName, 0, false))
+          new PlayerDataModel(playerReference, new PlayerModel(player, '', playerName, 0, false), false)
         );
       });
   }
 
   /**
+   * Sets the current player
+   */
+  private setCurrentPlayer(arrayId: number) {
+    this.currentPlayer = arrayId;
+    this.players.forEach(
+      (data: PlayerDataModel, id: number) => {
+        if (id === arrayId) {
+          data.current = true;
+        } else {
+          data.current = false;
+        }
+      }
+    );
+  }
+  /**
    * Grid's cell click handler
    * @param $event Coordinates
    */
   public cellOnClick($event: Coordinate) {
+
     console.log('Coordinate on boringtoe', $event);
     const req: BoringToeMovementRequestModel =
       new BoringToeMovementRequestModel(this.players[this.currentPlayer].player.id, $event.x, $event.y);
     this.service.moveGame(this.gameId, req).subscribe(
-      resp => this.gridData = resp.grid
+      resp => this.manageMovementResponse(resp)
     );
+  }
+
+  /**
+   * Manages response's actions
+   * @param response Service response
+   */
+  private manageMovementResponse(response: BoringToeMoveResponseModel) {
+    this.gridData = response.grid;
+    if (response.gameOver) {
+      this.itsGameOver();
+    }
+    if (response.winner) {
+      this.updateWinnerPlayer(response.winner);
+    } else {
+      this.updateNextPlayer(response.player);
+    }
+
+  }
+
+  /**
+   * Manages game's flow when there's a 'Next player'
+   * @param responsePlayer Next player from service
+   */
+  private updateNextPlayer(responsePlayer: PlayerModel) {
+    this.players.forEach(
+      (item: PlayerDataModel, index: number) => {
+        if (item.player.id === responsePlayer.id) {
+          this.setCurrentPlayer(index);
+        }
+      }
+    );
+  }
+
+  /**
+   * Manages game's flow when there's a 'Winner player'
+   * @param responsePlayer Winner player from service
+   */
+  private updateWinnerPlayer(responsePlayer: PlayerModel) {
+    this.players.forEach(
+      (item: PlayerDataModel, index: number) => {
+        if (item.player.id === responsePlayer.id) {
+          this.winnerPlayer = index;
+        }
+      }
+    );
+  }
+
+  /**
+   * Manages game's flow when it's game over
+   */
+  private itsGameOver() {
+    this.gameOver = true;
   }
 }

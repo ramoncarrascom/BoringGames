@@ -21,7 +21,7 @@ export class PlayerDisplayComponent implements OnInit, OnChanges {
    * Constructor
    */
   constructor() {
-    this.player = new PlayerDataModel('Player 1', new PlayerModel(1, '', 'Player A', 0, false));
+    this.player = new PlayerDataModel('Player 1', new PlayerModel(1, '', 'Player A', 0, false), false);
   }
 
   /**

@@ -30,18 +30,19 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             retry(0),
 
             catchError((error: HttpErrorResponse) => {
-                console.log('Error Interceptor', error);
                 let errorMessage = '';
                 if (error.error instanceof ErrorEvent) {
                     // client-side error
                     console.log('Client-side');
                     errorMessage = `Error: ${error.error.message}`;
                 } else {
-                    // server-side error
-                    console.log('Server-side');
-                    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                    switch (error.status) {
+                        case 0: errorMessage = `Couldn\'t connect to server.`; break;
+                        default: errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                    }
+                    console.log('Server-side error', error);
+                    this.presentToast(errorMessage, SeverityEnum.CRITICAL);
                 }
-                this.presentToast(errorMessage, SeverityEnum.CRITICAL);
                 return throwError(errorMessage);
             })
         );

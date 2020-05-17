@@ -1,5 +1,7 @@
 <div class="player-display">
-  <ion-card class="wrapper-card">
+  <ion-card class="wrapper-card" 
+            [ngClass]="{'wrapper-card-user-inactive': player.current===false || player.current==undefined,
+                        'wrapper-card-user-active': player.current===true}">
     <img class="background-image" src="/assets/games-svg/abstract-user-flat-1.svg"/>
     <div class="first-row">{{ player.playerReference }}</div>
     <div class="second-row">{{ player.player.name }}</div>

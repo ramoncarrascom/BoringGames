@@ -11,7 +11,7 @@
   <div id="container" class="main-container">
 
     <div>
-      <boringtoe-grid *ngIf="players.length==2 && gameId!=0"
+      <boringtoe-grid *ngIf="(players.length==2) && (gameId!=0) && (winnerPlayer==null) && (gameOver==false)"
                       (ClickedCell)="cellOnClick($event)"
                       [GridData] = "gridData">
       </boringtoe-grid>
