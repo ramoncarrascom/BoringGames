@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { PlayerModel, PlayerDataModel } from '../shared/models/index';
 import { BoringtoeService } from './services/boringtoe.service';
 import { BoringToeNewGameRequestModel, Coordinate, BoringToeMovementRequestModel, BoringToeMoveResponseModel } from './models';
@@ -18,7 +18,8 @@ export class BoringtoeComponent implements OnInit {
   public gameOver: boolean;
   public gridData: string;
 
-  constructor(private alert: AlertController, private service: BoringtoeService) {
+  constructor(private alert: AlertController, private service: BoringtoeService,
+              private toast: ToastController) {
     console.log('BoringToeComponent.Ctor');
     this.players = new Array<PlayerDataModel>();
   }
@@ -147,8 +148,17 @@ export class BoringtoeComponent implements OnInit {
    * Manages response's actions
    * @param response Service response
    */
-  private manageMovementResponse(response: BoringToeMoveResponseModel) {
+  private async manageMovementResponse(response: BoringToeMoveResponseModel) {
     this.gridData = response.grid;
+    if (response.repeat) {
+      const toast = await this.toast.create({
+        message: 'This cell is already in use - Please try again',
+        color: 'warning',
+        duration: 5000,
+        position: 'top'
+      });
+      toast.present();
+    }
     if (response.gameOver) {
       this.itsGameOver();
     }
