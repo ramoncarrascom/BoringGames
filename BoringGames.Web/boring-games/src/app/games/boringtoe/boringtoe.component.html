@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="">
   <div id="container" class="main-container">
 
     <div>
@@ -18,15 +18,16 @@
     </div>
 
     <div>
-      <ion-card class="main-container-item gameover-wrapper-card" *ngIf="gameOver==true">
+      <ion-card class="main-container-item" *ngIf="gameOver==true">
         <div>GAME OVER</div>
         <div *ngIf="winnerPlayer!=undefined || winnerPlayer!=null">The winner is: {{ players[winnerPlayer].player.name }}</div>
       </ion-card>
     </div>
 
     <div>
-      <ion-card class="main-container-item start-wrapper-card" *ngIf="players.length!=2 || gameId===0">
-        <ion-button size="large" (click)="startOnClick()">Start</ion-button>
+      <ion-card class="main-container-item" *ngIf="players.length!=2 || gameId===0">
+        <img class="background-image" src="/assets/games-jpg/boringtoe/tic-tac-toe-image.jpg"/>
+        <ion-button class="start-button" size="large" (click)="startOnClick()">Start</ion-button>
       </ion-card>
     </div>
     

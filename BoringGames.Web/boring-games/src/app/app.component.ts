@@ -16,6 +16,11 @@ export class AppComponent implements OnInit {
       title: 'BoringToe',
       url: '/games/boringtoe',
       icon: 'close-circle'
+    },
+    {
+      title: 'Credits',
+      url: '/credits',
+      icon: 'information-circle'
     }
   ];
 

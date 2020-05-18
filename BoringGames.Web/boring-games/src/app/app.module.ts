@@ -10,9 +10,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpErrorInterceptor } from './shared/interceptors';
+import { CreditsComponent } from './credits/credits.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    CreditsComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
