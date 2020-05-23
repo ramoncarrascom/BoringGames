@@ -19,8 +19,15 @@
 
     <div>
       <ion-card class="main-container-item" *ngIf="gameOver==true">
-        <div>GAME OVER</div>
-        <div *ngIf="winnerPlayer!=undefined || winnerPlayer!=null">The winner is: {{ players[winnerPlayer].player.name }}</div>
+        <img class="background-image" src="/assets/games-jpg/boringtoe/tic-tac-toe-image.jpg"/>
+        <div class="game-over-message">
+          <h2><p>GAME OVER</p></h2>
+          <p>            
+            <span *ngIf="winnerPlayer!=undefined || winnerPlayer!=null"><h3>{{ players[winnerPlayer].player.name }} wins</h3></span> 
+            <span *ngIf="winnerPlayer==undefined || winnerPlayer==null"><h3>No more possible moves. Nobody wins.</h3></span>            
+          </p>          
+        </div>
+        <ion-button class="play-again-button" size="large" (click)="startOnClick()">Play Again</ion-button>
       </ion-card>
     </div>
 

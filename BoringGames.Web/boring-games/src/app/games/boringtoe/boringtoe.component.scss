@@ -28,6 +28,19 @@
   top: 30%;
 }
 
+.play-again-button {
+  position: absolute;
+  width: 80%;
+  top: 70%;
+}
+
+.game-over-message {
+  position: absolute;
+  text-align: center;
+  width: 90%;
+  top: 30%;
+}
+
 @media only screen and (max-width:300px) {
   .main-container-item {
     width: 250px;

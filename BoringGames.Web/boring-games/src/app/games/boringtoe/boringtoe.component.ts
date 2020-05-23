@@ -165,7 +165,9 @@ export class BoringtoeComponent implements OnInit {
     if (response.winner) {
       this.updateWinnerPlayer(response.winner);
     } else {
-      this.updateNextPlayer(response.player);
+      if (!response.gameOver) {
+        this.updateNextPlayer(response.player);
+      }
     }
 
   }
