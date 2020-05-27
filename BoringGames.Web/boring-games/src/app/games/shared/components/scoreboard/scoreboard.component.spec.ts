@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { ScoreboardComponent } from './scoreboard.component';
+import { PlayerDisplayComponent } from '../playerdisplay/playerdisplay.component';
 
 describe('ScoreboardComponent', () => {
   let component: ScoreboardComponent;
@@ -9,7 +10,7 @@ describe('ScoreboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScoreboardComponent ],
+      declarations: [ ScoreboardComponent, PlayerDisplayComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
